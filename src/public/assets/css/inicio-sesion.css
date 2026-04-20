@@ -1,0 +1,472 @@
+@import url(reset.css);
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+@import url('https://fonts.cdnfonts.com/css/argentum-sans');
+
+/* ─── Variables ─── */
+:root {
+    /* Paleta del Manual de Identidad - Biblioteca Yanes-Rivera */
+    --color-violeta: #5c068c; /* Manual violeta */
+    --color-blanco: #ffffff; /* Manual violeta */
+    --color-turquesa: #00c2ff;
+    --color-rosa: #ff4da6;
+    --color-teal:       #1B8EA6;   /* color estructural del manual */
+    --color-teal-dark:  #136F85;   /* hover / acento oscuro */
+    --color-azul:       #5B6DC8;   /* del logo */
+    --color-verde:      #3BAF5A;   /* del logo */
+    --color-rojo:       #E0286A;   /* del logo / magenta */
+    --color-amarillo:   #D4A017;   /* del logo */
+    --color-morado:     #7B52AB;   /* del logo */
+
+    /* Tokens semánticos */
+    --color-primario:   var(--color-violeta);
+    --color-secundario: var(--color-blanco);
+    --color-acento:     var(--color-azul); /* USAR COMO HOVER DE BOTONES VIOLETAS (Color Secundario) */
+    --color-fondo:      var(--color-blanco);
+    --color-texto:      #1A1A1A;
+    --color-suave:      #F2F8FA;   /* teal muy claro para fondos */
+    --color-borde:      #D0E8EE;
+    --sombra:           0 2px 12px rgba(27,142,166,.10);
+    --radio:            20px;       /* manual usa geometrías limpias, poco redondeo */
+    --fuente-titulo:    "Argentum Sans", sans-serif;
+    --fuente-cuerpo:    "Argentum Sans", sans-serif;
+    --max-ancho:        1100px;
+    --transicion:       .22s ease;
+}
+
+/* Esto sobrescribe los colores que declaramos arriba :) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-fondo:  #0F1E22;
+        --color-texto:  #EEF6F8;
+        --color-suave:  #162830;
+        --color-borde:  #224450;
+        --sombra:       0 2px 12px rgba(0,0,0,.40);
+    }
+}
+
+/* ─── Base ─── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    font-family: var(--fuente-cuerpo);
+    font-size: 14px;
+    color: var(--color-texto);
+    background-color: var(--color-fondo);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transicion);
+}
+
+img { display: block; width: 100%; height: auto; }
+
+/* ─── HEADER ─── */
+body > header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--color-violeta);
+    border-bottom: 3px solid var(--color-primario);
+    box-shadow: var(--sombra);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+body > header > img {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    body > header > img {
+        display: block;
+        width: 150px;
+        height: 45px;
+        object-fit: contain;
+        padding: 0 0 0 1.5rem;
+        flex-shrink: 0;
+    }
+}
+
+body > header > h1 { display: none; }
+
+
+
+/* ─── NAV ─── */
+body > header nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: var(--max-ancho);
+    margin: 0 auto;
+    padding: .75rem 1.5rem;
+    flex-wrap: wrap;
+}
+
+body > header nav ul {
+    display: flex;
+    align-items: center;
+    gap: .15rem;
+    flex: 1;
+}
+
+body > header nav ul li a {
+    font-family: var(--fuente-titulo);
+    color: var(--color-blanco);
+    font-weight: 600; 
+    letter-spacing: .05em;
+    padding: .4rem .7rem;
+    border-radius: var(--radio);
+}
+
+body > header nav ul li a:hover {
+    background-color: var(--color-acento);
+    color: var(--color-blanco);
+}
+
+/* Carrito y Registro — grupo de acciones a la derecha */
+.nav-acciones {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-left: .75rem;
+}
+
+.nav-acciones a {
+    background-color: var(--color-morado);
+    color: #fff;
+    font-family: var(--fuente-titulo);
+    font-weight: 600;
+    font-size: .7rem;
+    letter-spacing: .05em;
+    padding: .4rem 1rem;
+    border-radius: var(--radio);
+    transition: background-color var(--transicion);
+}
+
+.nav-acciones a:hover {
+    background-color: var(--color-acento);
+    color: #fff;
+}
+
+/* Formulario de búsqueda */
+body > header nav form {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    background: var(--color-suave);
+    border: 2px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: .3rem .3rem .3rem .85rem;
+}
+
+body > header nav form label {
+    font-size: .7rem;
+    color: var(--color-primario);
+    white-space: nowrap;
+    font-family: var(--fuente-titulo);
+    letter-spacing: .04em;
+}
+
+body > header nav form input[type="search"] {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-family: var(--fuente-cuerpo);
+    font-size: .85rem;
+    color: var(--color-texto);
+    opacity: 0.5;
+    width: 220px;
+}
+
+body > header nav form button {
+    background: var(--color-primario);
+    color: #fff;
+    border: none;
+    border-radius: var(--radio);
+    padding: .35rem .85rem;
+    font-family: var(--fuente-titulo);
+    font-size: .7rem;
+    letter-spacing: .05em;
+    cursor: pointer;
+}
+
+body > header nav form button:hover {
+    background: var(--color-acento);
+}
+
+/* ─── MAIN ─── */
+main {
+    flex: 1;
+    max-width: var(--max-ancho);
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    width: 100%;
+}
+
+main > h2 {
+    font-family: var(--fuente-titulo);
+    font-size: 2rem;
+    color: var(--color-primario);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* ─── FORMULARIO DE INICIO DE SESIÓN ─── */
+main > form {
+    max-width: 400px;
+    margin: 0 auto;
+    background: var(--color-suave);
+    padding: 2rem;
+    border-radius: var(--radio);
+    border: 1px solid var(--color-borde);
+    box-shadow: var(--sombra);
+}
+
+main > form fieldset {
+    border: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+}
+
+main > form legend {
+    font-family: var(--fuente-titulo);
+    font-size: 1.1rem;
+    color: var(--color-primario);
+    margin-bottom: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+main > form label {
+    display: block;
+    font-family: var(--fuente-titulo);
+    font-weight: 600;
+    color: var(--color-texto);
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+}
+
+main > form label:first-of-type {
+    margin-top: 0;
+}
+
+main > form input[type="email"],
+main > form input[type="password"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--color-borde);
+    border-radius: var(--radio);
+    font-family: var(--fuente-cuerpo);
+    font-size: 1rem;
+    color: var(--color-texto);
+    background-color: var(--color-fondo);
+    transition: border-color var(--transicion);
+}
+
+main > form input[type="email"]:focus,
+main > form input[type="password"]:focus {
+    outline: none;
+    border-color: var(--color-primario);
+    background-color: var(--color-blanco);
+}
+
+main > form button {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1.5rem;
+    background-color: var(--color-primario);
+    color: var(--color-blanco);
+    border: none;
+    border-radius: var(--radio);
+    font-family: var(--fuente-titulo);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color var(--transicion);
+}
+
+main > form button:hover {
+    background-color: var(--color-acento);
+}
+
+/* ─── FOOTER ─── */
+body > footer {
+    background: var(--color-violeta);
+    padding: 2.5rem 1.5rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: auto;
+    color: var(--color-blanco);
+}
+
+@media (min-width: 600px) {
+    body > footer {
+        grid-template-columns: repeat(4, 1fr);
+        align-items: start;
+        padding: 2.5rem max(1.5rem, calc((100% - var(--max-ancho)) / 2)) 1.5rem;
+    }
+}
+
+body > footer h2 {
+    font-family: var(--fuente-titulo);
+    font-size: .76rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--color-secundario);
+    margin-bottom: .65rem;
+    letter-spacing: .08em;
+}
+
+body > footer ul li {
+    margin-bottom: .35rem;
+    list-style: none;
+}
+
+body > footer ul {
+    padding: 0;
+    margin: 0;
+}
+
+body > footer ul li a,
+body > footer address {
+    font-size: .82rem;
+    color: rgba(255, 255, 255, .85);
+    font-weight: 300;
+    transition: color var(--transicion);
+    font-style: normal;
+}
+
+body > footer address a {
+    color: inherit;
+}
+
+body > footer ul li a:hover,
+body > footer address a:hover {
+    color: #fff;
+}
+
+body > footer section[aria-label="Información legal"] img {
+    max-width: 80px;
+    margin-bottom: 0.5rem;
+}
+
+body > footer section[aria-label="Información legal"] p {
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+body > footer h2 {
+    font-family: var(--fuente-titulo);
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+}
+
+body > footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+body > footer ul li {
+    margin-bottom: 0.5rem;
+}
+
+body > footer ul li a {
+    color: var(--color-blanco);
+    transition: color var(--transicion);
+}
+
+body > footer ul li a:hover {
+    color: var(--color-amarillo);
+}
+
+body > footer address {
+    font-style: normal;
+    line-height: 1.8;
+}
+
+body > footer address a {
+    color: var(--color-blanco);
+}
+
+body > footer address a:hover {
+    color: var(--color-amarillo);
+}
+
+body > footer section[aria-label="Información legal"] {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+body > footer section[aria-label="Información legal"] img {
+    max-width: 80px;
+    display: none;
+}
+
+body > footer section[aria-label="Información legal"] p {
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+    body > header nav {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    body > header nav ul {
+        flex: initial;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav-acciones {
+        margin-left: 0;
+        justify-content: center;
+        width: 100%;
+    }
+
+    body > header nav form {
+        width: 100%;
+    }
+
+    body > header nav form input[type="search"] {
+        width: 100%;
+    }
+
+    main > form {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    body > header nav form label {
+        display: none;
+    }
+
+    body > header nav form input[type="search"] {
+        width: auto;
+    }
+
+    main > form {
+        padding: 1.5rem;
+    }
+
+    body > footer > section,
+    body > footer > nav {
+        padding: 0.75rem 0;
+        margin-bottom: 1rem;
+    }
+}

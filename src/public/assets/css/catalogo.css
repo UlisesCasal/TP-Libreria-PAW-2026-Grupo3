@@ -1,0 +1,253 @@
+/* ─── catalogo.css ───
+   Importar DESPUÉS de style.css:
+   <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="catalogo.css">
+   Las variables y estilos de header/footer/nav ya los provee style.css.
+   Este archivo estiliza únicamente el <main> del catálogo.
+──────────────────────────────────────────────────────────── */
+
+/* ─── Título de página ─── */
+main > h2 {
+    font-family: var(--fuente-titulo);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-primario);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-bottom: 1.75rem;
+    padding-bottom: .5rem;
+    border-bottom: 3px solid var(--color-primario);
+}
+
+/* ─── SECCIÓN DE FILTROS ─── */
+main > section:first-of-type {
+    display: block; 
+    background: var(--color-suave);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+    box-shadow: var(--sombra);
+}
+
+main > section:first-of-type > h2 {
+    font-family: var(--fuente-titulo);
+    font-size: .8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--color-primario);
+    margin-bottom: 1rem;
+}
+
+/* Contenedor de los dos formularios en fila */
+main > section:first-of-type {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    align-items: flex-start;
+}
+
+main > section:first-of-type > h2 {
+    width: 100%;
+    flex-shrink: 0;
+}
+
+/* ─── Formularios de filtro / orden ─── */
+main > section:first-of-type form {
+    flex: 1 1 260px;
+    background: var(--color-fondo);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+}
+
+main > section:first-of-type fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+}
+
+main > section:first-of-type legend {
+    font-family: var(--fuente-titulo);
+    font-size: .72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    color: var(--color-primario);
+    margin-bottom: .4rem;
+    padding: 0;
+}
+
+main > section:first-of-type label {
+    font-size: .78rem;
+    font-family: var(--fuente-cuerpo);
+    color: var(--color-texto);
+    margin-bottom: .1rem;
+}
+
+main > section:first-of-type input[type="text"],
+main > section:first-of-type input[type="number"],
+main > section:first-of-type select {
+    width: 100%;
+    padding: .4rem .75rem;
+    font-family: var(--fuente-cuerpo);
+    font-size: .82rem;
+    color: var(--color-texto);
+    background: var(--color-fondo);
+    border: 1.5px solid var(--color-borde);
+    border-radius: var(--radio);
+    outline: none;
+    transition: border-color var(--transicion);
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+main > section:first-of-type input[type="text"]:focus,
+main > section:first-of-type input[type="number"]:focus,
+main > section:first-of-type select:focus {
+    border-color: var(--color-primario);
+}
+
+/* Fila precio min/max en paralelo */
+main > section:first-of-type fieldset {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: .75rem;
+    row-gap: .5rem;
+    align-items: end;
+}
+
+/* Autor y género ocupan las dos columnas */
+main > section:first-of-type fieldset label[for="autor"],
+main > section:first-of-type fieldset input[type="text"],
+main > section:first-of-type fieldset label[for="genero"],
+main > section:first-of-type fieldset select {
+    grid-column: 1 / -1;
+}
+
+/* El formulario de orden es más pequeño: vuelve a una sola columna */
+main > section:first-of-type form:first-of-type fieldset {
+    grid-template-columns: 1fr;
+}
+
+/* ─── Botones de aplicar ─── */
+main > section:first-of-type button[type="submit"] {
+    align-self: flex-end;
+    background: var(--color-primario);
+    color: #fff;
+    border: none;
+    border-radius: var(--radio);
+    padding: .45rem 1.1rem;
+    font-family: var(--fuente-titulo);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background var(--transicion);
+}
+
+main > section:first-of-type button[type="submit"]:hover {
+    background: var(--color-acento);
+}
+
+/* ─── SECCIÓN RESULTADOS ─── */
+main > section:last-of-type {
+    display: block;
+    margin-bottom: 3rem;
+}
+
+main > section:last-of-type > h2 {
+    font-family: var(--fuente-titulo);
+    font-size: .8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--color-primario);
+    margin-bottom: 1.25rem;
+    padding-bottom: .4rem;
+    border-bottom: 2px solid var(--color-borde);
+}
+
+/* ─── Grilla de libros ─── */
+main > section:last-of-type > ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.25rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* ─── Card de libro ─── */
+main > section:last-of-type > ul > li {
+    background: var(--color-fondo);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transicion), box-shadow var(--transicion);
+}
+
+main > section:last-of-type > ul > li:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(27, 142, 166, .18);
+}
+
+/* Imagen del libro */
+main > section:last-of-type > ul > li a {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 2/3;
+    background: var(--color-suave);
+    flex-shrink: 0;
+}
+
+main > section:last-of-type > ul > li a img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .4s ease;
+}
+
+main > section:last-of-type > ul > li:hover a img {
+    transform: scale(1.04);
+}
+
+/* Nombre del libro */
+main > section:last-of-type > ul > li > p {
+    font-family: var(--fuente-titulo);
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--color-texto);
+    padding: .65rem .85rem .75rem;
+    line-height: 1.4;
+    margin: 0;
+    background: var(--color-suave);
+    border-top: 1px solid var(--color-borde);
+    flex: 1;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 600px) {
+    main > section:first-of-type {
+        flex-direction: column;
+    }
+
+    main > section:first-of-type form {
+        flex: 1 1 100%;
+    }
+
+    main > section:last-of-type > ul {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

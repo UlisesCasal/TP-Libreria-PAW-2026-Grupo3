@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libreria</title>
+</head>
+
+<body>
+    <header>
+        <img src="Logo_Violeta2.JPG" alt="Logo Violeta">
+        <h1>Libreria</h1>
+    
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="libros.html">Libros</a></li>
+                <li><a href="autores.html">Autores</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="login.html">Registro</a></li>
+                <li><a href="carrito.html">Carrito</a></li>
+            </ul>
+            <form action="libros.html" method="get" role="search">
+                <label for="busqueda-libros">Buscar libro:</label>
+                <input type="search" id="busqueda-libros" name="q" placeholder="Título, autor o género">
+                <button type="submit">Buscar</button>
+            </form>
+        </nav>
+    </header>
+    <main>
+        <picture>
+            <source media="(min-width: 600px)" srcset="media/Promo1.webp">
+            <source media="(max-width: 599px)" srcset="media/promo1-chica.webp">
+            <img src="img/portada.jpg" alt="Descripción de la imagen">
+        </picture>
+        <!-- Sección de categorías -->
+        <section>
+            <header>
+                <h2>Categorias</h2>
+            </header>
+            <article>
+                <h3>Ficción</h3>
+                <p>Libros de género ficción</p>
+            </article>
+            <article>
+                <h3>Novela</h3>
+                <p>Libros de género novela</p>
+            </article>
+            <article>
+                <h3>Ciencia Ficción</h3>
+                <p>Libros de género ciencia ficción</p>
+            </article>
+        </section>
+        <!-- Sección de libros destacados -->
+        <section>
+            <header>
+                <h2>Libros Destacados</h2>
+            </header>
+            <article>
+                <h3>Libro 1</h3>
+                <p>Descripción del libro 1</p>
+            </article>
+            <article>
+                <h3>Libro 2</h3>
+                <p>Descripción del libro 2</p>
+            </article>
+            <article>
+                <h3>Libro 3</h3>
+                <p>Descripción del libro 3</p>
+            </article>
+        </section>
+        <!-- Sección de autores destacados -->
+        <section>
+            <header>
+                <h2>Autores Destacados</h2>
+            </header>
+            <article>
+                <h3>Autor 1</h3>
+                <p>Descripción del autor 1</p>
+            </article>
+            <article>
+                <h3>Autor 2</h3>
+                <p>Descripción del autor 2</p>
+            </article>
+            <article>
+                <h3>Autor 3</h3>
+                <p>Descripción del autor 3</p>
+            </article>
+        </section>
+
+        <!-- Sección de contacto -->
+        <footer>
+            <section aria-label="Redes sociales">
+                <h2>Seguinos</h2>
+                <ul>
+                    <li><a href="https://www.instagram.com" target="_blank"
+                            rel="noopener noreferrer">Instagram</a></li>
+                    <li><a href="https://www.twitter.com" target="_blank"
+                            rel="noopener noreferrer">Twitter</a></li>
+                    <li><a href="https://www.facebook.com" target="_blank"
+                            rel="noopener noreferrer">Facebook</a></li>
+                </ul>
+            </section>
+
+            <nav aria-label="Enlaces del sitio">
+                <h2>Paw Print</h2>
+                <ul>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="sucursales.html">Sucursales</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="help.html">Ayuda</a></li>
+                </ul>
+            </nav>
+
+            <section>
+                <h2>Atención al cliente</h2>
+                <address>
+                    +54 9 11 5555-5555<br>
+                    <a href="mailto:atencion@pawprint.com">atencion@pawprint.com</a><br>
+                    Calle Falsa 123
+                </address>
+            </section>
+
+            <section aria-label="Información legal">
+                <img src="img/logo.png" alt="Data fiscal">
+                <p><small>© 2026 Paw Print. Todos los derechos reservados.</small></p>
+            </section>
+        </footer>
+
+
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,677 @@
+@import url(reset.css);
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+@import url('https://fonts.cdnfonts.com/css/argentum-sans');
+
+/* ─── Variables ─── */
+:root {
+    /* Paleta del Manual de Identidad - Biblioteca Yanes-Rivera */
+    --color-violeta: #5c068c; /* Manual violeta */
+    --color-blanco: #ffffff; /* Manual violeta */
+    --color-turquesa: #00c2ff;
+    --color-rosa: #ff4da6;
+    --color-teal:       #1B8EA6;   /* color estructural del manual */
+    --color-teal-dark:  #136F85;   /* hover / acento oscuro */
+    --color-azul:       #5B6DC8;   /* del logo */
+    --color-verde:      #3BAF5A;   /* del logo */
+    --color-rojo:       #E0286A;   /* del logo / magenta */
+    --color-amarillo:   #D4A017;   /* del logo */
+    --color-morado:     #7B52AB;   /* del logo */
+
+    /* Tokens semánticos */
+    --color-primario:   var(--color-violeta);
+    --color-secundario: var(--color-blanco);
+    --color-acento:     var(--color-azul); /* USAR COMO HOVER DE BOTONES VIOLETAS (Color Secundario) */
+    --color-fondo:      var(--color-blanco);
+    --color-texto:      #1A1A1A;
+    --color-suave:      #F2F8FA;   /* teal muy claro para fondos */
+    --color-borde:      #D0E8EE;
+    --sombra:           0 2px 12px rgba(27,142,166,.10);
+    --radio:            20px;       /* manual usa geometrías limpias, poco redondeo */
+    --fuente-titulo:    "Argentum Sans", sans-serif;
+    --fuente-cuerpo:    "Argentum Sans", sans-serif;
+    --max-ancho:        1100px;
+    --transicion:       .22s ease;
+}
+
+/* Esto sobrescribe los colores que declaramos arriba :) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-fondo:  #0F1E22;
+        --color-texto:  #EEF6F8;
+        --color-suave:  #162830;
+        --color-borde:  #224450;
+        --sombra:       0 2px 12px rgba(0,0,0,.40);
+    }
+}
+
+/* ─── Base ─── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    font-family: var(--fuente-cuerpo);
+    font-size: 14px;
+    color: var(--color-texto);
+    background-color: var(--color-fondo);
+    line-height: 1.6;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transicion);
+}
+
+img { display: block; width: 100%; height: auto; }
+
+/* ─── HEADER ─── */
+body > header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--color-violeta);
+    border-bottom: 3px solid var(--color-primario);
+    box-shadow: var(--sombra);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+/* Logo oculto en mobile — evita colisión con el nav */
+body > header > img {
+    display: none;
+}
+
+/* Logo visible solo en desktop */
+@media (min-width: 768px) {
+    body > header > img {
+        display: block;
+        width: 150px;
+        height: 45px;
+        object-fit: contain;
+        padding: 0 0 0 1.5rem;
+        flex-shrink: 0;
+    }
+}
+
+body > header > h1  { display: none; }
+
+/* ─── NAV ─── */
+
+body > header nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: var(--max-ancho);
+    margin: 0 auto;
+    padding: .75rem 1.5rem;
+    flex-wrap: wrap;
+}
+
+body > header nav ul {
+    display: flex;
+    align-items: center;
+    gap: .15rem;
+    flex: 1;
+}
+
+body > header nav ul li a {
+    font-family: var(--fuente-titulo);
+    color: var(--color-blanco);
+    font-weight: 600; 
+    letter-spacing: .05em;
+    padding: .4rem .7rem;
+    border-radius: var(--radio);
+}
+
+body > header nav ul li a:hover {
+    background-color: var(--color-acento);
+    color: var(--color-blanco);
+}
+
+/* Carrito y Registro — grupo de acciones a la derecha */
+.nav-acciones {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-left: .75rem;
+}
+
+.nav-acciones a {
+    background-color: var(--color-morado);
+    color: #fff;
+    font-family: var(--fuente-titulo);
+    font-weight: 600;
+    font-size: .7rem;
+    letter-spacing: .05em;
+    padding: .4rem 1rem;
+    border-radius: var(--radio);
+    transition: background-color var(--transicion);
+}
+
+.nav-acciones a:hover {
+    background-color: var(--color-acento);
+    color: #fff;
+}
+
+/* Formulario de búsqueda */
+body > header nav form {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    background: var(--color-suave);
+    border: 2px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: .3rem .3rem .3rem .85rem;
+}
+
+body > header nav form label {
+    font-size: .7rem;
+    color: var(--color-primario);
+    white-space: nowrap;
+    font-family: var(--fuente-titulo);
+    letter-spacing: .04em;
+}
+
+body > header nav form input[type="search"] {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-family: var(--fuente-cuerpo);
+    font-size: .85rem;
+    color: var(--color-texto);
+    opacity: 0.5;
+    width: 220px;
+}
+
+@media (max-width: 600px) {
+    body > header nav form input[type="search"] {
+        width: 100px;
+    }
+}
+
+body > header nav form button {
+    background: var(--color-primario);
+    color: #fff;
+    border: none;
+    border-radius: var(--radio);
+    padding: .35rem .85rem;
+    font-family: var(--fuente-titulo);
+    font-size: .7rem;
+    letter-spacing: .05em;
+    cursor: pointer;
+}
+
+body > header nav form button:hover {
+    background: var(--color-acento);
+}
+
+/* ─── MAIN ─── */
+main {
+    max-width: var(--max-ancho);
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+/* ─── BANNER ─── */
+main > picture {
+    display: block;
+    width: 100%;
+    border-radius: var(--radio);
+    overflow: hidden;
+    margin-bottom: 2.5rem;
+    box-shadow: var(--sombra);
+    aspect-ratio: 16/5;
+    background: var(--color-suave);
+}
+
+main > picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ─── SECCIONES GENERALES ─── */
+main > section {
+    margin-bottom: 3rem;
+}
+
+main > section > header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+main > section > header h2 {
+    font-family: var(--fuente-titulo);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    color: var(--color-primario);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* ─── GRILLA DE 3 COLUMNAS ─── */
+main > section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+}
+
+main > section > header {
+    grid-column: 1 / -1;
+}
+
+@media (min-width: 600px) {
+    main > section {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ─── ARTÍCULOS / CARDS ─── */
+main > section > article {
+    background: var(--color-fondo);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    transition: transform var(--transicion), box-shadow var(--transicion);
+    display: flex;
+    flex-direction: column;
+    min-height: 500px;
+}
+
+main > section > article:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(27,142,166,.18);
+}
+
+/* ─── SECCIÓN CATEGORÍAS — Círculos con imagen ─── */
+.seccion-circulos {
+    grid-template-columns: repeat(auto-fit, 150px);
+    justify-content: center;
+    gap: 1rem;
+}
+
+.seccion-circulos > article {
+    position: relative;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    min-height: 150px; /* Asegurar altura mínima */
+    flex-shrink: 0;   /* Evitar que se encojan en flex containers */
+    overflow: hidden;
+    border: none;
+    background: transparent;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, .30);
+    cursor: pointer;
+    margin: 0 auto;
+    transition: transform var(--transicion), box-shadow var(--transicion);
+}
+
+.seccion-circulos > article:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, .40);
+}
+
+/* Overlay oscuro para que el texto sea legible */
+.seccion-circulos > article::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, .45);
+    border-radius: 50%;
+    z-index: 1;
+    transition: background var(--transicion);
+}
+
+.seccion-circulos > article:hover::after {
+    background: rgba(0, 0, 0, .25);
+}
+
+/* Nombre de categoría — centrado sobre el overlay */
+.seccion-circulos > article h3 {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    color: #fff;
+    font-family: var(--fuente-titulo);
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: capitalize;
+    letter-spacing: .1em;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, .6);
+    padding: 0;
+}
+
+/* Figure e imagen llenan el círculo */
+.seccion-circulos > article figure {
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+
+.seccion-circulos > article figure picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: unset;
+    background: none;
+    overflow: hidden;
+}
+
+.seccion-circulos > article figure picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .5s ease;
+}
+
+.seccion-circulos > article:hover figure picture img {
+    transform: scale(1.1);
+}
+
+main > section > article h3 {
+    font-family: var(--fuente-titulo);
+    font-size: .82rem;
+    letter-spacing: .05em;
+    text-transform: capitalize;
+    padding: .75rem 1rem .35rem;
+    color: var(--color-texto);
+}
+
+main > section > article p {
+    font-size: .82rem;
+    padding: 0 1rem .85rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* ─── FIGURE / IMAGEN ─── */
+article figure {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+article figure picture {
+    overflow: hidden;
+    background: var(--color-suave);
+    flex: 1;
+}
+
+article figure picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .4s ease;
+}
+
+article:hover figure picture img {
+    transform: scale(1.04);
+}
+
+article figure footer {
+    padding: .65rem 1rem;
+    border-top: 1px solid var(--color-borde);
+    background: var(--color-suave);
+    margin-top: auto;
+}
+
+article figure footer p a {
+    display: inline-block;
+    background: var(--color-primario);
+    color: #fff;
+    font-family: var(--fuente-titulo);
+    font-size: .68rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: .35rem .85rem;
+    border-radius: var(--radio);
+}
+
+article figure footer p a:hover {
+    background: var(--color-acento);
+}
+
+/* ─── FOOTER ─── */
+body > footer {
+    background: var(--color-violeta);
+    padding: 2.5rem 1.5rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 600px) {
+    body > footer {
+        grid-template-columns: repeat(4, 1fr);
+        align-items: start;
+        padding: 2.5rem max(1.5rem, calc((100% - var(--max-ancho)) / 2)) 1.5rem;
+    }
+}
+
+body > footer h2 {
+    font-family: var(--fuente-titulo);
+    font-size: .76rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--color-secundario);
+    margin-bottom: .65rem;
+    letter-spacing: .08em;
+}
+
+body > footer ul li {
+    margin-bottom: .35rem;
+}
+
+body > footer ul li a,
+body > footer address a {
+    font-size: .82rem;
+    color: rgba(255, 255, 255, .85);
+    font-weight: 300;
+    transition: color var(--transicion);
+}
+
+body > footer ul li a:hover,
+body > footer address a:hover {
+    color: #fff;
+}
+
+body > footer address {
+    font-weight: 300;
+    font-style: normal;
+    font-size: .82rem;
+    color: rgba(255, 255, 255, .85);
+    line-height: 1.8;
+}
+
+/* Última columna – logo + copyright */
+body > footer > section:last-child {
+    font-weight: 300;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .5rem;
+}
+
+body > footer > section:last-child img {
+    width: 60px;
+}
+
+body > footer > section:last-child small {
+    font-size: .7rem;
+    color: rgba(255, 255, 255, .45);
+}
+
+/* ─── Modo Impresión ─── */
+@media print {
+    /* Cambiar variable de transición a 0s */
+    :root {
+        --transicion: 0s;
+    }
+
+    /* Forzar fondo blanco y texto negro en todo el documento */
+    * {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+    }
+
+    /* Deshabilitar transformaciones específicas */
+    .seccion-circulos > article,
+    .seccion-circulos > article::after,
+    .seccion-circulos > article figure picture img,
+    article figure picture img,
+    main > section > article {
+        transition: none !important;
+        transform: none !important;
+    }
+
+    main > section > article:hover {
+        transform: none !important;
+    }
+
+    .seccion-circulos > article:hover {
+        transform: none !important;
+    }
+
+    article:hover figure picture img {
+        transform: none !important;
+    }
+
+    .seccion-circulos > article:hover figure picture img {
+        transform: none !important;
+    }
+
+    /* Mantener colores fijos en categorías y autores - sin cambios de hover */
+    .seccion-circulos > article::after {
+        background: rgba(0, 0, 0, .45) !important;
+    }
+
+    .seccion-circulos > article:hover::after {
+        background: rgba(0, 0, 0, .45) !important;
+    }
+
+    body {
+        font-size: 12pt;
+        background-color: #fff;
+    }
+
+    /* Ocultar elementos interactivos e innecesarios */
+    header nav ul,
+    .nav-acciones,
+    header nav form,
+    footer,
+    .btn, 
+    article figure footer {
+        display: none !important;
+    }
+
+    /* Ajustes de Main y Secciones */
+    main {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    main > section {
+        display: block; /* Evita problemas de fragmentación de grilla en impresión */
+        page-break-inside: auto;
+    }
+
+    main > section > header h2 {
+        color: #000 !important;
+        border-bottom: 1pt solid #000;
+        padding-bottom: 5pt;
+        margin-top: 20pt;
+    }
+
+    /* Ajuste de Cards */
+    main > section > article {
+        border: 1pt solid #ccc;
+        page-break-inside: avoid;
+        margin-bottom: 1.5rem;
+        min-height: auto !important;
+        display: block;
+    }
+
+    /* Convertir imágenes a escala de grises */
+    img {
+        filter: grayscale(100%);
+        max-width: 100% !important;
+    }
+
+    /* Mostrar URLs de los enlaces después del texto */
+    a[href]:after {
+        content: " (" attr(href) ")";
+        font-size: 9pt;
+        color: #333;
+    }
+
+    /* No mostrar URLs en enlaces internos o botones */
+    a[href^="#"]:after,
+    a[href^="javascript:"]:after {
+        content: "";
+    }
+
+    /* Optimización de Márgenes de página */
+    @page {
+        margin: 2cm;
+    }
+    main > section {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 1cm !important;
+        page-break-inside: auto;
+    }
+
+    /* Ajuste específico para la sección de categorías (círculos) */
+    .seccion-circulos {
+        grid-template-columns: repeat(auto-fit, 120px) !important;
+        justify-content: center !important;
+    }
+
+    /* Asegurar que los artículos no se corten entre páginas */
+    main > section > article {
+        border: 1pt solid #ccc;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: auto !important;
+        height: auto !important;
+    }
+
+    /* Forzar que las imágenes mantengan su tamaño para no romper la grilla */
+    article figure picture {
+        height: 150px !important;
+    }
+
+    .seccion-circulos > article {
+        width: 120px !important;
+        height: 120px !important;
+    }
+    /* Eliminar cabecera y bordes de color */
+    body > header {
+        display: none !important;
+        border: none !important;
+        background: none !important;
+        box-shadow: none !important;
+    }
+
+    /* Reset general de bordes que puedan tener color */
+    * {
+        border-color: #000 !important;
+    }
+}

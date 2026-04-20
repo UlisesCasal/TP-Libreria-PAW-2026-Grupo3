@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/catalogo.css">
+    <title>catalogo</title>
+</head>
+<body>
+<header>
+    <img src="Logo_Violeta2.JPG" alt="Logo Violeta">
+    <h1>Libreria</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="libros.html">Libros</a></li>
+            <li><a href="autores.html">Autores</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+        <form action="libros.html" method="get" role="search">
+            <label for="busqueda-libros">Buscar libro:</label>
+            <input type="search" id="busqueda-libros" name="q" placeholder="Título, autor o género">
+            <button type="submit">Buscar</button>
+        </form>
+        <div class="nav-acciones">
+            <a href="login.html">Registro</a>
+            <a href="carrito.html">Carrito</a>
+        </div>
+    </nav>
+</header>
+    <main>
+        <h2>Catalogo</h2>
+        <section>
+            <h2>Filtro y orden de catalogo</h2>
+            <form action="orden_catalogo.PHP" method="get"><!--Al servidor le llegan una de esas cuatro opciones con-->
+            <!--las siguientes posibilidades:1)orden="az" 2)orden="za" 3)orden="precio-ascendente" o 4)orden="precio-descendente" -->
+            <fieldset>
+                <legend>Orden</legend>
+                <label for="orden">Ordenar por:</label>
+                <select id="orden" name="orden">
+                    <option value="az">A->Z</option>
+                    <option value="za">Z->A</option>
+                    <option value="precio-ascendente">Menor precio</option>
+                    <option value="precio-descendente">Mayor precio</option>
+                </select>
+            </fieldset>
+            <button type="submit">Aplicar orden y buscar</button>
+        </form>
+        <form action="filtro_catalogo.PHP" method="get">
+            <fieldset>
+                <legend>Filtros</legend>
+                <label for="autor">Autor</label>
+                <input type="text" id="autor" name="autor" placeholder="ej.:Borges">
+
+                <label for="genero">Genero</label>
+                <select id="genero" name="genero" >
+                    <option value="novela">Novela</option>
+                    <option value="poesia">Poesia</option>
+                    <option value="fantasia">Fantasia</option>
+                    <option value="policial">Policial</option>
+                </select>
+
+                <label for="precio_min">Precio minimo</label>
+                <input type="number" id="precio_min" name="precio_min" min="1" step="1">
+
+                <label for="precio_max">Precio maximo</label>
+                <input type="number" id="precio_max" name="precio_max" min="1" step="1">
+                
+            </fieldset>
+            <button type="submit">Aplicar filtro y buscar</button>
+        </form>
+        </section>
+        <section>
+            <h2>Resultados de busqueda</h2>
+            <ul>
+            <li>
+                <a href="libro1.html">
+                    <img src="libro1.PNG" alt="">
+                </a>
+                <p>Nombre libro 1</p>
+            </li>
+            <li>
+                <a href="libro2.html">
+                    <img src="libro2.PNG" alt="">
+                </a>
+                <p>Nombre libro 2</p>
+            </li>
+            <li>
+                <a href="libro3.html">
+                    <img src="libro3.PNG" alt="">
+                </a>
+                <p>Nombre libro 3</p>
+            </li>
+        </ul>
+        </section>
+    </main>
+    <footer>
+        <section aria-label="Redes sociales">
+            <h2>Seguinos</h2>
+            <ul>
+                <li><a href="https://www.instagram.com/tu_usuario" target="_blank"
+                        rel="noopener noreferrer">Instagram</a></li>
+                <li><a href="https://www.twitter.com/tu_usuario" target="_blank" rel="noopener noreferrer">Twitter</a>
+                </li>
+                <li><a href="https://www.facebook.com/tu_usuario" target="_blank" rel="noopener noreferrer">Facebook</a>
+                </li>
+            </ul>
+        </section>
+
+        <nav aria-label="Enlaces del sitio">
+            <h2>Paw Print</h2>
+            <ul>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="sucursales.html">Sucursales</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="help.html">Ayuda</a></li>
+            </ul>
+        </nav>
+
+        <section>
+            <h2>Atención al cliente</h2>
+            <address>
+                +54 9 11 5555-5555<br>
+                <a href="mailto:atencion@pawprint.com">atencion@pawprint.com</a><br>
+                Calle Falsa 123
+            </address>
+        </section>
+
+        <section aria-label="Información legal">
+            <img src="img/logo.png" alt="Data fiscal">
+            <p><small>© 2026 Paw Print. Todos los derechos reservados.</small></p>
+        </section>
+    </footer>
+</body>
+</html>

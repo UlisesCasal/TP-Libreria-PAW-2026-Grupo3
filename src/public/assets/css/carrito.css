@@ -1,0 +1,393 @@
+/* ─── CARRITO — Layout principal ─── */
+
+main h2 { /*hereda el sistema tipográfico del index: Argentum Sans, violeta, uppercase. Sin esto quedaría con los estilos por defecto del navegador.*/
+    font-family: var(--fuente-titulo);
+    font-size: 1.4rem;
+    color: var(--color-primario);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    margin-bottom: 1.5rem;
+    grid-column: 1 / -1; /* Si main fuera grid, esto lo cubriría todo — lo dejamos por si se necesita */
+}
+
+.carrito-form {
+    display: grid;
+    grid-template-columns: 1fr 340px; /* la lista ocupa todo el espacio disponible, el panel resumen tiene ancho fijo de 340px */
+    grid-template-rows: auto auto;
+    gap: 1.5rem;
+    align-items: start; /*evita que el resumen se estire hasta la altura de la lista. */
+}
+
+/* ─── CARRITO — Lista de productos ─── */
+/* usa las mismas variables de borde, radio y sombra que las cards del index — consistencia visual.*/
+.carrito-items {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: 1.25rem;
+    background: var(--color-fondo);
+    box-shadow: var(--sombra);
+}
+
+.carrito-items legend { /* La legend sigue el mismo patrón tipográfico que los h2 de sección.*/
+    font-family: var(--fuente-titulo);
+    font-size: .75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--color-primario);
+    padding: 0 .5rem;
+}
+
+.carrito-items ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: .75rem;
+}
+
+/* Cada producto es un grid de 4 columnas y 2 filas, con gap entre columnas y filas. */
+.carrito-item {
+    display: grid;
+    grid-template-columns: 100px 1fr auto auto;
+    grid-template-rows: auto auto;
+    column-gap: 1rem;
+    row-gap: .35rem;
+    align-items: center;
+    padding: .85rem;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    background: var(--color-suave);
+    transition: box-shadow var(--transicion);
+}
+
+.carrito-item:hover {
+    box-shadow: var(--sombra);
+}
+
+/* Imagen ocupa las dos filas */
+.carrito-item img:first-child {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: calc(var(--radio) / 2);
+    background: var(--color-borde);
+}
+
+.item-titulo {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    font-family: var(--fuente-titulo);
+    font-size: .88rem;
+    font-weight: 600;
+    color: var(--color-texto);
+}
+
+.item-precio {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    font-size: .85rem;
+    color: var(--color-primario);
+    font-weight: 700;
+}
+
+/* Input número — columna 3 */
+.carrito-item input[type="number"] {
+    grid-column: 3 / 4;
+    grid-row: 1 / 3;
+    width: 64px;
+    padding: .4rem .5rem;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    font-family: var(--fuente-cuerpo);
+    font-size: .85rem;
+    color: var(--color-texto);
+    background: var(--color-fondo);
+    text-align: center;
+    outline: none;
+    transition: border-color var(--transicion);
+}
+
+.carrito-item input[type="number"]:focus {
+    border-color: var(--color-primario);
+}
+
+/* Botón quitar — columna 4 */
+.btn-borrar {
+    grid-column: 4 / 5;
+    grid-row: 1 / 3;
+    background: var(--color-primario);
+    border: none;
+    color: #fff;
+    font-family: var(--fuente-titulo);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: .4rem .8rem;
+    border-radius: var(--radio);
+    cursor: pointer;
+    transition: background var(--transicion);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-borrar:hover {
+    background: var(--color-acento);
+}
+
+/* ─── CARRITO — Panel resumen ─── */
+.btn-actualizar {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    justify-self: start;
+    background: transparent;
+    border: 2px solid var(--color-primario);
+    color: var(--color-primario);
+    font-family: var(--fuente-titulo);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: .4rem 1.1rem;
+    border-radius: var(--radio);
+    cursor: pointer;
+    transition: background var(--transicion), color var(--transicion);
+}
+
+.btn-actualizar:hover {
+    background: var(--color-primario);
+    color: #fff;
+}
+
+/* El botón actualizar se alinea a la izquierda del panel resumen, con estilos de botón primario pero más pequeño. */
+.btn-actualizar {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    justify-self: start;
+    background: transparent;
+    border: 2px solid var(--color-primario);
+    color: var(--color-primario);
+    font-family: var(--fuente-titulo);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: .4rem 1.1rem;
+    border-radius: var(--radio);
+    cursor: pointer;
+    transition: background var(--transicion), color var(--transicion);
+}
+
+.btn-actualizar:hover {
+    background: var(--color-primario);
+    color: #fff;
+}
+
+/* El resumen de compra se alinea a la derecha del layout, con un diseño de card similar a las cards del index pero con un enfoque más vertical. */
+.resumen-compra {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3; /* Abarca ambas filas para quedarse fijo a la derecha */
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: 1.5rem;
+    background: var(--color-fondo);
+    box-shadow: var(--sombra);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.resumen-compra h2 {
+    font-family: var(--fuente-titulo);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--color-primario);
+    margin-bottom: .25rem;
+}
+
+.resumen-compra ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.resumen-compra ul li p {
+    display: flex;
+    justify-content: space-between;
+    font-size: .88rem;
+    color: var(--color-texto);
+    padding-bottom: .5rem;
+    border-bottom: 1px solid var(--color-borde);
+}
+
+/* Último li (Total) — destacado */
+.resumen-compra ul li:last-child p {
+    font-family: var(--fuente-titulo);
+    font-weight: 700;
+    font-size: .95rem;
+    color: var(--color-primario);
+    border-bottom: none;
+}
+
+.resumen-compra > p {
+    font-size: .78rem;
+    color: #888;
+    text-align: center;
+}
+
+/* Botón finalizar — CTA principal */
+.resumen-compra button[type="submit"] {
+    background: var(--color-primario);
+    color: #fff;
+    border: none;
+    border-radius: var(--radio);
+    font-family: var(--fuente-titulo);
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: .65rem 1.25rem;
+    cursor: pointer;
+    transition: background var(--transicion);
+    width: fit-content;
+    margin-top: auto;
+    align-self: center;
+}
+
+.resumen-compra button[type="submit"]:hover {
+    background: var(--color-acento);
+}
+
+@media (max-width: 600px) {
+    .carrito-form {
+        grid-template-columns: 1fr;
+    }
+
+    .carrito-items,
+    .btn-actualizar,
+    .resumen-compra {
+        grid-column: 1 / 2;
+        grid-row: auto;
+    }
+
+    /* Mantiene la estructura: imagen a la izquierda, contenido a la derecha */
+    .carrito-item {
+        grid-template-columns: 100px 1fr auto auto;
+        grid-template-rows: auto auto;
+        column-gap: 1rem;
+        row-gap: .35rem;
+    }
+
+    .carrito-item img:first-child {
+        grid-column: 1 / 2;
+        grid-row: 1 / 3;
+        width: 100px;
+        height: 100px;
+    }
+
+    .item-titulo {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+    }
+
+    .item-precio {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+    }
+
+    .carrito-item input[type="number"] {
+        grid-column: 3 / 4;
+        grid-row: 1 / 3;
+        width: 64px;
+    }
+
+    .btn-borrar {
+        grid-column: 4 / 5;
+        grid-row: 1 / 3;
+    }
+
+}
+
+/* Para pantallas ultra pequeñas — estructura vertical compacta */
+@media (max-width: 400px) {
+    .carrito-form {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .carrito-item {
+        grid-template-columns: 70px 1fr;
+        grid-template-rows: auto auto auto auto;
+        column-gap: .75rem;
+        row-gap: .5rem;
+        padding: .65rem;
+    }
+
+    .carrito-item img:first-child {
+        grid-column: 1 / 2;
+        grid-row: 1 / 3;
+        width: 70px;
+        height: 70px;
+    }
+
+    .item-titulo {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+        font-size: .8rem;
+    }
+
+    .item-precio {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+        font-size: .8rem;
+    }
+
+    .carrito-item input[type="number"] {
+        grid-column: 1 / 2;
+        grid-row: 3 / 4;
+        width: 100%;
+        font-size: .8rem;
+    }
+
+    .btn-borrar {
+        grid-column: 1 / -1;
+        grid-row: 4 / 5;
+        width: 100%;
+        font-size: .7rem;
+        padding: .35rem .6rem;
+    }
+
+    /* Ajusta el resumen para pantallas pequeñas */
+    .resumen-compra {
+        padding: 1rem;
+        gap: .75rem;
+    }
+
+    .resumen-compra h2 {
+        font-size: .9rem;
+        margin-bottom: .15rem;
+    }
+
+    .resumen-compra ul li p {
+        font-size: .8rem;
+        padding-bottom: .3rem;
+    }
+
+    .resumen-compra > p {
+        font-size: .7rem;
+    }
+
+    .resumen-compra button[type="submit"] {
+        font-size: .75rem;
+        padding: .5rem .8rem;
+    }
+}

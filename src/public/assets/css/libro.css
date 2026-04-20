@@ -1,0 +1,424 @@
+:root {
+  /* Paleta del Manual de Identidad - Biblioteca Yanes-Rivera */
+    --color-violeta: #5c068c; /* Manual violeta */
+    --color-blanco: #ffffff; /* Manual violeta */
+    --color-turquesa: #00c2ff;
+    --color-rosa: #ff4da6;
+    --color-teal:       #1B8EA6;   /* color estructural del manual */
+    --color-teal-dark:  #136F85;   /* hover / acento oscuro */
+    --color-azul:       #5B6DC8;   /* del logo */
+    --color-verde:      #3BAF5A;   /* del logo */
+    --color-rojo:       #E0286A;   /* del logo / magenta */
+    --color-amarillo:   #D4A017;   /* del logo */
+    --color-morado:     #7B52AB;   /* del logo */
+
+    /* Tokens semánticos */
+    --color-primario:   var(--color-violeta);
+    --color-secundario: var(--color-blanco);
+    --color-acento:     var(--color-azul); /* USAR COMO HOVER DE BOTONES VIOLETAS (Color Secundario) */
+    --color-fondo:      var(--color-blanco);
+    --color-texto:      #1A1A1A;
+    --color-suave:      #F2F8FA;   /* teal muy claro para fondos */
+    --color-borde:      #D0E8EE;
+    --sombra:           0 2px 12px rgba(27,142,166,.10);
+    --radio:            20px;       /* manual usa geometrías limpias, poco redondeo */
+    --fuente-titulo:    "Argentum Sans", sans-serif;
+    --fuente-cuerpo:    "Argentum Sans", sans-serif;
+    --max-ancho:        1100px;
+    --transicion:       .22s ease;
+    --libro-fondo:      var(--color-blanco);
+    --libro-texto:      var(--color-texto);
+    --libro-texto-suave:#6f6f6f;
+    --libro-borde:      var(--color-borde);
+    --libro-tag:        #d7f5df;
+    --libro-tag-texto:  #188b3d;
+}
+
+main {
+    max-width: var(--max-ancho);
+    margin: 2.2rem auto 3rem;
+    padding: 0 1.25rem;
+    display: grid;
+    grid-template-columns: minmax(320px, 1.15fr) 1fr;
+    column-gap: 1.5rem;
+    row-gap: 0.9rem;
+    align-items: start;
+}
+
+main > figure {
+    grid-column: 1;
+    grid-row: 1 / 5;
+    background: var(--color-suave);
+    border: 1px solid var(--libro-borde);
+    min-height: 620px;
+    border-radius: var(--radio);
+    overflow: hidden;
+}
+
+main > figure img {
+    width: 100%;
+    height: 100%;
+    min-height: 520px;
+    object-fit: cover;
+}
+
+main > figure figcaption {
+    display: none;
+}
+
+main > section {
+    grid-column: 2;
+}
+
+main > section[aria-label="Opciones de tapa"] {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    margin-bottom: 0.1rem;
+}
+
+main > section[aria-label="Opciones de tapa"] button {
+    background: var(--color-primario);
+    color: #fff;
+    border: none;
+    border-radius: var(--radio);
+    padding: .35rem .85rem;
+    font-family: var(--fuente-titulo);
+    font-size: .7rem;
+    letter-spacing: .05em;
+    cursor: pointer;
+}
+
+main > section[aria-label="Opciones de tapa"] button:hover {
+    background: var(--color-acento);
+}
+
+
+main > section[aria-label="Datos del libro"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    margin-top: -0.1rem;
+}
+
+main > section[aria-label="Datos del libro"] h2 {
+    font-size: 2rem;
+    font-weight: 600;
+
+    color: var(--color-texto);
+    margin: 0;
+}
+
+main > section[aria-label="Datos del libro"] h3 {
+    margin: 0.3rem 0 0;
+    width: fit-content;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--libro-tag-texto);
+    background: var(--libro-tag);
+    border-radius: 3px;
+    padding: 0.3rem 0.45rem;
+}
+
+main > section[aria-label="Datos del libro"] p {
+    margin: 0.2rem 0 0;
+    font-size: 3rem;
+    line-height: 0.95;
+    font-weight: 900;
+    color: var(--libro-texto);
+}
+
+main > section[aria-label="Comprar"] form {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.3rem;
+}
+
+main > section[aria-label="Comprar"] label {
+    font-size: 1rem;
+    color: var(--libro-texto-suave);
+}
+/* BOTONES PARA SUBIR O BAJAR CANTIDAD */
+main > section[aria-label="Comprar"] button[type="button"] {
+    border-radius: var(--radio);
+    border-width: 0px;
+    background-color: var(--color-primario);
+    color: var(--color-secundario);
+    height: 35px;
+    width: 35px;
+    
+}
+main > section[aria-label="Comprar"] button[type="button"]:hover {
+    background-color: var(--color-acento);
+    
+}
+
+main > section[aria-label="Comprar"] input[type="number"] {
+    width: 86px;
+    height: 35px;
+    border: 1px solid var(--color-teal);
+    border-radius: var(--radio);
+    font-size: 0.82rem;
+    font-family: var(--fuente-cuerpo);
+    color: #333;
+    text-align: center;
+    background: #fff;
+}
+
+main > section[aria-label="Comprar"] button[type="submit"] {
+    height: 35px;
+    border: none;
+    border-radius: var(--radio);
+    background: var(--color-primario);
+    color: var(--color-secundario);
+    padding: 0 0.85rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+main > section[aria-label="Comprar"] button[type="submit"]:hover {
+    background: var(--color-acento);
+}
+
+main > section[aria-label="Descripción del libro"] {
+    margin-top: 0.45rem;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    background: var(--libro-fondo);
+    display: flex;
+    flex-direction: column;
+}
+
+main > section[aria-label="Descripción del libro"] h4:first-of-type {
+    margin: 0;
+    padding: 0.7rem 0.85rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #222;
+    border-bottom: 1px solid var(--color-borde);
+    position: relative;
+}
+
+main > section[aria-label="Descripción del libro"] h4:first-of-type::after {
+    content: "^";
+    position: absolute;
+    right: 0.85rem;
+    top: 50%;
+    transform: translateY(-47%);
+    color: #777;
+    font-size: 0.7rem;
+}
+
+main > section[aria-label="Descripción del libro"] dl,
+main > section[aria-label="Descripción del libro"] h4:nth-of-type(2) {
+    display: none;
+}
+
+main > section[aria-label="Descripción del libro"] p {
+    margin: 0;
+    padding: 0.72rem 0.85rem 0.88rem;
+    font-size: 0.77rem;
+    line-height: 1.35;
+    color: #444;
+}
+
+main > section[aria-label="Ficha técnica del libro"] {
+    grid-column: 1 / -1;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    background: var(--color-fondo);
+    padding: 0.7rem 1rem;
+}
+
+main > section[aria-label="Ficha técnica del libro"] header {
+    margin-bottom: 0.2rem;
+}
+
+main > section[aria-label="Ficha técnica del libro"] h5 {
+    margin: 0;
+}
+
+main > section[aria-label="Ficha técnica del libro"] ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem 1.2rem;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+main > section[aria-label="Ficha técnica del libro"] li {
+    font-size: 0.78rem;
+    color: var(--color-texto);
+    white-space: nowrap;
+}
+
+main > section[aria-label="Ficha técnica del libro"] li strong {
+    color: var(--color-primario);
+    margin-right: 0.2rem;
+}
+
+main > section[aria-label="Libros relacionados"] {
+    grid-column: 1 / -1;
+    margin-top: 0.4rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+main > section[aria-label="Libros relacionados"] > header {
+    grid-column: 1 / -1;
+    margin: 0;
+}
+
+main > section[aria-label="Libros relacionados"] > header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--color-primario);
+}
+
+main > section[aria-label="Libros relacionados"] article {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-borde);
+    min-height: 500px;
+    border-radius: var(--radio);
+    overflow: hidden;
+    background: var(--color-fondo);
+}
+
+main > section[aria-label="Libros relacionados"] article h3 {
+    margin: 0;
+    padding: 0.75rem 0.85rem;
+    font-size: 0.95rem;
+    color: var(--color-texto);
+}
+
+main > section[aria-label="Libros relacionados"] article figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+main > section[aria-label="Libros relacionados"] article picture {
+    display: block;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+}
+
+main > section[aria-label="Libros relacionados"] article img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+}
+
+main > section[aria-label="Libros relacionados"] article img {
+    aspect-ratio: auto;
+    object-fit: cover;
+}
+
+main > section[aria-label="Libros relacionados"] article footer {
+    margin-top: auto;
+    padding: 0.7rem 0.85rem 0.9rem;
+}
+
+main > section[aria-label="Libros relacionados"] article footer p {
+    margin: 0;
+}
+
+main > section[aria-label="Libros relacionados"] article footer a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primario);
+    color: var(--color-secundario);
+    border-radius: var(--radio);
+    padding: 0.4rem 0.9rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+main > section[aria-label="Libros relacionados"] article footer a:hover {
+    background: var(--color-acento);
+}
+
+@media (max-width: 1000px) {
+    main {
+        grid-template-columns: 1fr;
+        row-gap: 0.7rem;
+    }
+
+    main > figure,
+    main > section {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    main > figure {
+        min-height: 420px;
+    }
+
+    main > figure img {
+        min-height: 420px;
+    }
+
+    main > section[aria-label="Libros relacionados"] {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    main {
+        margin-top: 1.15rem;
+        padding: 0 0.85rem;
+    }
+
+    main > figure {
+        min-height: 300px;
+    }
+
+    main > figure img {
+        min-height: 300px;
+    }
+
+    main > section[aria-label="Datos del libro"] h1 {
+        font-size: 1.6rem;
+    }
+
+    main > section[aria-label="Datos del libro"] p {
+        font-size: 2.45rem;
+    }
+
+    main > section[aria-label="Comprar"] form {
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+
+    main > section[aria-label="Ficha técnica del libro"] {
+        padding: 0.65rem 0.75rem;
+    }
+
+    main > section[aria-label="Ficha técnica del libro"] ul {
+        gap: 0.45rem 0.75rem;
+    }
+
+    main > section[aria-label="Ficha técnica del libro"] li {
+        font-size: 0.74rem;
+    }
+
+    main > section[aria-label="Libros relacionados"] {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    main > section[aria-label="Libros relacionados"] > header h2 {
+        font-size: 1.1rem;
+    }
+}
+
