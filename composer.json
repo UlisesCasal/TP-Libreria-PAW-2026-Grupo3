@@ -1,0 +1,21 @@
+{
+    "name": "tu-nombre/proyecto",
+    "description": "Descripción de tu proyecto",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": "^8.1",
+        "filp/whoops": "~2"
+    },
+    "autoload": {
+        "psr-4": {
+            "PAW\\": "src/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
