@@ -1,5 +1,6 @@
-<?php 
+<?php
 
-namespace TP-Libreria-PAW-2026-Grupo3/src/app/controllers;
+namespace TP_Libreria_PAW_2026_Final\src\app\controllers;
 
 class pageControler
+{}

@@ -1,6 +1,4 @@
 <?php
 
-
-
-
-require __DIR__ . '/../src/app/views/index.view.php';
+// Cargar toda la configuración de la aplicación
+require __DIR__ . '/../bootstrap.php';
