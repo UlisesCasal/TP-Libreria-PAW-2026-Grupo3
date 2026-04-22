@@ -10,7 +10,10 @@
     "autoload": {
         "psr-4": {
             "PAW\\": "src/"
-        }
+        },
+        "classmap": [
+            "src/app/controllers/"
+        ]
     },
     "config": {
         "optimize-autoloader": true,
