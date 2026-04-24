@@ -2,91 +2,57 @@
 
 namespace PAW\Core;
 
+use PAW\Core\Exceptions\RouteNotFoundException;
+
 class Router {
 
-    private $routes = [];
+    public array $routes = [
+        "GET" => [],
+        "POST" => [],
+    ];
 
-    //Registra las rutas en el ROUTER
-    public function register($method, $path, $controller, $action){
-        $this->routes[] = [
-            'method' => strtoupper($method),
-            'path' => $path,
-            'controller' => $controller,
-            'action' => $action
-        ];
+    public function route()
+    {
+        $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $method = $_SERVER['REQUEST_METHOD'];
+        $this->direct($path, $method);
     }
 
-    //Obtiene la url actual limpia (Sin parametros GET)
-    public function getCurrentPath(){
-        $uri = $_SERVER['REQUEST_URI'];
-        //Extraigo solo el path sin query string
-        $path = parse_url($uri, PHP_URL_PATH);
+    public function loadRoutes($path, $action, $method = 'GET')
+    {
+        $this->routes[$method][$path] = $action; // Almacena la ruta y su acción asociada en el arreglo de rutas
+    }
 
-        $path = trim($path, '/');
+    public function get($path, $action)
+    {
+        $this->loadRoutes($path, $action, 'GET'); // Carga una ruta para el método GET
+    }
 
-        if(empty($path)){
-            return '/';
+    public function post($path, $action)
+    {
+        $this->loadRoutes($path, $action, 'POST'); // Carga una ruta para el método POST
+    }
+
+    public function exists($path, $method)
+    {
+        return array_key_exists($path, $this->routes[$method]); // Verifica si una ruta existe para un método específico
+    }
+
+    public function getController($path, $http_method)
+    {
+        return explode('@', $this->routes[$http_method][$path]); // Obtiene el controlador y el método asociados a una ruta específica
+    }
+
+    public function direct($path, $http_method = 'GET')
+    {
+        if (!$this->exists($path, $http_method)) { // Verifica si la ruta solicitada existe en el arreglo de rutas
+            throw new RouteNotFoundException("Ruta no encontrada: {$path}"); // Si no existe, lanza una excepción indicando que la ruta no fue encontrada
         }
-        return '/' . $path;
-    }
-
-    //Obtiene el metodo HTTP actual
-    private function getCurrentMethod(){
-        return $_SERVER['REQUEST_METHOD'];
-    }
-
-    //Busca y ejecuta la ruta que concida con la solicitud actual
-    public function route(){
-        $currentPath = $this->getCurrentPath();
-        $currentMethod = $this->getCurrentMethod();
-
-        //Recorro todas las rutas que se registraron
-        foreach($this->routes as $route){
-            if($route['method'] == $currentMethod && $route['path'] == $currentPath){
-                return $this->executeController($route['controller'], $route['action']);
-            }
-        }
-
-
-        http_response_code(404);
-        echo "Error 404 - Página no encontrada";
-        return false;
-    }
-
-
-    //Instancia el controlador y ejecuta la accion
-    public function executeController($controllerName, $actionName){
-    //Construyo el nombre completo de la case     
-        $controllerClass = "\\PAW\\App\\Controllers\\" . $controllerName;
-
-        //Verifico que la clase exista
-        if(!class_exists($controllerClass)){
-            http_response_code(404);
-            echo "Error: el controlador $controllerName no existe";
-            return false;
-        }
-
-        //Instancio la clase del controlador
-        $controller = new $controllerClass();
-
-        //Verifo que el metodo exista
-        if(!method_exists($controller, $actionName)){
-            http_response_code(500);
-            echo "Error: el metodo $actionName no existe en $controllerName";
-            return false;
-        }
-
-        //Ejecuta el metodo
-        $controller->$actionName();
-        return true;
-
-    }
-
-    //Muestra todas las rutas registradas
-    public function showRoutes(){
-        echo "<pre>";
-        print_r($this->routes);
-        echo "</pre>";
+        //list($controller, $method) = explode('@', $this->routes[][$path]); // Obtiene el nombre del controlador y el método de la ruta solicitada
+        list($controller, $method) = $this->getController($path, $http_method); // Obtiene el nombre del controlador y el método de la ruta solicitada utilizando el método getController
+        $controller_name = "PAW\\App\\Controllers\\{$controller}"; // Construye el nombre completo del controlador con su espacio de nombres
+        $objController = new $controller_name; // Crea una instancia del controlador correspondiente
+        $objController->$method(); // Llama al método del controlador para manejar la solicitud
     }
         
     

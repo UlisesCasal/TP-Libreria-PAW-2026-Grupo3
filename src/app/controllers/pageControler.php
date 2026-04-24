@@ -1,6 +1,14 @@
 <?php
 
-namespace TP_Libreria_PAW_2026_Final\src\app\controllers;
+namespace PAW\App\Controllers;
 
-class pageControler
-{}
+class PageController
+{
+    private string $viewdir;
+
+    public function __construct()
+    {
+        $this->viewdir = __DIR__ . '/../views/';
+    }
+
+}

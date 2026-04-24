@@ -4,33 +4,27 @@
 // BOOTSTRAP - Configuración inicial de la app
 // ============================================
 
-// 1. Cargar el autoload de Composer
+// Cargar el autoload de Composer para manejar las clases automáticamente
 require __DIR__ . '/vendor/autoload.php';
 
-// 2. Iniciar sesiones
-session_start();
+// Cargar la configuración de la aplicación (credenciales, constantes, etc.)
+require __DIR__ . '/src/config.php'; 
 
-// 3. Configurar manejo de errores (Whoops)
-try {
-    $whoops = new \Whoops\Run;
-    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-    $whoops->register();
-} catch (Exception $e) {
-    // Si Whoops no está instalado, continuamos sin él
-}
-
-// 4. Importar el Router
+// Configurar el enrutamiento de la aplicación
 use PAW\Core\Router;
+use PAW\Core\Exceptions\RouteNotFoundException;
 
-// 5. Crear instancia del Router
+// Crear una instancia del enrutador
 $router = new Router();
+$router->get('/', 'PageController@index'); // Ruta para la página de inicio
+$router->get('/inicio-sesion', 'InicioSesionController@index'); // Ruta para mostrar el formulario de inicio de sesión
+$router->post('/inicio-sesion', 'InicioSesionController@process'); // Ruta para procesar el formulario de inicio de sesión
+$router->get('/formulario', 'FormularioController@index'); // Ruta para mostrar el formulario de pago
+$router->post('/formulario', 'FormularioController@process'); // Ruta para procesar el formulario de pago
 
-// 6. Registrar todas las rutas de la aplicación
-$router->register('GET', '/', 'CatalogoController', 'listar');
-$router->register('GET', '/catalogo', 'CatalogoController', 'listar');
-$router->register('GET', '/carrito', 'CarritoController', 'ver');
-$router->register('POST', '/carrito/agregar', 'CarritoController', 'agregar');
-$router->register('POST', '/carrito/eliminar', 'CarritoController', 'eliminar');
-
-// 7. Ejecutar la aplicación
-$router->route();
+// Manejar la solicitud entrante y dirigirla a la acción correspondiente
+try {
+    $router->route();
+} catch (RouteNotFoundException $e) {
+    echo $e->getMessage();
+}
