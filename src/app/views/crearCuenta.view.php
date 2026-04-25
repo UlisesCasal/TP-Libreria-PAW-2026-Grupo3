@@ -27,11 +27,6 @@
             </fieldset>
             <button type="submit">Crear cuenta</button>
         </form>
-        <?php if ($procesado) : ?>
-        <div class="notificacion">
-            <p>cuenta creada</p>
-        </div>
-        <?php endif; ?>
         <div class="form-link">
             <p>¿Ya tienes una cuenta? <a href="inicio-sesion.html">Iniciar sesión</a></p>
         </div>

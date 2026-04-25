@@ -18,6 +18,11 @@ class crearCuentaController
         require $this->viewsDir . 'crearCuenta.view.php';
     }
 
+    public function cuentaCreada()
+    {
+        require $this->viewsDir . 'crearCuentaCreada.view.php';
+    }
+
 
     public function crearCuentaProcess()
     {
@@ -33,7 +38,7 @@ class crearCuentaController
 
         // lógica para guardar los datos en la base de datos
 
-        $this->crearCuenta(true);
+        $this->cuentaCreada();
     }
 
 }

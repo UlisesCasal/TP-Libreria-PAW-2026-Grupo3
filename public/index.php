@@ -1,7 +1,6 @@
 <?php
 
 
-use \PAW\core\Router;
 
 require_once __DIR__ . '/../bootstrap.php';
 

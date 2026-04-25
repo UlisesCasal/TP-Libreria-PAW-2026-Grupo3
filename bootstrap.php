@@ -2,7 +2,6 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-use PAW\app\controllers\pageController;
 use \PAW\core\Router;
 
 
