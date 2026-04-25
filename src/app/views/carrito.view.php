@@ -11,7 +11,6 @@
 
 <body>
     <?php require __DIR__ . '/parts/header.view.php'; ?>
-
     <main>
         <h2>Carrito de compras</h2>
         <form action="/formulario" class="carrito-form">
