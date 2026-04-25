@@ -6,6 +6,7 @@
             <li><a href="/">Inicio</a></li>
             <li><a href="/catalogo">Catálogo</a></li>
             <li><a href="/carrito">Carrito</a></li>
+            <li><a href="/formulario">Comprar</a></li>
         </ul>
         <form action="/catalogo" method="get" role="search">
             <label for="busqueda-libros">Buscar libro:</label>

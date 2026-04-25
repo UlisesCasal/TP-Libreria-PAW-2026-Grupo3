@@ -30,8 +30,8 @@ $router = new Router();
 
 // 7. Registrar todas las rutas de la aplicación
 
-// Catálogo e inicio
-$router->register('GET', '/', 'CatalogoController', 'listar');
+// Inicio y catálogo
+$router->register('GET', '/', 'IndexController', 'index');
 $router->register('GET', '/catalogo', 'CatalogoController', 'listar');
 
 // Carrito
