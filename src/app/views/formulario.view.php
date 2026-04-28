@@ -52,14 +52,14 @@
                 <fieldset class="fieldset-anidado fieldset-direccion-entrega">
                     <legend>Dirección de entrega</legend>
                     <label for="nombre-destinatario">Nombre completo del destinatario:</label>
-                    <input type="text" id="nombre-destinatario" name="nombre-destinatario" placeholder="Nombre y apellido" required>
+                    <input type="text" id="nombre-destinatario" name="nombre-destinatario" placeholder="Nombre y apellido">
                     <label for="direccion">Dirección:</label>
-                    <input type="text" id="direccion" name="direccion" placeholder="Ej: Calle Principal 123" required>
+                    <input type="text" id="direccion" name="direccion" placeholder="Ej: Calle Principal 123">
 
                     <div class="fila-doble">
                         <div>
                             <label for="pais">País:</label>
-                            <select id="pais" name="pais" required>
+                            <select id="pais" name="pais">
                                 <option value="">Selecciona tu país</option>
                                 <option value="argentina">Argentina</option>
                                 <option value="chile">Chile</option>
@@ -77,7 +77,7 @@
                     <div class="fila-doble">
                         <div>
                             <label for="provincia">Provincia:</label>
-                            <select id="provincia" name="provincia" required>
+                            <select id="provincia" name="provincia">
                                 <option value="">Selecciona tu provincia</option>
                                 <option value="buenos-aires">Buenos Aires</option>
                                 <option value="cordoba">Córdoba</option>
@@ -88,7 +88,7 @@
                         </div>
                         <div>
                             <label for="ciudad">Ciudad:</label>
-                            <select id="ciudad" name="ciudad" required>
+                            <select id="ciudad" name="ciudad">
                                 <option value="">Selecciona tu ciudad</option>
                                 <option value="capital-federal">Capital Federal</option>
                                 <option value="cordoba">Córdoba</option>
@@ -131,13 +131,13 @@
                         <div>
                             <label for="venc-mes">Fecha de expiración:</label>
                             <div class="grupo-fecha-expiracion">
-                                <input type="number" id="venc-mes" name="venc-mes" placeholder="MM" min="1" max="12" required>
-                                <input type="number" id="venc-anio" name="venc-anio" placeholder="AA" min="23" max="30" required>
+                                <input type="number" id="venc-mes" name="venc-mes" placeholder="MM" min="1" max="12">
+                                <input type="number" id="venc-anio" name="venc-anio" placeholder="AA" min="23" max="30">
                             </div>
                         </div>
                         <div>
                             <label for="codigo-seguridad">Código de seguridad (CVV):</label>
-                            <input type="text" id="codigo-seguridad" name="codigo-seguridad" placeholder="Ej 123" pattern="\d{3,4}" required>
+                            <input type="text" id="codigo-seguridad" name="codigo-seguridad" placeholder="Ej 123" pattern="\d{3,4}">
                         </div>
                     </div>
 
