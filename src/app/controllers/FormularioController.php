@@ -147,9 +147,15 @@ class FormularioController
         ";
 
         $exito = $this->enviarEmail($asunto, $cuerpo);
-        $mensajeExito = $this->libroDisponible ? 'Compra realizada con éxito.' : 'Reserva realizada con éxito.';
+        
+        if (!$exito) {
+            $errores[] = 'Hubo un problema al enviar el correo de confirmación. Por favor, intente más tarde.';
+            require $this->viewdir . 'formulario.view.php';
+            return;
+        }
 
-        require $this->viewdir . 'formulario.view.php';
+        $tipoOperacion = $this->libroDisponible ? 'compra' : 'reserva';
+        require $this->viewdir . 'compra-exitosa.view.php';
     }
 
     private function enviarEmail(string $asunto, string $cuerpo): bool
@@ -162,7 +168,7 @@ class FormularioController
             $mail->SMTPAuth   = true;
             $mail->Username   = SMTP_USER;
             $mail->Password   = SMTP_PASSWORD;
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port       = SMTP_PORT;
             $mail->CharSet    = 'UTF-8';
 
