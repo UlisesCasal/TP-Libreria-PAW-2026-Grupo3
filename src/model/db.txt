@@ -1,0 +1,2 @@
+test@test.com|$2y$12$RPy0rX95JusQSVvIG8.H3elWAeaBuMrX97qxKgdu3sJKqxmu1UjsK|Usuario de Prueba
+admin@paw.com|$2y$12$RPy0rX95JusQSVvIG8.H3elWAeaBuMrX97qxKgdu3sJKqxmu1UjsK|Administrador

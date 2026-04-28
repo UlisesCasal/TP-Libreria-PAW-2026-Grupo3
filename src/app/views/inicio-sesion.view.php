@@ -13,6 +13,13 @@
     <?php require __DIR__ . '/parts/header.view.php'; ?>
     <main>
         <h2>Iniciar sesión</h2>
+
+        <?php if (isset($error)): ?>
+            <p style="color: red; background: #fee; padding: 10px; border: 1px solid red; border-radius: 5px; text-align: center; max-width: 400px; margin: 10px auto;">
+                <?= htmlspecialchars($error) ?>
+            </p>
+        <?php endif; ?>
+
         <form action="/inicio-sesion" method="post">
             <fieldset>
                 <legend>Datos personales:</legend>
