@@ -51,5 +51,9 @@ $router->register('POST', '/inicio-sesion', 'InicioSesionController', 'process')
 $router->register('GET', '/formulario', 'FormularioController', 'index');
 $router->register('POST', '/formulario', 'FormularioController', 'process');
 
+// Libro 
+$router->register('GET', '/libro', 'LibroController', 'mostrar_lib');
+$router->register('POST', '/libro', 'LibroController', 'compra_lib');
+
 // 8. Ejecutar la aplicación
 $router->route();
