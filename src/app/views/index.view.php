@@ -41,7 +41,7 @@
                 <figure>
                     <img src="/model/libro1L.jpg" alt="Libro 1">
                     <footer>
-                        <p><a href="/formulario">Comprar</a></p>
+                        <p><a href="/libro">Comprar</a></p>
                     </footer>
                 </figure>
             </article>
@@ -50,7 +50,7 @@
                 <figure>
                     <img src="/model/libro2L.webp" alt="Libro 2">
                     <footer>
-                        <p><a href="/formulario">Comprar</a></p>
+                        <p><a href="/libro">Comprar</a></p>
                     </footer>
                 </figure>
             </article>
@@ -59,7 +59,7 @@
                 <figure>
                     <img src="/model/Libro3L.webp" alt="Libro 3">
                     <footer>
-                        <p><a href="/formulario">Comprar</a></p>
+                        <p><a href="/libro">Comprar</a></p>
                     </footer>
                 </figure>
             </article>

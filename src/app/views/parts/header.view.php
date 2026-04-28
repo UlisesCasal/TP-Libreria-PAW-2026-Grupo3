@@ -8,7 +8,7 @@
             <li><a href="/carrito">Carrito</a></li>
             <li><a href="/formulario">Comprar</a></li>
         </ul>
-        <form action="/catalogo" method="get" role="search">
+        <form action="/libro" method="get" role="search">
             <label for="busqueda-libros">Buscar libro:</label>
             <input type="search" id="busqueda-libros" name="q" placeholder="Título, autor o género">
             <button type="submit">Buscar</button>

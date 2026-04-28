@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">    <link rel="stylesheet" href="css/libro.css">  <title>PAWPrints - Detalle del libro</title>
+  <link rel="stylesheet" href="/assets/css/style.css">    
+  <link rel="stylesheet" href="/assets/css/libro.css">  
+  <title>PAWPrints - Detalle del libro</title>
 </head>
 <body>
   <?php require __DIR__ . '/parts/header.view.php'; ?>
@@ -26,7 +28,8 @@
     </section>
 
     <section aria-label="Comprar">
-      <form action="/libro" method="post">
+      <form action="/carrito" method="get"><!--el formulario recibe la variable cantidad y con respecto a eso, 
+        cierta info en pantalla como total/subtotal. El metodo tendria que ser post-->
         <label for="cantidad">Cantidad:</label>
         <button type="button" aria-label="Disminuir cantidad">&#8592;</button>
         <input type="number" id="cantidad" name="cantidad"

@@ -45,15 +45,15 @@
             <h2>Resultados de búsqueda</h2>
             <ul>
                 <li>
-                    <a href="/formulario"><img src="/model/libro1L.jpg" alt="Libro 1"></a>
+                    <a href="/libro"><img src="/model/libro1L.jpg" alt="Libro 1"></a>
                     <p>Nombre libro 1</p>
                 </li>
                 <li>
-                    <a href="/formulario"><img src="/model/libro2L.webp" alt="Libro 2"></a>
+                    <a href="/libro"><img src="/model/libro2L.webp" alt="Libro 2"></a>
                     <p>Nombre libro 2</p>
                 </li>
                 <li>
-                    <a href="/formulario"><img src="/model/Libro3L.webp" alt="Libro 3"></a>
+                    <a href="/libro"><img src="/model/Libro3L.webp" alt="Libro 3"></a>
                     <p>Nombre libro 3</p>
                 </li>
             </ul>
