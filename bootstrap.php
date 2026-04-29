@@ -21,16 +21,22 @@ try {
 } catch (Exception $e) {
     // Si Whoops no está instalado, continuamos sin él
 }
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
+$log = new Logger('libreria-PAW');
+$log->pushHandler(new StreamHandler(__DIR__ . '/logs/lib.log', Logger::DEBUG));
+//seteo el handler al logger con nivel de logger a DEBUG
+//de esa manera puedo utilizar todos los tipos de logs
 // 5. Importar el Router
 use PAW\Core\Router;
 
 // 6. Crear instancia del Router
 $router = new Router();
-
+$router->setLogger($log);
 use PAW\Core\Request;
 $request = new Request();//creo el objeto request
-
+$request->setLogger($log);
 $router->cargar_rutas();//cargo las rutas de la aplicacion hardcodeadas
 $router->direct($request);//le paso la request al router, que la va a rutear a donde corresponda
 
