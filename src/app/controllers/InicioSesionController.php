@@ -61,4 +61,12 @@ class InicioSesionController
 
         require $this->viewdir . 'inicio-sesion.view.php';
     }
+
+    public function logout()
+    {
+        session_unset();
+        session_destroy();
+        header('Location: /');
+        exit;
+    }
 }

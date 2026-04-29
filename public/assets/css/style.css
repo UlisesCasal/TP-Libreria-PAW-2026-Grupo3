@@ -112,7 +112,7 @@ body > header nav ul {
     display: flex;
     align-items: center;
     gap: .15rem;
-    flex: 1;
+    margin-right: auto;
     min-width: 0;
 }
 

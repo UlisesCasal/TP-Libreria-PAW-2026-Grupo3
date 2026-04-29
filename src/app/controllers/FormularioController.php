@@ -158,6 +158,19 @@ class FormularioController
         require $this->viewdir . 'compra-exitosa.view.php';
     }
 
+    public function historial()
+    {
+        // Si no está logueado, redirigir al login
+        if (!isset($_SESSION['usuario'])) {
+            header('Location: /inicio-sesion');
+            exit;
+        }
+
+        // Simulación de historial vacío
+        $compras = []; 
+        require $this->viewdir . 'mis-compras.view.php';
+    }
+
     private function enviarEmail(string $asunto, string $cuerpo): bool
     {
         $mail = new PHPMailer(true);

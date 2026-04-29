@@ -46,10 +46,12 @@ $router->register('POST', '/crearCuenta', 'CrearCuentaController', 'crearCuentaP
 // Inicio de sesión
 $router->register('GET', '/inicio-sesion', 'InicioSesionController', 'index');
 $router->register('POST', '/inicio-sesion', 'InicioSesionController', 'process');
+$router->register('GET', '/cerrar-sesion', 'InicioSesionController', 'logout');
 
-// Formulario de compra
+// Formulario de compra e Historial
 $router->register('GET', '/formulario', 'FormularioController', 'index');
 $router->register('POST', '/formulario', 'FormularioController', 'process');
+$router->register('GET', '/mis-compras', 'FormularioController', 'historial');
 
 // Libro 
 $router->register('GET', '/libro', 'LibroController', 'mostrar_lib');
