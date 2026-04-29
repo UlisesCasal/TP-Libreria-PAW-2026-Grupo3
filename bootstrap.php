@@ -28,37 +28,10 @@ use PAW\Core\Router;
 // 6. Crear instancia del Router
 $router = new Router();
 
-// 7. Registrar todas las rutas de la aplicación
+use PAW\Core\Request;
+$request = new Request();//creo el objeto request
 
-// Inicio y catálogo
-$router->register('GET', '/', 'IndexController', 'index');
-$router->register('GET', '/catalogo', 'CatalogoController', 'listar');
+$router->cargar_rutas();//cargo las rutas de la aplicacion hardcodeadas
+$router->direct($request);//le paso la request al router, que la va a rutear a donde corresponda
 
-// Carrito
-$router->register('GET', '/carrito', 'CarritoController', 'ver');
-$router->register('POST', '/carrito/agregar', 'CarritoController', 'agregar');
-$router->register('POST', '/carrito/eliminar', 'CarritoController', 'eliminar');
 
-// Crear cuenta
-$router->register('GET', '/crearCuenta', 'CrearCuentaController', 'crearCuenta');
-$router->register('POST', '/crearCuenta', 'CrearCuentaController', 'crearCuentaProcess');
-
-// Inicio de sesión
-$router->register('GET', '/inicio-sesion', 'InicioSesionController', 'index');
-$router->register('POST', '/inicio-sesion', 'InicioSesionController', 'process');
-$router->register('GET', '/cerrar-sesion', 'InicioSesionController', 'logout');
-
-// Formulario de compra e Historial
-$router->register('GET', '/formulario', 'FormularioController', 'index');
-$router->register('POST', '/formulario', 'FormularioController', 'process');
-$router->register('GET', '/mis-compras', 'FormularioController', 'historial');
-
-// Libro 
-$router->register('GET', '/libro', 'LibroController', 'mostrar_lib');
-$router->register('POST', '/libro', 'LibroController', 'compra_lib');
-
-// Nosotros
-$router->register('GET', '/nosotros', 'NosotrosController', 'mostrar_nosotros');
-
-// 8. Ejecutar la aplicación
-$router->route();

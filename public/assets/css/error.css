@@ -1,0 +1,192 @@
+
+@import url(reset.css);
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+@import url('https://fonts.cdnfonts.com/css/argentum-sans');
+
+/* ─── Variables (mismas del proyecto) ─── */
+:root {
+    --color-violeta: #5c068c;
+    --color-blanco: #ffffff;
+    --color-turquesa: #00c2ff;
+    --color-rosa: #ff4da6;
+    --color-teal: #1B8EA6;
+    --color-teal-dark: #136F85;
+    --color-azul: #5B6DC8;
+    --color-verde: #3BAF5A;
+    --color-rojo: #E0286A;
+    --color-amarillo: #D4A017;
+    --color-morado: #7B52AB;
+
+    --color-primario: var(--color-violeta);
+    --color-secundario: var(--color-blanco);
+    --color-acento: var(--color-azul);
+    --color-fondo: var(--color-blanco);
+    --color-texto: #1A1A1A;
+    --color-suave: #F2F8FA;
+    --color-borde: #D0E8EE;
+
+    --sombra: 0 2px 12px rgba(27,142,166,.10);
+    --radio: 20px;
+    --fuente-titulo: "Argentum Sans", sans-serif;
+    --fuente-cuerpo: "Argentum Sans", sans-serif;
+    --max-ancho: 1100px;
+    --transicion: .22s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-fondo: #07161a;
+        --color-texto: #EEF6F8;
+        --color-suave: #10242b;
+        --color-borde: #1d4a57;
+        --sombra: 0 2px 12px rgba(0,0,0,.40);
+    }
+}
+
+/* ─── Base ─── */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--fuente-cuerpo);
+    font-size: 14px;
+    color: var(--color-texto);
+    background: var(--color-fondo);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all var(--transicion);
+}
+
+/* ─── Header vacío violeta ─── */
+body > header {
+    background: var(--color-violeta);
+    min-height: 130px;
+    border-bottom: 3px solid var(--color-primario);
+    box-shadow: var(--sombra);
+}
+
+/* ─── Main ─── */
+main {
+    flex: 1;
+    width: 100%;
+    max-width: var(--max-ancho);
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Caja central */
+main > section,
+main {
+    position: relative;
+}
+
+main::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+main > h1,
+main > .volver-inicio {
+    position: relative;
+   
+}
+
+main {
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+main > h1 {
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+    font-family: var(--fuente-titulo);
+    font-size: 2rem;
+    color: var(--color-blanco);
+    background: var(--color-suave);
+    color: var(--color-texto);
+    padding: 2.5rem 2rem;
+    border-radius: var(--radio);
+    border: 1px solid var(--color-borde);
+    box-shadow: var(--sombra);
+}
+
+/* Botón volver */
+.volver-inicio {
+    width: 100%;
+    max-width: 320px;
+}
+
+.volver-inicio p {
+    margin: 0;
+}
+
+.volver-inicio a {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: var(--color-primario);
+    color: var(--color-blanco);
+    padding: .95rem 1.2rem;
+    border-radius: var(--radio);
+    font-family: var(--fuente-titulo);
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: var(--sombra);
+}
+
+.volver-inicio a:hover {
+    background: var(--color-acento);
+    transform: translateY(-2px);
+}
+
+/* ─── Footer vacío violeta ─── */
+body > footer {
+    background: var(--color-violeta);
+    min-height: 170px;
+    margin-top: auto;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+    body > header {
+        min-height: 100px;
+    }
+
+    body > footer {
+        min-height: 130px;
+    }
+
+    main {
+        padding: 2rem 1rem;
+    }
+
+    main > h1 {
+        font-size: 1.5rem;
+        padding: 2rem 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    main > h1 {
+        font-size: 1.2rem;
+    }
+
+    .volver-inicio a {
+        font-size: .95rem;
+        padding: .85rem 1rem;
+    }
+}
