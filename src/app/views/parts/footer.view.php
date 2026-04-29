@@ -11,8 +11,17 @@
     <nav aria-label="Enlaces del sitio">
         <h2>Paw Print</h2>
         <ul>
-            <li><a href="/nosotros">Nosotros</a></li>
-            <li><a href="/carrito">Carrito</a></li>
+            <?php
+                // Obtiene la ruta actual
+                $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+                $currentPath = trim($currentPath, '/');
+            ?>
+            <?php if($currentPath !== 'nosotros'): ?>
+                <li><a href="/nosotros">Nosotros</a></li>
+            <?php endif; ?>
+            <?php if($currentPath !== 'carrito'): ?>
+                <li><a href="/carrito">Carrito</a></li>
+            <?php endif; ?>
         </ul>
     </nav>
 
