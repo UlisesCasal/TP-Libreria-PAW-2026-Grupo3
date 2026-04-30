@@ -3,16 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/assets/css/style.css">    
-  <link rel="stylesheet" href="/assets/css/libro.css">  
-  <title>PAWPrints - Detalle del libro</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/libro.css">
+  <title>PAWPrints - <?= $libro ? htmlspecialchars($libro['titulo']) : 'Detalle del libro' ?></title>
 </head>
 <body>
   <?php require __DIR__ . '/parts/header.view.php'; ?>
   <main>
+  <?php if ($libro === null): ?>
+    <p>Libro no encontrado.</p>
+  <?php else: ?>
 
     <figure>
-      <img src="libro.jpg" alt="Tapa del libro" >
+      <img src="/model/<?= htmlspecialchars($libro['imagen']) ?>"
+           alt="Tapa de <?= htmlspecialchars($libro['titulo']) ?>">
       <figcaption>Tapa libro</figcaption>
     </figure>
 
@@ -22,18 +26,18 @@
     </section>
 
     <section aria-label="Datos del libro">
-      <h2>Titulo del Libro</h2>
-      <h3>Autor del Libro</h3>
-      <p><strong>$20.000</strong></p>
+      <h2><?= htmlspecialchars($libro['titulo']) ?></h2>
+      <h3><?= htmlspecialchars($libro['autor']) ?></h3>
+      <p><strong>$<?= number_format($libro['precio'], 0, ',', '.') ?></strong></p>
     </section>
 
     <section aria-label="Comprar">
-      <form action="/carrito" method="get"><!--el formulario recibe la variable cantidad y con respecto a eso, 
-        cierta info en pantalla como total/subtotal. El metodo tendria que ser post-->
+      <form action="/carrito" method="post">
+        <input type="hidden" name="libro_id" value="<?= $libro['id'] ?>">
         <label for="cantidad">Cantidad:</label>
         <button type="button" aria-label="Disminuir cantidad">&#8592;</button>
         <input type="number" id="cantidad" name="cantidad"
-               value="1" min="1" max="50">
+               value="1" min="1" max="<?= $libro['stock'] ?>">
         <button type="button" aria-label="Aumentar cantidad">&#8594;</button>
         <button type="submit">Comprar</button>
       </form>
@@ -41,117 +45,47 @@
 
     <section aria-label="Descripción del libro">
       <h4>Descripción</h4>
-      <p>
-        Rand, acosado por inquietantes sueños sobre una espada de cristal,
-        decide abandonar a sus compañeros tras un ataque de Engendros de la
-        Sombra y se encamina hacia Tear para lograr descubrir quién es
-        realmente. Mientras tanto, las tres jóvenes aspirantes a Aes Sedai
-        viajan con Mat hacia Tar Valon para ingresar como novatas en la Torre
-        Blanca, donde esperan que las hermanas sanen a Mat de la extraña
-        enfermedad que padece. Poco tiempo después, la Amyrlin les encomienda
-        una peligrosa misión... Por la calidad literaria, su ambicioso
-        planteamiento y su descomunal historia, La Rueda del Tiempo es la saga
-        de fantasía más importante de los últimos treinta años. El lector que
-        inicie el camino junto a Rand, Mat y Perrin no podrá abandonar el viaje
-        hasta su incierto y sorprendente final.
-      </p>
+      <p><?= htmlspecialchars($libro['descripcion']) ?></p>
     </section>
 
     <section aria-label="Ficha técnica del libro">
       <header><h5>Datos técnicos</h5></header>
       <ul>
-        <li><strong>ISBN:</strong> <span>9789505472413</span></li>
-        <li><strong>Encuadernación:</strong> <span>Tapa blanda</span></li>
+        <li><strong>ISBN:</strong> <span><?= htmlspecialchars($libro['isbn']) ?></span></li>
+        <li><strong>Género:</strong> <span><?= htmlspecialchars(ucfirst($libro['genero'])) ?></span></li>
         <li><strong>Idioma:</strong> <span>Español</span></li>
-        <li><strong>Páginas:</strong> <span>688</span></li>
-        <li><strong>Publicación:</strong> <time datetime="2022-03-03">03/03/2022</time></li>
+        <li><strong>Páginas:</strong> <span><?= $libro['paginas'] ?></span></li>
+        <li><strong>Publicación:</strong>
+          <time datetime="<?= htmlspecialchars($libro['publicacion']) ?>">
+            <?= date('d/m/Y', strtotime($libro['publicacion'])) ?>
+          </time>
+        </li>
+        <li><strong>Stock:</strong> <span><?= $libro['stock'] ?> unidades</span></li>
       </ul>
     </section>
-  
+
+    <?php if (!empty($relacionados)): ?>
     <section aria-label="Libros relacionados">
-            <header>
-                <h2>Libros relacionados</h2>
-            </header>
-            <article>
-                <h3>libro 1</h3>
-                <figure>
-                    <picture>
-                        <img src="libro1L.jpg" alt="">
-                        <source srcset="libro1L.jpg" media="( min-width: 1024px )">
-                        <source srcset="libro1S.jpg" media="( max-width: 480px )">
-                        <source srcset="libro1C.jpg" media="( 480px <= width <= 1024px )">
-                    </picture>
-                    <footer>
-                        <p><a href="/libro">Comprar</a></p><!--hace un get a una nueva pagina de libro con el libro
-                        solicitado-->
-                    </footer>
-                </figure>
-            </article>
-            <article>
-                <h3>libro 2</h3>
-                <figure>
-                    <picture>
-                        <img src="libro2L.webp" alt="">
-                        <source srcset="libro2L.webp" media="( min-width: 1024px )">
-                    </picture>
-                    <footer>
-                        <p><a href="/libro">Comprar</a></p><!--hace un get a una nueva pagina de libro con el libro
-                        solicitado-->
-                    </footer>
-                </figure>
-            </article>
-            <article>
-                <h3>libro 3</h3>
-                <figure>
-                    <picture>
-                        <img src="Libro3L.webp" alt="">
-                        <source srcset="Libro3L.webp" media="( min-width: 1024px )">
-                    </picture>
-                    <footer>
-                        <p><a href="libro">Comprar</a></p>
-                    </footer>
-                </figure>
-            </article>
-        </section>
+      <header>
+        <h2>Libros relacionados</h2>
+      </header>
+      <?php foreach ($relacionados as $rel): ?>
+      <article>
+        <h3><?= htmlspecialchars($rel['titulo']) ?></h3>
+        <figure>
+          <img src="/model/<?= htmlspecialchars($rel['imagen']) ?>"
+               alt="<?= htmlspecialchars($rel['titulo']) ?>">
+          <footer>
+            <p><a href="/libro?id=<?= $rel['id'] ?>">Ver libro</a></p>
+          </footer>
+        </figure>
+      </article>
+      <?php endforeach; ?>
+    </section>
+    <?php endif; ?>
+
+  <?php endif; ?>
   </main>
-
-  <footer>
-    <section aria-label="Redes sociales">
-      <h2>Seguinos</h2>
-      <ul>
-        <li><a href="https://www.instagram.com/tu_usuario" target="_blank"
-               rel="noopener noreferrer">Instagram</a></li>
-        <li><a href="https://www.twitter.com/tu_usuario" target="_blank"
-               rel="noopener noreferrer">Twitter</a></li>
-        <li><a href="https://www.facebook.com/tu_usuario" target="_blank"
-               rel="noopener noreferrer">Facebook</a></li>
-      </ul>
-    </section>
-
-    <nav aria-label="Enlaces del sitio">
-      <h2>Paw Print</h2>
-      <ul>
-        <li><a href="nosotros.html">Nosotros</a></li>
-        <li><a href="sucursales.html">Sucursales</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
-        <li><a href="help.html">Ayuda</a></li>
-      </ul>
-    </nav>
-
-    <section>
-      <h2>Atención al cliente</h2>
-      <address>
-        +54 9 11 5555-5555<br>
-        <a href="mailto:atencion@pawprint.com">atencion@pawprint.com</a><br>
-        Calle Falsa 123
-      </address>
-    </section>
-
-    <section aria-label="Información legal">
-      <img src="img/logo.png" alt="Data fiscal">
-      <p>© 2026 Paw Print. Todos los derechos reservados.</p>
-    </section>
-  <?php require __DIR__ . '/parts/footer.view.php'; ?>
-
+<?php require __DIR__ . '/parts/footer.view.php'; ?>
 </body>
 </html>

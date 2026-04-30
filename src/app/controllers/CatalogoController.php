@@ -2,12 +2,24 @@
 
 namespace PAW\App\Controllers;
 
-class CatalogoController {
+use PAW\Model\LibroModel;
 
-    /**
-     * Muestra el listado de libros del catálogo
-     */
-    public function listar() {
+class CatalogoController
+{
+    public function listar()
+    {
+        $modelo = new LibroModel();
+
+        $filtros = [
+            'autor'       => trim($_GET['autor'] ?? ''),
+            'genero'      => trim($_GET['genero'] ?? ''),
+            'precio_min'  => $_GET['precio_min'] ?? '',
+            'precio_max'  => $_GET['precio_max'] ?? '',
+            'orden'       => $_GET['orden'] ?? 'az',
+        ];
+
+        $libros = $modelo->filtrar($filtros);
+
         require __DIR__ . '/../views/catalogo.view.php';
     }
 }

@@ -2,6 +2,8 @@
 
 namespace PAW\App\Controllers;
 
+use PAW\Model\UsuarioModel;
+
 class CrearCuentaController
 {
     public string $viewsDir;
@@ -23,18 +25,33 @@ class CrearCuentaController
 
     public function crearCuentaProcess()
     {
-        $nombre_apellido = $_POST['nombre_apellido'] ?? '';
-        $email = $_POST['email'] ?? '';
-        $telefono = $_POST['telefono'] ?? '';
-        $contraseña = $_POST['contraseña'] ?? '';
-        $ccontraseña = $_POST['ccontraseña'] ?? '';
+        $nombre     = trim($_POST['nombre_apellido'] ?? '');
+        $email      = trim($_POST['email'] ?? '');
+        $password   = $_POST['contraseña'] ?? '';
+        $cpassword  = $_POST['ccontraseña'] ?? '';
+        $error      = null;
 
-        if ($contraseña !== $ccontraseña) {
-            die('Las contraseñas no coinciden');
+        if (empty($nombre) || empty($email) || empty($password)) {
+            $error = 'Por favor, complete todos los campos.';
+            require $this->viewsDir . 'crearCuenta.view.php';
+            return;
         }
 
-        // lógica para guardar los datos en la base de datos
+        if ($password !== $cpassword) {
+            $error = 'Las contraseñas no coinciden.';
+            require $this->viewsDir . 'crearCuenta.view.php';
+            return;
+        }
 
+        $modelo = new UsuarioModel();
+
+        if ($modelo->existeEmail($email)) {
+            $error = 'El email ya está registrado.';
+            require $this->viewsDir . 'crearCuenta.view.php';
+            return;
+        }
+
+        $modelo->registrar($nombre, $email, $password);
         $this->cuentaCreada();
     }
 }
