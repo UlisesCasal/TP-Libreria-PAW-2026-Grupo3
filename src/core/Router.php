@@ -51,7 +51,6 @@ class Router {
             $this->call($valorcontrolleraction[0], $valorcontrolleraction[1]);
             $this->logger->debug('Status Code:404 - Route Not Found', ["ERROR"=>$e]);
         }
-
         catch (Exception $e){
             $valorcontrolleraction = $this->getController($this->internalError);//si salta la exception, intenta obtener
             //controlador + accion a realizar para el caso de exception
