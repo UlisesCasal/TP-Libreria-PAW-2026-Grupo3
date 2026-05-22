@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/catalogo.css">
+    
     <title>Catálogo — Libreria</title>
 </head>
 <body>
@@ -46,6 +47,10 @@
             </form>
         </section>
         <section>
+        <h2>Últimas búsquedas</h2>
+            <div id="historial-busquedas"></div>
+        </section>
+        <section>
             <h2>Resultados de búsqueda</h2>
             <?php if (empty($libros)): ?>
                 <p>No se encontraron libros con los filtros aplicados.</p>
@@ -67,5 +72,6 @@
         </section>
     </main>
 <?php require __DIR__ . '/parts/footer.view.php'; ?>
+<script src="/assets/js/catalogo.js"></script>
 </body>
 </html>
