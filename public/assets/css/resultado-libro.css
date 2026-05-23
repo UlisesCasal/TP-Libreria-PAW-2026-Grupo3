@@ -1,0 +1,91 @@
+/* ─── CONTENEDOR CENTRADO ─── */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+}
+
+/* ─── CARD DE RESULTADO ─── */
+.resultado-card {
+    max-width: 480px;
+    width: 90%;
+    text-align: center;
+    padding: 3rem 2rem;
+    border-radius: var(--radio);
+    border: 1px solid var(--color-borde);
+    box-shadow: var(--sombra);
+    background: var(--color-suave);
+}
+
+/* ─── ÍCONO ─── */
+.resultado-icono {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+}
+
+.resultado-exito .resultado-icono {
+    background-color: #d4edda;
+    color: #2d6a3f;
+}
+
+.resultado-error .resultado-icono {
+    background-color: #fde8ef;
+    color: var(--color-rojo);
+}
+
+/* ─── TÍTULO ─── */
+.resultado-card h2 {
+    font-family: var(--fuente-titulo);
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.resultado-exito h2 {
+    color: #2d6a3f;
+}
+
+.resultado-error h2 {
+    color: var(--color-rojo);
+}
+
+/* ─── DESCRIPCIÓN ─── */
+.resultado-card p {
+    font-family: var(--fuente-cuerpo);
+    font-size: 1rem;
+    color: var(--color-texto);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+/* ─── BOTÓN ─── */
+.btn-resultado {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    background-color: var(--color-primario);
+    color: var(--color-blanco);
+    font-family: var(--fuente-titulo);
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: var(--radio);
+    transition: background-color var(--transicion);
+}
+
+.btn-resultado:hover {
+    background-color: var(--color-acento);
+    color: var(--color-blanco);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 480px) {
+    .resultado-card {
+        padding: 2rem 1.25rem;
+    }
+}

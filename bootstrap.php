@@ -60,5 +60,8 @@ $router->register('POST', '/libro', 'LibroController', 'compra_lib');
 // Nosotros
 $router->register('GET', '/nosotros', 'NosotrosController', 'mostrar_nosotros');
 
+// Crear Libro 
+$router->register('POST', '/crear-libro', 'CrearLibroController', 'altaLibro');
+$router->register('GET', '/crear-libro', 'CrearLibroController', 'mostrarForm');
 // 8. Ejecutar la aplicación
 $router->route();
