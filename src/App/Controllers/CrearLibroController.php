@@ -11,14 +11,15 @@ class CrearLibroController{
     {
         $this->viewdir = __DIR__ . '/../views/';
     }
+    
 
     private function libroCreado()
     {
-        require $this->viewDir . 'crearLibroCreado.view.php';//falta crear la vista
+        require $this->viewdir . 'crearLibroCreado.view.php';//falta crear la vista
     }
 
     private function elLibroYaExiste(){
-        require $this->viewDir . 'elLibroYaExiste.view.php';//falta crear la vista
+        require $this->viewdir . 'libroYaExiste.view.php';//falta crear la vista
     }
 
     public function altaLibro(){
@@ -50,6 +51,6 @@ class CrearLibroController{
         }
     }
     public function mostrarForm(){
-        require $this->viewDir . 'crear-libro.view.php';
+        require $this->viewdir . 'crear-libro.view.php';
     }
 }
