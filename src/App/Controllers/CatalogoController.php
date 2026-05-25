@@ -11,6 +11,7 @@ class CatalogoController
         $modelo = new LibroModel();
 
         $filtros = [
+            'q'           => trim($_GET['q'] ?? ''),
             'autor'       => trim($_GET['autor'] ?? ''),
             'genero'      => trim($_GET['genero'] ?? ''),
             'precio_min'  => $_GET['precio_min'] ?? '',

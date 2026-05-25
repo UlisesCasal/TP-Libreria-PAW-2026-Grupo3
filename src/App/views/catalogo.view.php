@@ -15,6 +15,12 @@
         <section>
             <h2>Filtro y orden de catálogo</h2>
             <form action="/catalogo" method="get">
+                <label for="q">Buscar</label>
+                <div class="campo-busqueda-wrapper">
+                    <input type="text" id="q" name="q" placeholder="Título, autor o género"
+                           value="<?= htmlspecialchars($filtros['q'] ?? '') ?>">
+                    <div id="sugerencias-busqueda" class="sugerencias"></div>
+                </div>
                 <fieldset>
                     <legend>Orden</legend>
                     <label for="orden">Ordenar por:</label>
@@ -46,9 +52,9 @@
                 <button type="submit">Buscar</button>
             </form>
         </section>
-        <section>
-        <h2>Últimas búsquedas</h2>
-            <div id="historial-busquedas"></div>
+        <section id="historial-busquedas" style="display:none">
+            <h2>Últimas búsquedas</h2>
+            <ul></ul>
         </section>
         <section>
             <h2>Resultados de búsqueda</h2>

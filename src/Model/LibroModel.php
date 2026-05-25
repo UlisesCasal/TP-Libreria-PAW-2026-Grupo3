@@ -53,6 +53,15 @@ class LibroModel
     {
         $libros = $this->getAll();
 
+        if (!empty($filtros['q'])) {
+            $q = mb_strtolower($filtros['q']);
+            $libros = array_filter($libros, fn($l) =>
+                str_contains(mb_strtolower($l['titulo']), $q) ||
+                str_contains(mb_strtolower($l['autor']), $q) ||
+                str_contains(mb_strtolower($l['genero']), $q)
+            );
+        }
+
         if (!empty($filtros['autor'])) {
             $autor = mb_strtolower($filtros['autor']);
             $libros = array_filter($libros, fn($l) =>
