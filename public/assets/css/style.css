@@ -83,7 +83,7 @@ body > header > img {
 
 /* Logo visible solo en desktop */
 @media (min-width: 768px) {
-    body > header > img {
+    body > header img {
         display: block;
         width: 150px;
         height: 45px;
@@ -297,7 +297,6 @@ main > section > article {
     transition: transform var(--transicion), box-shadow var(--transicion);
     display: flex;
     flex-direction: column;
-    min-height: 500px;
 }
 
 main > section > article:hover {
@@ -421,6 +420,7 @@ article figure picture {
     overflow: hidden;
     background: var(--color-suave);
     flex: 1;
+    height: 200px; /* Altura fija para normalizar en el index */
 }
 
 article figure picture img {

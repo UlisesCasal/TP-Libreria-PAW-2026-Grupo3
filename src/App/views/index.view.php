@@ -39,7 +39,7 @@
             <article>
                 <h3>Libro 1</h3>
                 <figure>
-                    <img src="/model/libro1L.jpg" alt="Libro 1">
+                    <img src="/assets/img/libro1L.jpg" alt="Libro 1">
                     <footer>
                         <p><a href="/libro">Comprar</a></p>
                     </footer>
@@ -48,7 +48,7 @@
             <article>
                 <h3>Libro 2</h3>
                 <figure>
-                    <img src="/model/libro2L.webp" alt="Libro 2">
+                    <img src="/assets/img/libro2L.webp" alt="Libro 2">
                     <footer>
                         <p><a href="/libro">Comprar</a></p>
                     </footer>
@@ -57,7 +57,7 @@
             <article>
                 <h3>Libro 3</h3>
                 <figure>
-                    <img src="/model/Libro3L.webp" alt="Libro 3">
+                    <img src="/assets/img/Libro3L.webp" alt="Libro 3">
                     <footer>
                         <p><a href="/libro">Comprar</a></p>
                     </footer>

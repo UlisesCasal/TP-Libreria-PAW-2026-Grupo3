@@ -1,5 +1,7 @@
 <header>
-    <img src="/model/Logo_Violeta2.JPG" alt="Logo Violeta">
+    <a href="/">
+        <img src="/assets/img/Logo_Violeta2.JPG" alt="Logo Violeta">
+    </a>
     <h1>Libreria</h1>
     <nav>
         <ul>

@@ -15,7 +15,7 @@
   <?php else: ?>
 
     <figure>
-      <img src="/model/<?= htmlspecialchars($libro['imagen']) ?>"
+      <img src="/assets/img/<?= htmlspecialchars($libro['imagen']) ?>"
            alt="Tapa de <?= htmlspecialchars($libro['titulo']) ?>">
       <figcaption>Tapa libro</figcaption>
     </figure>
@@ -73,7 +73,7 @@
       <article>
         <h3><?= htmlspecialchars($rel['titulo']) ?></h3>
         <figure>
-          <img src="/model/<?= htmlspecialchars($rel['imagen']) ?>"
+          <img src="/assets/img/<?= htmlspecialchars($rel['imagen']) ?>"
                alt="<?= htmlspecialchars($rel['titulo']) ?>">
           <footer>
             <p><a href="/libro?id=<?= $rel['id'] ?>">Ver libro</a></p>

@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/catalogo.css">
+    <script>
+        // Inyectamos los datos de los libros procesados por el backend
+        window.ALL_BOOKS = <?= json_encode($libros) ?>;
+    </script>
+    <script src="/assets/js/catalogo.js" defer></script>
     <title>Catálogo — Libreria</title>
 </head>
 <body>
@@ -13,57 +18,68 @@
         <h2>Catalogo</h2>
         <section>
             <h2>Filtro y orden de catálogo</h2>
-            <form action="/catalogo" method="get">
+            <form id="filter-form">
                 <fieldset>
                     <legend>Orden</legend>
                     <label for="orden">Ordenar por:</label>
                     <select id="orden" name="orden">
-                        <option value="az"                 <?= (($filtros['orden'] ?? '') === 'az')                 ? 'selected' : '' ?>>A→Z</option>
-                        <option value="za"                 <?= (($filtros['orden'] ?? '') === 'za')                 ? 'selected' : '' ?>>Z→A</option>
-                        <option value="precio-ascendente"  <?= (($filtros['orden'] ?? '') === 'precio-ascendente')  ? 'selected' : '' ?>>Menor precio</option>
-                        <option value="precio-descendente" <?= (($filtros['orden'] ?? '') === 'precio-descendente') ? 'selected' : '' ?>>Mayor precio</option>
+                        <option value="az">A→Z</option>
+                        <option value="za">Z→A</option>
+                        <option value="precio-ascendente">Menor precio</option>
+                        <option value="precio-descendente">Mayor precio</option>
                     </select>
                 </fieldset>
-                <label for="autor">Autor</label>
-                <input type="text" id="autor" name="autor" placeholder="ej.: Borges"
-                       value="<?= htmlspecialchars($filtros['autor'] ?? '') ?>">
-                <label for="genero">Género</label>
-                <select id="genero" name="genero">
-                    <option value="">Todos</option>
-                    <option value="novela"   <?= (($filtros['genero'] ?? '') === 'novela')   ? 'selected' : '' ?>>Novela</option>
-                    <option value="poesia"   <?= (($filtros['genero'] ?? '') === 'poesia')   ? 'selected' : '' ?>>Poesía</option>
-                    <option value="fantasia" <?= (($filtros['genero'] ?? '') === 'fantasia') ? 'selected' : '' ?>>Fantasía</option>
-                    <option value="policial" <?= (($filtros['genero'] ?? '') === 'policial') ? 'selected' : '' ?>>Policial</option>
-                    <option value="cuento"   <?= (($filtros['genero'] ?? '') === 'cuento')   ? 'selected' : '' ?>>Cuento</option>
-                </select>
-                <label for="precio_min">Precio mínimo</label>
-                <input type="number" id="precio_min" name="precio_min" min="1" step="1"
-                       value="<?= htmlspecialchars($filtros['precio_min'] ?? '') ?>">
-                <label for="precio_max">Precio máximo</label>
-                <input type="number" id="precio_max" name="precio_max" min="1" step="1"
-                       value="<?= htmlspecialchars($filtros['precio_max'] ?? '') ?>">
-                <button type="submit">Buscar</button>
+                
+                <fieldset>
+                    <legend>Filtros</legend>
+                    <label for="autor">Autor</label>
+                    <input type="text" id="autor" name="autor" placeholder="ej.: Borges">
+                    
+                    <label for="genero">Género</label>
+                    <select id="genero" name="genero">
+                        <option value="">Todos</option>
+                        <option value="novela">Novela</option>
+                        <option value="poesia">Poesía</option>
+                        <option value="fantasia">Fantasía</option>
+                        <option value="policial">Policial</option>
+                        <option value="cuento">Cuento</option>
+                    </select>
+                    
+                    <label for="precio_min">Precio mínimo</label>
+                    <input type="number" id="precio_min" name="precio_min" min="0" step="1">
+                    
+                    <label for="precio_max">Precio máximo</label>
+                    <input type="number" id="precio_max" name="precio_max" min="0" step="1">
+                </fieldset>
+                
+                <button type="submit">Limpiar Filtros</button>
             </form>
         </section>
+        
         <section>
             <h2>Resultados de búsqueda</h2>
-            <?php if (empty($libros)): ?>
-                <p>No se encontraron libros con los filtros aplicados.</p>
-            <?php else: ?>
-            <ul>
-                <?php foreach ($libros as $libro): ?>
-                <li>
-                    <a href="/libro?id=<?= $libro['id'] ?>">
-                        <img src="/model/<?= htmlspecialchars($libro['imagen']) ?>"
-                             alt="<?= htmlspecialchars($libro['titulo']) ?>">
-                    </a>
-                    <p><?= htmlspecialchars($libro['titulo']) ?></p>
-                    <p><?= htmlspecialchars($libro['autor']) ?></p>
-                    <p>$<?= number_format($libro['precio'], 0, ',', '.') ?></p>
-                </li>
-                <?php endforeach; ?>
-            </ul>
-            <?php endif; ?>
+            <div id="catalog-results">
+                <!-- Los libros se renderizarán dinámicamente aquí mediante JS -->
+                <ul id="book-list">
+                    <?php foreach ($libros as $libro): ?>
+                    <li>
+                        <a href="/libro?id=<?= $libro['id'] ?>">
+                            <img src="/assets/img/<?= htmlspecialchars($libro['imagen']) ?>"
+                                 alt="<?= htmlspecialchars($libro['titulo']) ?>">
+                        </a>
+                        <p><?= htmlspecialchars($libro['titulo']) ?></p>
+                        <p><?= htmlspecialchars($libro['autor']) ?></p>
+                        <p>$<?= number_format($libro['precio'], 0, ',', '.') ?></p>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            
+            <div id="pagination-controls" class="pagination">
+                <!-- Los controles de paginación se renderizarán aquí -->
+            </div>
+            
+            <div id="scroll-anchor" style="height: 20px;"></div>
         </section>
     </main>
 <?php require __DIR__ . '/parts/footer.view.php'; ?>
