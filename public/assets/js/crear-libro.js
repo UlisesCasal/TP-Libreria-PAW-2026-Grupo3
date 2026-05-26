@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {//cargar script crea el script y lo pone en el head del .html
+    ConstructorElementos.cargarScript("DragDrop", "/assets/js/components/dragDrop.js", () => {
+        new DragDrop("#tapa");
+        new DragDrop("#contratapa");
+    });
     ConstructorElementos.cargarScript("FormValidation", "/assets/js/components/formValidation.js", () => {
         new FormValidation("#form-crear-libro", {
             titulo: {
@@ -29,8 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {//cargar script crea el scr
                 mensaje: "El stock no puede ser menor a 0."
             },
             isbn: {
-                validar: (input) => /^\d{3}-\d{2}-\d{3}-\d{5}-\d$/.test(input.value),
-                mensaje: "El ISBN debe tener el formato 978-84-376-0494-7."
+                validar: (input) => /^\d{3}-\d{2}-\d{3}-\d{4}-\d$/.test(input.value),
+                mensaje: "El ISBN debe tener el formato XXX-XX-XXX-XXXX-X."
             },
             paginas: {
                 validar: (input) => input.value !== "" && parseInt(input.value) > 0,
@@ -50,25 +54,4 @@ document.addEventListener("DOMContentLoaded", () => {//cargar script crea el scr
             }
         });
     });
-});/*<label for="titulo">Titulo</label>
-                <input type="text" id="titulo" name="titulo" placeholder="ej.: El principito">
-                <label for="autor">Autor</label>
-                <input type="text" id="autor" name="autor" placeholder="ej.:Borges">
-                <label for="genero">Genero</label>
-                <input type="text" id="genero" name="genero" placeholder="ej.:Romantico">
-                <label for="fechapub">Fecha de publicacion</label>
-                <input type="date" id="fechapub" name="fechapub" placeholder="ej.:02/11/2022">
-                <label for="precio">Precio</label>
-                <input type="number" id="precio" name="precio" min="0" step="0.01" placeholder="ej.:120.00">
-                <label for="stock">Stock</label>
-                <input type="number" id="stock" name="stock" min="0" placeholder="ej.:5">
-                <label for="isbn">ISBN</label>
-                <input type="text" id="isbn" name="isbn" placeholder="ej.:978-84-376-0494-7">
-                <label for="paginas">Paginas</label>
-                <input type="number" id="paginas" name="paginas" min="1" placeholder="ej.:978">
-                <label for="descr">Descripcion</label>
-                <textarea id="descr" name="descr" rows="4" placeholder="ej.: Novela romántica que se basa en Romeo y Julieta"></textarea>  
-                <label for="tapa">Tapa</label>
-                <input type="file" id="tapa" name="tapa">     
-                <label for="contratapa">Contratapa</label>
-                <input type="file" id="contratapa" name="contratapa">         */
+});

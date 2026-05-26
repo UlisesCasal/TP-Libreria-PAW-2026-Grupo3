@@ -26,18 +26,21 @@ class FormValidation{
             this.form = document.querySelector(pFormulario);
             this.reglas=pReglas;
             for(const regla in this.reglas){
-            let span=ConstructorElementos.nuevoElemento("span" , "", {id:"error-"+regla});//creo el span vacio ("") para posibles mensajes de error futuros
-            console.log(document.querySelector("#form-crear-libro"));
+            let span=ConstructorElementos.nuevoElemento("span" , "", {id:"error-"+regla, class:"mensaje-error"});//creo el span vacio ("") para posibles mensajes de error futuros
             let input = this.form.querySelector("#" + regla);//obtengo el input con el id del mismo (regla)
             input.insertAdjacentElement("afterend", span);//inserto el span debajo de cada input
-            input.addEventListener("blur", ()=>this.validacionIndividual(regla));//le agrego el event listener a cada input 
-            //"blur", cuando el usuario abandona el campo se verifica que lo que fue ingresado es correcto o no
-            //al abandonar el campo se ejecuta el metodo validacion que justamente se encarga de verificar lo ingresado
+            if(input.type === "file")
+                input.addEventListener("change",()=>this.validacionIndividual(regla));
+            else
+                input.addEventListener("blur", ()=>this.validacionIndividual(regla));//le agrego el event listener a cada input 
+                //"blur", cuando el usuario abandona el campo se verifica que lo que fue ingresado es correcto o no
+                //al abandonar el campo se ejecuta el metodo validacion que justamente se encarga de verificar lo ingresado
             }
             this.form.addEventListener("submit", (e)=>{
                 if(!this.validacionTotal()) //si el formulario es invalido
                     e.preventDefault();//cancela el envio del formulario
-            });
+            });//e.preventDefault() anula el comportamiento predeterminado del navegador, en este caso
+            //es enviar el formulario
         }
     }
     validacionTotal(){
@@ -55,10 +58,16 @@ class FormValidation{
         let input=this.form.querySelector("#" + id);//obtengo el input del id (por ejemplo titulo)
         let regla=this.reglas[id];//obtengo el campo del id (funcion + mensaje)
         let span=this.form.querySelector("#error-"+id);
-        if(!regla.validar(input))
+        if(!regla.validar(input)){
+            input.classList.add("input-error");
+            input.classList.remove("input-ok");
             span.textContent=regla.mensaje;
-        else
+        }    
+        else{
+            input.classList.add("input-ok");
+            input.classList.remove("input-error");
             span.textContent="";
+        }    
     }
 
 }
