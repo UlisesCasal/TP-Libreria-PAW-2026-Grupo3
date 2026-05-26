@@ -1,0 +1,364 @@
+/* ============================================================
+   Carousel Library — carousel.css
+   ============================================================ */
+
+:root {
+  --carousel-bg: #5c068c;
+  --carousel-ctrl-bg: rgba(0, 0, 0, 0.45);
+  --carousel-ctrl-hover: rgba(0, 0, 0, 0.75);
+  --carousel-ctrl-color: #fff;
+  --carousel-progress-bg: rgba(255, 255, 255, 0.25);
+  --carousel-progress-fill: #fff;
+  --carousel-transition-duration: 700ms;
+}
+
+/* ── Contenedor raíz ─────────────────────────────────────── */
+/*
+   MODO CONTENEDOR: el alto lo fija quien instancia el carousel
+   (ej: #carousel-libros { height: 400px }).
+   MODO FULLSCREEN: position:fixed inset:0, ignora el alto del contenedor.
+*/
+.carousel-root {
+  position: relative;
+  width: 100%;
+  height: 100%;          /* hereda el alto del padre */
+  overflow: hidden;
+  background: var(--carousel-bg);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+  display: flex;
+  flex-direction: column;
+}
+
+.carousel-root.carousel-fullscreen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+}
+
+/* ── Overlay de carga ────────────────────────────────────── */
+.carousel-load-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--carousel-bg);
+  z-index: 100;
+  transition: opacity 500ms ease;
+}
+
+.carousel-load-overlay.carousel-load-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.carousel-load-label {
+  color: var(--carousel-ctrl-color);
+  font-family: system-ui, sans-serif;
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.carousel-load-bar-track {
+  width: clamp(160px, 50%, 400px);
+  height: 6px;
+  border-radius: 3px;
+  background: var(--carousel-progress-bg);
+  overflow: hidden;
+}
+
+.carousel-load-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--carousel-progress-fill);
+  border-radius: 3px;
+  transition: width 200ms ease;
+}
+
+.carousel-load-percent {
+  color: var(--carousel-ctrl-color);
+  font-family: system-ui, sans-serif;
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  font-weight: 700;
+  margin-top: 0.5rem;
+}
+
+/* ── Stage ───────────────────────────────────────────────── */
+/*
+   Ocupa todo el espacio disponible dentro del .carousel-root.
+   Los thumbs están fuera del stage, así que el stage no los tapa.
+*/
+.carousel-stage {
+  position: relative;
+  flex: 1 1 auto;        /* crece para llenar el root menos los thumbs */
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ── Slides ──────────────────────────────────────────────── */
+/*
+   TODAS las slides son siempre position:absolute.
+   La visibilidad se controla solo con opacity + pointer-events.
+   Nunca se alterna entre relative/absolute (ese era el bug).
+*/
+.carousel-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.carousel-slide.carousel-slide-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* La imagen llena el slide; object-fit decide si recorta o contiene */
+.carousel-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* contiene sin recortar; cambiar a cover si se prefiere */
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* En fullscreen las imágenes cubren todo el viewport */
+.carousel-root.carousel-fullscreen .carousel-slide img {
+  object-fit: cover;
+}
+
+/* ── Transición: Fade ────────────────────────────────────── */
+.carousel-root[data-effect="fade"] .carousel-slide {
+  transition: opacity var(--carousel-transition-duration) ease;
+}
+
+/* ── Transición: Slide horizontal ───────────────────────── */
+.carousel-root[data-effect="slide"] .carousel-slide {
+  transition: transform var(--carousel-transition-duration) cubic-bezier(0.4, 0, 0.2, 1),
+              opacity   var(--carousel-transition-duration) ease;
+}
+.carousel-root[data-effect="slide"] .carousel-slide.carousel-enter-next {
+  transform: translateX(100%);
+}
+.carousel-root[data-effect="slide"] .carousel-slide.carousel-enter-prev {
+  transform: translateX(-100%);
+}
+.carousel-root[data-effect="slide"] .carousel-slide.carousel-slide-active {
+  transform: translateX(0);
+}
+.carousel-root[data-effect="slide"] .carousel-slide.carousel-leave-next {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.carousel-root[data-effect="slide"] .carousel-slide.carousel-leave-prev {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* ── Transición: Zoom ────────────────────────────────────── */
+.carousel-root[data-effect="zoom"] .carousel-slide {
+  transition: transform var(--carousel-transition-duration) ease,
+              opacity   var(--carousel-transition-duration) ease;
+}
+.carousel-root[data-effect="zoom"] .carousel-slide.carousel-enter-zoom {
+  transform: scale(1.15);
+}
+.carousel-root[data-effect="zoom"] .carousel-slide.carousel-slide-active {
+  transform: scale(1);
+}
+.carousel-root[data-effect="zoom"] .carousel-slide.carousel-leave-zoom {
+  transform: scale(0.85);
+  opacity: 0;
+}
+
+/* ── Botones prev / next ─────────────────────────────────── */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  background: var(--carousel-ctrl-bg);
+  color: var(--carousel-ctrl-color);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: clamp(36px, 5vw, 52px);
+  height: clamp(36px, 5vw, 52px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 200ms ease, transform 200ms ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.carousel-btn:hover {
+  background: var(--carousel-ctrl-hover);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn:focus-visible {
+  outline: 2px solid var(--carousel-progress-fill);
+  outline-offset: 2px;
+}
+
+.carousel-btn svg {
+  width: 50%;
+  height: 50%;
+  pointer-events: none;
+}
+
+.carousel-btn-prev { left:  clamp(8px, 2vw, 20px); }
+.carousel-btn-next { right: clamp(8px, 2vw, 20px); }
+
+/* ── Selector de efecto ──────────────────────────────────── */
+.carousel-effect-selector {
+  position: absolute;
+  top: clamp(8px, 2vw, 14px);
+  right: clamp(8px, 2vw, 14px);
+  z-index: 20;
+  display: flex;
+  gap: 6px;
+}
+
+.carousel-effect-btn {
+  background: var(--carousel-ctrl-bg);
+  color: var(--carousel-ctrl-color);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: clamp(0.6rem, 1.5vw, 0.75rem);
+  cursor: pointer;
+  font-family: system-ui, sans-serif;
+  transition: background 200ms ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.carousel-effect-btn:hover,
+.carousel-effect-btn[aria-pressed="true"] {
+  background: var(--carousel-ctrl-hover);
+  border-color: rgba(255,255,255,0.7);
+}
+
+/* ── Contador ────────────────────────────────────────────── */
+.carousel-counter {
+  position: absolute;
+  top: clamp(8px, 2vw, 14px);
+  left: clamp(8px, 2vw, 14px);
+  z-index: 20;
+  background: var(--carousel-ctrl-bg);
+  color: var(--carousel-ctrl-color);
+  font-family: system-ui, sans-serif;
+  font-size: clamp(0.7rem, 1.8vw, 0.9rem);
+  padding: 4px 10px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* ── Dots ────────────────────────────────────────────────── */
+.carousel-dots {
+  position: absolute;
+  /* justo encima de los thumbs */
+  bottom: calc(clamp(44px, 8vw, 72px) + clamp(8px, 2vw, 16px));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 20;
+}
+
+.carousel-dot {
+  width: clamp(6px, 1.2vw, 10px);
+  height: clamp(6px, 1.2vw, 10px);
+  border-radius: 50%;
+  background: rgba(255,255,255,0.45);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 200ms ease, transform 200ms ease;
+}
+
+.carousel-dot.carousel-dot-active {
+  background: #fff;
+  transform: scale(1.35);
+}
+
+/* ── Thumbnails ──────────────────────────────────────────── */
+/*
+   flex-shrink: 0 garantiza que los thumbs no se compriman.
+   El stage (flex:1) absorbe el espacio restante.
+*/
+.carousel-thumbs {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(4px, 1vw, 10px);
+  padding: clamp(6px, 1.5vw, 10px) clamp(8px, 2vw, 20px);
+  height: clamp(44px, 8vw, 72px);
+  background: rgba(0, 0, 0, 0.6);
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.3) transparent;
+  z-index: 20;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.carousel-thumbs::-webkit-scrollbar { height: 3px; }
+.carousel-thumbs::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 2px;
+}
+
+.carousel-thumb {
+  flex-shrink: 0;
+  width: clamp(36px, 6vw, 70px);
+  height: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  opacity: 0.55;
+  transition: opacity 200ms ease, border-color 200ms ease, transform 200ms ease;
+}
+
+.carousel-thumb.carousel-thumb-active {
+  border-color: #fff;
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+.carousel-thumb:hover { opacity: 0.85; }
+
+.carousel-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+/* ── Responsive pequeño ──────────────────────────────────── */
+@media (max-width: 480px) {
+  .carousel-effect-selector {
+    top: auto;
+    bottom: calc(clamp(44px, 8vw, 72px) + clamp(6px, 1.5vw, 10px) + clamp(6px, 1.2vw, 10px) + 14px);
+    right: 50%;
+    transform: translateX(50%);
+  }
+}

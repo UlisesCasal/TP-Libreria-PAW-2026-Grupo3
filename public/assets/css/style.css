@@ -694,3 +694,20 @@ body > footer > section:last-child small {
         border-color: #000 !important;
     }
 }
+
+/* ── Sección Libros Destacados — Carousel ── */
+.seccion-libros-destacados {
+    padding: 2rem 1rem;
+}
+
+.seccion-libros-destacados header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+#carousel-libros {
+    max-width: 900px;
+    margin: 0 auto;
+    height: clamp(240px, 45vw, 500px);
+}
+}

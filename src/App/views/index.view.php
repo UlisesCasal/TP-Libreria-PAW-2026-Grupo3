@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/carousel.css">
     <title>Inicio — Libreria</title>
 </head>
 
 <body>
     <?php require __DIR__ . '/parts/header.view.php'; ?>
-
-    <main>
+        <main>
         <!-- Sección de categorías -->
         <section class="seccion-circulos">
             <header>
@@ -32,39 +32,31 @@
         </section>
 
         <!-- Sección de libros destacados -->
-        <section>
+        <section class="seccion-libros-destacados">
             <header>
                 <h2>Libros destacados</h2>
             </header>
-            <article>
-                <h3>Libro 1</h3>
-                <figure>
-                    <img src="/model/libro1L.jpg" alt="Libro 1">
-                    <footer>
-                        <p><a href="/libro">Comprar</a></p>
-                    </footer>
-                </figure>
-            </article>
-            <article>
-                <h3>Libro 2</h3>
-                <figure>
-                    <img src="/model/libro2L.webp" alt="Libro 2">
-                    <footer>
-                        <p><a href="/libro">Comprar</a></p>
-                    </footer>
-                </figure>
-            </article>
-            <article>
-                <h3>Libro 3</h3>
-                <figure>
-                    <img src="/model/Libro3L.webp" alt="Libro 3">
-                    <footer>
-                        <p><a href="/libro">Comprar</a></p>
-                    </footer>
-                </figure>
-            </article>
+            <div id="carousel-libros">
+                <img src="/assets/tapas/libro1L.jpg"  alt="Libro 1">
+                <img src="/assets/tapas/libro2L.webp" alt="Libro 2">
+                <img src="/assets/tapas/libro3L.webp" alt="Libro 3">
+                <img src="/assets/tapas/libro4L.jpg" alt="Libro 4">
+                <img src="/assets/tapas/libro.jpg" alt="Libro 5">
+                <img src="/assets/tapas/principito tapa.png" alt="Libro 6">
+
+
+            </div>
         </section>
     </main>
+
+    <script src="/assets/js/carousel.js"></script>
+    <script>
+        new Carousel(document.getElementById('carousel-libros'), {
+            effect  : 'slide',
+            autoplay: true,
+            interval: 4000,
+        });
+    </script>
 
     <?php require __DIR__ . '/parts/footer.view.php'; ?>
 </body>
