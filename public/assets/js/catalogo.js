@@ -6,8 +6,9 @@ class CatalogManager {
         this.allBooks = books;
         this.filteredBooks = [...books];
         this.currentPage = 1;
-        this.pageSize = 6; // Cantidad de libros por página
         this.isMobile = window.innerWidth <= 600;
+        this.pageSize = this.isMobile ? 12 : 6; // Más libros en mobile para mejor scroll
+        this.observer = null;
 
         // Elementos del DOM
         this.bookListContainer = document.getElementById('book-list');
@@ -34,14 +35,14 @@ class CatalogManager {
             const wasMobile = this.isMobile;
             this.isMobile = window.innerWidth <= 600;
             if (wasMobile !== this.isMobile) {
+                this.pageSize = this.isMobile ? 12 : 6;
                 this.currentPage = 1;
+                this.setupInfiniteScroll(); // Re-configurar según el modo
                 this.render();
             }
         });
 
-        if (this.isMobile) {
-            this.setupInfiniteScroll();
-        }
+        this.setupInfiniteScroll();
 
         // Renderizado inicial
         this.applyFilters();
@@ -173,13 +174,21 @@ class CatalogManager {
      * Configura el scroll infinito mediante IntersectionObserver.
      */
     setupInfiniteScroll() {
+        // Limpiar observador previo si existe
+        if (this.observer) {
+            this.observer.disconnect();
+            this.observer = null;
+        }
+
+        if (!this.isMobile) return;
+
         const options = {
             root: null,
-            rootMargin: '0px',
+            rootMargin: '200px', // Cargar un poco antes de llegar al final
             threshold: 0.1
         };
 
-        const observer = new IntersectionObserver((entries) => {
+        this.observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && this.isMobile) {
                     const totalPages = Math.ceil(this.filteredBooks.length / this.pageSize);
@@ -192,7 +201,7 @@ class CatalogManager {
         }, options);
 
         if (this.scrollAnchor) {
-            observer.observe(this.scrollAnchor);
+            this.observer.observe(this.scrollAnchor);
         }
     }
 }

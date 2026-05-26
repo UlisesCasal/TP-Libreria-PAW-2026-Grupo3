@@ -2,55 +2,63 @@
    Importar DESPUÉS de style.css
 ─── */
 
-/* ─── SECCIÓN DE FILTROS ─── */
-main > section:first-of-type {
+/* ─── TITULO ─── */
+.catalogo-titulo {
+    font-family: var(--fuente-titulo);
+    font-size: 2.5rem;
+    color: var(--color-primario);
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ─── LAYOUT ─── */
+.catalogo-layout {
     display: flex;
-    flex-wrap: wrap;
-    gap: 1.25rem;
+    flex-direction: row;
+    gap: 2.5rem;
     align-items: flex-start;
+}
+
+/* ─── SECCIÓN DE FILTROS ─── */
+.catalogo-filtros {
+    flex: 0 0 280px;
     background: var(--color-suave);
     border: 1px solid var(--color-borde);
     border-radius: var(--radio);
-    padding: 1.25rem 1.5rem;
-    margin-bottom: 2.5rem;
+    padding: 1.5rem;
     box-shadow: var(--sombra);
+    position: sticky;
+    top: 2rem;
 }
 
-main > section:first-of-type > h2 {
-    width: 100%;
+.catalogo-filtros > h2 {
     font-family: var(--fuente-titulo);
     font-size: .8rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: .08em;
     color: var(--color-primario);
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
 }
 
 /* Formularios de filtro / orden */
-main > section:first-of-type form {
-    flex: 1 1 260px;
-    background: var(--color-fondo);
-    border: 1px solid var(--color-borde);
-    border-radius: var(--radio);
-    padding: 1rem 1.25rem;
+.catalogo-filtros form {
     display: flex;
     flex-direction: column;
-    gap: .75rem;
+    gap: 1rem;
 }
 
-main > section:first-of-type fieldset {
+.catalogo-filtros fieldset {
     border: none;
     padding: 0;
     margin: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: .75rem;
-    row-gap: .5rem;
-    align-items: end;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-main > section:first-of-type legend {
+.catalogo-filtros legend {
     font-family: var(--fuente-titulo);
     font-size: .72rem;
     font-weight: 600;
@@ -61,28 +69,40 @@ main > section:first-of-type legend {
     padding: 0;
 }
 
-main > section:first-of-type input[type="text"],
-main > section:first-of-type input[type="number"],
-main > section:first-of-type select {
+.catalogo-filtros label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-texto-suave);
+}
+
+.catalogo-filtros input[type="text"],
+.catalogo-filtros input[type="number"],
+.catalogo-filtros select {
     width: 100%;
-    padding: .4rem .75rem;
+    padding: .5rem .75rem;
     font-family: var(--fuente-cuerpo);
-    font-size: .82rem;
+    font-size: .85rem;
     color: var(--color-texto);
     background: var(--color-fondo);
     border: 1.5px solid var(--color-borde);
     border-radius: var(--radio);
     outline: none;
+    transition: border-color var(--transicion);
+}
+
+.catalogo-filtros input:focus,
+.catalogo-filtros select:focus {
+    border-color: var(--color-primario);
 }
 
 /* ─── Botones de aplicar / limpiar ─── */
-main > section:first-of-type button {
-    align-self: flex-end;
+.catalogo-filtros button {
+    margin-top: 0.5rem;
     background: var(--color-primario);
     color: #fff;
     border: none;
     border-radius: var(--radio);
-    padding: .5rem 1.25rem;
+    padding: .75rem;
     font-family: var(--fuente-titulo);
     font-size: .75rem;
     font-weight: 600;
@@ -92,27 +112,26 @@ main > section:first-of-type button {
     transition: background-color var(--transicion), transform var(--transicion);
 }
 
-main > section:first-of-type button:hover {
+.catalogo-filtros button:hover {
     background: var(--color-acento);
     transform: translateY(-1px);
 }
 
-main > section:first-of-type button:active {
+.catalogo-filtros button:active {
     transform: translateY(0);
 }
 
 /* ─── SECCIÓN RESULTADOS ─── */
-main > section:last-of-type {
-    display: block;
+.catalogo-resultados {
+    flex: 1;
     margin-bottom: 3rem;
 }
 
-/* Grilla de libros - Sincronizada con pageSize = 6 (3 columnas x 2 filas) */
+/* Grilla de libros */
 #book-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columnas fijas en desktop */
-    gap: 2rem;
-    justify-content: center;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2.5rem;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -127,16 +146,20 @@ main > section:last-of-type {
     box-shadow: var(--sombra);
     display: flex;
     flex-direction: column;
-    transition: transform var(--transicion);
+    transition: transform var(--transicion), box-shadow var(--transicion);
     width: 100%;
-    max-width: 220px; /* Aumentado para 3 columnas */
     margin: 0 auto;
+}
+
+#book-list li:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(27,142,166,.2);
 }
 
 #book-list li a {
     display: block;
     width: 100%;
-    height: 200px;
+    height: 250px;
     overflow: hidden;
     background: var(--color-suave);
 }
@@ -147,13 +170,37 @@ main > section:last-of-type {
     object-fit: cover;
     object-position: center top;
     display: block;
+    transition: transform var(--transicion);
+}
+
+#book-list li:hover a img {
+    transform: scale(1.05);
 }
 
 #book-list li > p {
-    font-size: 0.75rem;
-    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
     margin: 0;
-    line-height: 1.3;
+    line-height: 1.4;
+}
+
+#book-list li > p:first-of-type {
+    font-weight: 600;
+    color: var(--color-texto);
+    padding-top: 1rem;
+}
+
+#book-list li > p:nth-of-type(2) {
+    color: var(--color-texto-suave);
+    font-size: 0.8rem;
+}
+
+#book-list li > p:last-of-type {
+    font-weight: 700;
+    color: var(--color-primario);
+    font-size: 1rem;
+    padding-bottom: 1.25rem;
+    margin-top: auto;
 }
 
 /* Paginación */
@@ -161,31 +208,80 @@ main > section:last-of-type {
     display: flex;
     justify-content: center;
     gap: 0.5rem;
-    margin-top: 2rem;
+    margin-top: 3rem;
 }
 
 .pagination button {
-    padding: 0.4rem 0.7rem;
-    font-size: 0.8rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
     border: 1px solid var(--color-borde);
     border-radius: var(--radio);
     background: var(--color-fondo);
     cursor: pointer;
+    transition: all var(--transicion);
+}
+
+.pagination button:hover:not(:disabled) {
+    border-color: var(--color-primario);
+    color: var(--color-primario);
 }
 
 .pagination button.active {
     background: var(--color-primario);
     color: #fff;
+    border-color: var(--color-primario);
+}
+
+.pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Utility Class */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+    .catalogo-layout {
+        flex-direction: column;
+    }
+    
+    .catalogo-filtros {
+        flex: none;
+        width: 100%;
+        position: static;
+    }
+    
+    .catalogo-filtros fieldset {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
 }
 
 @media (max-width: 600px) {
+    .catalogo-titulo {
+        font-size: 2rem;
+    }
+
     #book-list {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+        gap: 1.5rem;
     }
     
-    #book-list li {
-        max-width: none;
+    .catalogo-filtros fieldset {
+        grid-template-columns: 1fr;
     }
 
     .pagination {
