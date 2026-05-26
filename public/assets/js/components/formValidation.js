@@ -13,10 +13,52 @@ rojo debajo con "El título es obligatorio"
 componente valida todos los campos a la vez y muestra todos los 
 errores juntos, sin enviar el form al servidor
 */
-class formValidation{
-    constructor(pFormulario){
-        
+class FormValidation{
+    reglas;
+    form;
+    constructor(pFormulario, pReglas){
+        //las reglas van a tener cada uno de los campos del formulario 
+        //y las cosas a validar del mismo
+        if(!pFormulario)
+            console.error();
+        else{
+            
+            this.form = document.querySelector(pFormulario);
+            this.reglas=pReglas;
+            for(const regla in this.reglas){
+            let span=ConstructorElementos.nuevoElemento("span" , "", {id:"error-"+regla});//creo el span vacio ("") para posibles mensajes de error futuros
+            console.log(document.querySelector("#form-crear-libro"));
+            let input = this.form.querySelector("#" + regla);//obtengo el input con el id del mismo (regla)
+            input.insertAdjacentElement("afterend", span);//inserto el span debajo de cada input
+            input.addEventListener("blur", ()=>this.validacionIndividual(regla));//le agrego el event listener a cada input 
+            //"blur", cuando el usuario abandona el campo se verifica que lo que fue ingresado es correcto o no
+            //al abandonar el campo se ejecuta el metodo validacion que justamente se encarga de verificar lo ingresado
+            }
+            this.form.addEventListener("submit", (e)=>{
+                if(!this.validacionTotal()) //si el formulario es invalido
+                    e.preventDefault();//cancela el envio del formulario
+            });
+        }
+    }
+    validacionTotal(){
+        let valido=true;
+        for(const regla in this.reglas){//recorre cada uno de los campos
+            this.validacionIndividual(regla);//valida cada uno de ellos
+            if(this.form.querySelector("#error-"+regla).textContent!=="")//si el span es distinto de "", significa que la entrada es incorrecta
+                valido=false;//si la entrada para uno de ellos es incorrecta, el formulario no es valido
+        }
+        return valido;//retorna si el form es valido o no
 
+
+    }
+    validacionIndividual(id) {
+        let input=this.form.querySelector("#" + id);//obtengo el input del id (por ejemplo titulo)
+        let regla=this.reglas[id];//obtengo el campo del id (funcion + mensaje)
+        let span=this.form.querySelector("#error-"+id);
+        if(!regla.validar(input))
+            span.textContent=regla.mensaje;
+        else
+            span.textContent="";
     }
 
 }
