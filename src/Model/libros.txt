@@ -9,3 +9,5 @@
 9|El código Da Vinci|Dan Brown|policial|8900|35|Libro3L.webp|9780307474278|454|2009-01-01|El profesor Robert Langdon investiga un misterio que involucra obras de Leonardo Da Vinci y secretos de la Iglesia Católica.
 10|Harry Potter y la Piedra Filosofal|J.K. Rowling|fantasia|13500|50|libro1L.jpg|9788478884452|264|1999-01-01|El joven Harry Potter descubre en su undécimo cumpleaños que es un mago y comienza sus estudios en el Colegio Hogwarts de Magia y Hechicería.
 11|El principito|Antoine de Saint-Exupéry|Narrativo|30000|9|principito tapa.png|8675673-35646-335635|92|1943-04-06|La historia comienza cuando un aviador se queda varado en el desierto del Sahara debido a un desperfecto en su avión. Allí conoce a un pequeño niño extraterrestre, el Principito, quien le pide que le dibuje un cordero. A lo largo de los días, el niño le relata su viaje desde su hogar, el asteroide B 612, donde dejó a una rosa muy querida pero orgullosa
+11||||||||||
+11|Libro de prueba|.|.|1|1|principito tapa.png|111-11-111-1111-1|1|2003-02-01|.

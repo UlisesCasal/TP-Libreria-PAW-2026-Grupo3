@@ -128,6 +128,55 @@ main > form button[type="submit"]:hover {
     background-color: var(--color-acento);
 }
 
+/* ─── MENSAJE DE ERROR ─── */
+.mensaje-error {
+    display: block;
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.8rem;
+    color: var(--color-rojo);
+    margin-top: 0.3rem;
+    min-height: 1rem;
+}
+
+/* ─── ESTADOS DE VALIDACIÓN ─── */
+main > form input.input-error,
+main > form textarea.input-error {
+    border-color: var(--color-rojo);
+}
+
+main > form input.input-ok,
+main > form textarea.input-ok {
+    border-color: var(--color-verde);
+}
+
+/* ─── DRAG & DROP ─── */
+.drag-drop-area {
+    width: 100%;
+    padding: 1.5rem;
+    border: 2px dashed var(--color-borde);
+    border-radius: var(--radio);
+    background-color: var(--color-fondo);
+    text-align: center;
+    cursor: pointer;
+    transition: border-color var(--transicion), background-color var(--transicion);
+}
+
+.drag-drop-area:hover {
+    border-color: var(--color-primario);
+    background-color: var(--color-suave);
+}
+
+.drag-drop-area input[type="file"] {
+    display: none;
+}
+
+.drag-drop-area span {
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.9rem;
+    color: var(--color-texto);
+    opacity: 0.7;
+}
+
 /* ─── RESPONSIVE ─── */
 @media (max-width: 768px) {
     main > form {

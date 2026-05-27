@@ -35,7 +35,7 @@ class CrearLibroController{
                 'nombre_archi_tapa'=> $_FILES['tapa']['name'],//le paso el nombre del archivo original para ser cargado en el libros.txt
                 'isbn'=> $_POST['isbn'],
                 'paginas'=> $_POST['paginas'],
-                'fecha-pub'=> $_POST['fecha-pub'],
+                'fecha-pub'=> $_POST['fechapub'],
                 'descr'=> $_POST['descr'],
                 'nombre_archi_contratapa'=> $_FILES['contratapa']['name']//le paso el nombre del archivo original para ser cargado en el libros.txt
             ];
@@ -53,4 +53,6 @@ class CrearLibroController{
     public function mostrarForm(){
         require $this->viewdir . 'crear-libro.view.php';
     }
+    //falta validar que se completen todos lso campos en el formulario!!! 
+    //doble capa de seguridad con JS + php
 }
