@@ -457,6 +457,17 @@ article figure footer p a:hover {
     background: var(--color-acento);
 }
 
+/* ─── SECCIÓN CAROUSEL ─── */
+.seccion-carousel {
+    display: block !important; /* no hereda el grid de main > section */
+    padding: 0 max(1rem, calc((100% - var(--max-ancho)) / 2));
+    margin-bottom: 2rem;
+}
+
+.seccion-carousel > header {
+    margin-bottom: 1rem;
+}
+
 /* ─── FOOTER ─── */
 body > footer {
     background: var(--color-violeta);
