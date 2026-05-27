@@ -121,6 +121,97 @@
     transform: translateY(0);
 }
 
+/* ─── DROPDOWN ÚLTIMAS BÚSQUEDAS ─── */
+.campo-busqueda-wrapper {
+    position: relative;
+}
+
+.sugerencias {
+    display: none; /* JS lo pone en flex cuando hay búsquedas */
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: var(--color-fondo);
+    border: 1.5px solid var(--color-primario);
+    border-radius: var(--radio);
+    box-shadow: 0 6px 20px rgba(27, 142, 166, .18);
+    z-index: 50;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.sugerencias a {
+    padding: .45rem .85rem;
+    font-family: var(--fuente-cuerpo);
+    font-size: .8rem;
+    color: var(--color-texto);
+    border-bottom: 1px solid var(--color-borde);
+    text-decoration: none;
+    transition: background var(--transicion), color var(--transicion);
+}
+
+.sugerencias a:last-child {
+    border-bottom: none;
+}
+
+.sugerencias a:hover {
+    background: var(--color-suave);
+    color: var(--color-primario);
+}
+
+/* ─── SECCIÓN ÚLTIMAS BÚSQUEDAS ─── */
+main > section:nth-of-type(2) {
+    margin-bottom: 2rem;
+}
+
+main > section:nth-of-type(2) > h2 {
+    font-family: var(--fuente-titulo);
+    font-size: .8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--color-primario);
+    margin-bottom: 1rem;
+    padding-bottom: .4rem;
+    border-bottom: 2px solid var(--color-borde);
+}
+
+#historial-busquedas ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#historial-busquedas li a {
+    display: inline-block;
+    padding: .3rem .75rem;
+    background: var(--color-suave);
+    border: 1.5px solid var(--color-borde);
+    border-radius: var(--radio);
+    font-family: var(--fuente-cuerpo);
+    font-size: .78rem;
+    color: var(--color-primario);
+    text-decoration: none;
+    transition: background var(--transicion), border-color var(--transicion);
+}
+
+#historial-busquedas li a:hover {
+    background: var(--color-primario);
+    border-color: var(--color-primario);
+    color: #fff;
+}
+
+#historial-busquedas > p {
+    font-family: var(--fuente-cuerpo);
+    font-size: .82rem;
+    color: var(--color-texto);
+    opacity: .65;
+}
+
 /* ─── SECCIÓN RESULTADOS ─── */
 .catalogo-resultados {
     flex: 1;

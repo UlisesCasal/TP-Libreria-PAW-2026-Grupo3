@@ -1,5 +1,11 @@
 <?php
-
+//esta clase tiene dos responsabilidades marcadas, una es
+//tratar los libros existentes y otra es tratar los libros
+//nuevos (validaciones,etc) podrian hacer dos clases (AltaLibro.php y 
+//otra ManejoLibro.php) y que LibroModel las use segun lo que requiera
+//de esta forma se dividirian las responsabilidades.
+//Tambien se me ocurre hacer una clase libro que tenga como atributos
+//los atributos del mismo
 namespace PAW\Model;
 
 class LibroModel
@@ -46,6 +52,15 @@ class LibroModel
     public function filtrar(array $filtros): array
     {
         $libros = $this->getAll();
+
+        if (!empty($filtros['q'])) {
+            $q = mb_strtolower($filtros['q']);
+            $libros = array_filter($libros, fn($l) =>
+                str_contains(mb_strtolower($l['titulo']), $q) ||
+                str_contains(mb_strtolower($l['autor']), $q) ||
+                str_contains(mb_strtolower($l['genero']), $q)
+            );
+        }
 
         if (!empty($filtros['autor'])) {
             $autor = mb_strtolower($filtros['autor']);
@@ -106,4 +121,29 @@ class LibroModel
             'descripcion' => isset($parts[10]) ? trim($parts[10]) : '',
         ];
     }
+    //metodos de valen para alta de libro
+    //se fija que el isbn del nuevo libro exista
+    public function existeIsbn(string $isbn_nuevo_libro): bool{
+        if (!file_exists($this->dbPath)) {
+            return false;
+        }
+        $lines = file($this->dbPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);//esta funcion devuelve un Array con todas las lineas del .txt ignorando lineas vacias e ignorando los \n
+        foreach ($lines as $line) {//itera cada linea
+            $parts = explode('|', $line);//obtiene cada "parte" de la linea separada por un | y las pone en un Array
+            if (isset($parts[7]) && trim($parts[7]) === $isbn_nuevo_libro) {//isset verifica que la parte [7] (isbn) no este vacia o mal formada
+            //trim elimina los espacios en blanco al inicio y al final quedando el string del isbn limpio
+                return true;//si el isbn existe retorna true
+            }
+        }
+        return false;//si no existe retorna false
+    }
+    //hace la carga del nuevo libro en "libros.txt"
+    public function cargaLibro(array $datosLibro){
+                                                                                                                                                                                               // Formato: id|titulo|autor|genero|precio|stock|imagen|isbn|paginas|publicacion|descripcion
+        //$id=siguienteId();
+        $linea =  11 . '|' . $datosLibro['titulo']. '|' . $datosLibro['autor'] . '|' . $datosLibro['genero']. '|' . $datosLibro['precio']. '|' . $datosLibro['stock']. '|' . $datosLibro['nombre_archi_tapa']. '|' . $datosLibro['isbn']. '|' . $datosLibro['paginas']. '|' . $datosLibro['fecha-pub']. '|' . $datosLibro['descr']. PHP_EOL;
+        //faltaria la contratapa
+        file_put_contents($this->dbPath, $linea, FILE_APPEND | LOCK_EX);
+    }
+    
 }

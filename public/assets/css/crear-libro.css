@@ -1,0 +1,191 @@
+/* ─── TÍTULO ─── */
+main > h2 {
+    font-family: var(--fuente-titulo);
+    font-size: 2rem;
+    color: var(--color-primario);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* ─── CONTENEDOR DEL FORMULARIO ─── */
+main > form {
+    max-width: 620px;
+    margin: 0 auto;
+    background: var(--color-suave);
+    padding: 2rem;
+    border-radius: var(--radio);
+    border: 1px solid var(--color-borde);
+    box-shadow: var(--sombra);
+}
+
+main > form fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+main > form legend {
+    font-family: var(--fuente-titulo);
+    font-size: 1.1rem;
+    color: var(--color-primario);
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+/* ─── LABELS ─── */
+main > form label {
+    display: block;
+    font-family: var(--fuente-titulo);
+    font-weight: 600;
+    color: var(--color-texto);
+    margin-top: 1rem;
+    margin-bottom: 0.4rem;
+}
+
+main > form label:first-of-type {
+    margin-top: 0;
+}
+
+/* ─── INPUTS DE TEXTO, NÚMERO Y FECHA ─── */
+main > form input[type="text"],
+main > form input[type="number"],
+main > form input[type="date"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--color-borde);
+    border-radius: var(--radio);
+    font-family: var(--fuente-cuerpo);
+    font-size: 1rem;
+    color: var(--color-texto);
+    background-color: var(--color-fondo);
+    transition: border-color var(--transicion);
+}
+
+main > form input[type="text"]:focus,
+main > form input[type="number"]:focus,
+main > form input[type="date"]:focus {
+    outline: none;
+    border-color: var(--color-primario);
+}
+
+/* ─── TEXTAREA ─── */
+main > form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--color-borde);
+    border-radius: var(--radio);
+    font-family: var(--fuente-cuerpo);
+    font-size: 1rem;
+    color: var(--color-texto);
+    background-color: var(--color-fondo);
+    transition: border-color var(--transicion);
+    resize: vertical;
+    min-height: 100px;
+}
+
+main > form textarea:focus {
+    outline: none;
+    border-color: var(--color-primario);
+}
+
+/* ─── INPUT FILE ─── */
+main > form input[type="file"] {
+    width: 100%;
+    padding: 0.65rem;
+    border: 2px dashed var(--color-borde);
+    border-radius: var(--radio);
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.9rem;
+    color: var(--color-texto);
+    background-color: var(--color-fondo);
+    cursor: pointer;
+    transition: border-color var(--transicion);
+}
+
+main > form input[type="file"]:hover {
+    border-color: var(--color-primario);
+}
+
+/* ─── BOTÓN SUBMIT ─── */
+main > form button[type="submit"] {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1.75rem;
+    background-color: var(--color-primario);
+    color: var(--color-blanco);
+    border: none;
+    border-radius: var(--radio);
+    font-family: var(--fuente-titulo);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color var(--transicion);
+}
+
+main > form button[type="submit"]:hover {
+    background-color: var(--color-acento);
+}
+
+/* ─── MENSAJE DE ERROR ─── */
+.mensaje-error {
+    display: block;
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.8rem;
+    color: var(--color-rojo);
+    margin-top: 0.3rem;
+    min-height: 1rem;
+}
+
+/* ─── ESTADOS DE VALIDACIÓN ─── */
+main > form input.input-error,
+main > form textarea.input-error {
+    border-color: var(--color-rojo);
+}
+
+main > form input.input-ok,
+main > form textarea.input-ok {
+    border-color: var(--color-verde);
+}
+
+/* ─── DRAG & DROP ─── */
+.drag-drop-area {
+    width: 100%;
+    padding: 1.5rem;
+    border: 2px dashed var(--color-borde);
+    border-radius: var(--radio);
+    background-color: var(--color-fondo);
+    text-align: center;
+    cursor: pointer;
+    transition: border-color var(--transicion), background-color var(--transicion);
+}
+
+.drag-drop-area:hover {
+    border-color: var(--color-primario);
+    background-color: var(--color-suave);
+}
+
+.drag-drop-area input[type="file"] {
+    display: none;
+}
+
+.drag-drop-area span {
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.9rem;
+    color: var(--color-texto);
+    opacity: 0.7;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+    main > form {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    main > form {
+        padding: 1.5rem;
+    }
+}

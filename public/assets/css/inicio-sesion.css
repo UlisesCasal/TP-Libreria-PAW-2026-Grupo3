@@ -274,7 +274,7 @@ main > form input[type="email"]:focus,
 main > form input[type="password"]:focus {
     outline: none;
     border-color: var(--color-primario);
-    background-color: var(--color-blanco);
+    background-color: var(--color-fondo);
 }
 
 main > form button {
@@ -469,4 +469,22 @@ body > footer section[aria-label="Información legal"] p {
         padding: 0.75rem 0;
         margin-bottom: 1rem;
     }
+}
+
+/* ─── VALIDACIÓN ─── */
+.mensaje-error {
+    display: block;
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.8rem;
+    color: var(--color-rojo);
+    margin-top: 0.3rem;
+    min-height: 1rem;
+}
+
+main > form input.input-error {
+    border-color: var(--color-rojo);
+}
+
+main > form input.input-ok {
+    border-color: var(--color-verde);
 }

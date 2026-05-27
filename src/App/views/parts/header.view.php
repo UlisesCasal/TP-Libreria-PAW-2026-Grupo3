@@ -9,7 +9,7 @@
             <li><a href="/catalogo">Catálogo</a></li>
             <li><a href="/mis-compras" style="white-space: nowrap;">Mis compras</a></li>
         </ul>
-        <form action="/libro" method="get" role="search">
+        <form action="/catalogo" method="get" role="search">
             <label for="busqueda-libros">Buscar libro:</label>
             <input type="search" id="busqueda-libros" name="q" placeholder="Título, autor o género">
             <button type="submit">Buscar</button>
@@ -26,3 +26,4 @@
         </div>
     </nav>
 </header>
+/

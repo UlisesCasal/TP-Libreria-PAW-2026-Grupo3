@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/catalogo.css">
     <script>
-        // Inyectamos los datos de los libros procesados por el backend
+        // Inyectamos los datos de los libros procesados por el backend para tu JS dinámico
         window.ALL_BOOKS = <?= json_encode($libros) ?>;
     </script>
     <script src="/assets/js/catalogo.js" defer></script>
@@ -21,6 +21,12 @@
             <aside class="catalogo-filtros">
                 <h2>Filtro y orden de catálogo</h2>
                 <form id="filter-form">
+                    <label for="q">Buscar</label>
+                    <div class="campo-busqueda-wrapper">
+                        <input type="text" id="q" name="q" placeholder="Título, autor o género">
+                        <div id="sugerencias-busqueda" class="sugerencias"></div>
+                    </div>
+
                     <fieldset>
                         <legend>Orden</legend>
                         <label for="orden">Ordenar por:</label>
@@ -50,7 +56,7 @@
                         <label for="precio_min">Precio mínimo</label>
                         <input type="number" id="precio_min" name="precio_min" min="0" step="1">
                         
-                        <label for="precio_max">Precio máximo</label>
+                        <label for="precio_max">Precio maximum</label>
                         <input type="number" id="precio_max" name="precio_max" min="0" step="1">
                     </fieldset>
                     
@@ -60,8 +66,13 @@
             
             <section class="catalogo-resultados">
                 <h2 class="visually-hidden">Resultados de búsqueda</h2>
+                
+                <div id="historial-busquedas" style="display:none">
+                    <h2>Últimas búsquedas</h2>
+                    <ul></ul>
+                </div>
+
                 <div id="catalog-results">
-                    <!-- Los libros se renderizarán dinámicamente aquí mediante JS -->
                     <ul id="book-list">
                         <?php foreach ($libros as $libro): ?>
                         <li>
@@ -78,8 +89,7 @@
                 </div>
                 
                 <div id="pagination-controls" class="pagination">
-                    <!-- Los controles de paginación se renderizarán aquí -->
-                </div>
+                    </div>
                 
                 <div id="scroll-anchor" style="height: 20px;"></div>
             </section>

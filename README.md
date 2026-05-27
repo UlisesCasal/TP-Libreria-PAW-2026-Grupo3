@@ -1,37 +1,68 @@
-# TP Librería - PAW 2026 - Grupo 3
+# TP Librería — PAW 2026 Grupo 3
 
-Este proyecto es una aplicación web de librería desarrollada como parte de la cátedra de Programación en Ambiente Web (PAW).
+Aplicación web de una librería online desarrollada en PHP con arquitectura MVC para la materia Programación Web.
 
-## Cambios Recientes (Mayo 2026)
+## Integrantes
 
-### 1. Sistema de Catálogo Dinámico (JS)
-Se ha migrado la lógica de filtrado, ordenamiento y paginación del lado del servidor (PHP) al lado del cliente (Vanilla JS).
+- Mariano Cavallo
+- Ulises Casal
+- Cristian Anito
+- Valen Aimale
 
-*   **Componente `CatalogManager`**: Implementado en `public/assets/js/catalogo.js` utilizando ES6+.
-*   **Filtrado Inteligente**: Los usuarios pueden filtrar libros por autor (búsqueda parcial), género y rango de precio en tiempo real.
-*   **Ordenamiento Dinámico**: Soporte para orden ascendente/descendente por título y precio.
-*   **Paginación Dual (Responsive)**:
-    *   **Desktop**: Paginación tradicional por botones.
-    *   **Mobile**: Scroll infinito (Infinite Scroll) para una mejor experiencia táctil.
-*   **Inyección de Datos**: El backend inyecta el dataset inicial mediante `window.ALL_BOOKS` para evitar peticiones AJAX adicionales en la carga inicial.
 
-### 2. Refactorización de Arquitectura y Estándares
-*   **Corrección PSR-4**: Se renombraron directorios y se actualizaron los namespaces para cumplir estrictamente con el estándar PSR-4 de Composer. Los directorios dentro de `src/` ahora usan PascalCase (`App`, `Core`, `Model`) para coincidir con los namespaces definidos en `composer.json`.
-*   **Controladores**: El `CatalogoController` se simplificó para delegar la lógica de presentación al cliente, manteniendo la responsabilidad de provisión de datos.
+## Funcionalidades
 
-### 3. Mejoras en UI/UX y Estilos
-*   **Layout Adaptativo**: Ajustes en `catalogo.css` y `style.css` para soportar el nuevo sistema de filtros y asegurar la responsividad en dispositivos móviles.
-*   **Header y Footer**: Actualización de componentes compartidos para mayor consistencia visual.
+- Catálogo de libros con filtros por título, autor, género y precio
+- Detalle de libro individual
+- Carrito de compras
+- Formulario de compra
+- Alta de libros con validación de formulario y drag & drop de imágenes
+- Registro e inicio de sesión de usuarios
+- Carousel de libros destacados (SwiffySlider) con efectos Slide, Fade, Zoom y Flip
+- Historial de últimas 5 búsquedas
 
-## Tecnologías Utilizadas
-*   **Backend**: PHP 8.x (MVC personalizado)
-*   **Frontend**: HTML5, CSS3 (Vanilla), JavaScript (ES6+)
-*   **Dependencias**: Composer (Autoloading PSR-4)
-*   **Base de Datos**: Sistema de archivos (archivos de texto plano)
+## Tecnologías
 
-## Estructura del Proyecto
-*   `public/`: Punto de entrada de la aplicación y activos estáticos (CSS, JS, Imágenes).
-*   `src/App/`: Lógica de la aplicación (Controladores y Vistas).
-*   `src/Core/`: Clases base del framework (Router, Excepciones).
-*   `src/Model/`: Modelos de datos y acceso a archivos.
-*   `vendor/`: Dependencias gestionadas por Composer.
+- PHP 8+ (MVC sin framework)
+- HTML5 / CSS3 / JavaScript (vanilla)
+- Almacenamiento en archivos `.txt`
+- Servidor de desarrollo: PHP built-in server
+
+## Instalación y ejecución
+
+**Requisitos:** PHP 8.0 o superior y Composer instalados.
+
+```bash
+# Clonar el repositorio
+git clone https://github.com/UlisesCasal/TP-Libreria-PAW-2026-Grupo3.git
+cd TP-Libreria-PAW-2026-Grupo3
+
+# Instalar dependencias
+composer install
+
+# Iniciar el servidor de desarrollo
+php -S localhost:8000 -t public
+```
+
+Luego abrí `http://localhost:8000` en el navegador.
+
+## Estructura del proyecto
+
+```
+├── public/
+│   ├── index.php          # Entry point
+│   └── assets/
+│       ├── css/           # Hojas de estilo por sección
+│       ├── js/            # Scripts (carousel, catálogo, validaciones)
+│       └── tapas/         # Imágenes de portadas de libros
+├── src/
+│   ├── App/
+│   │   ├── Controllers/   # Controladores de cada página
+│   │   └── views/         # Vistas PHP + parciales (header, footer)
+│   ├── Core/              # Router y excepciones
+│   └── Model/
+│       ├── LibroModel.php # Modelo de libros
+│       └── libros.txt     # Base de datos de libros
+├── bootstrap.php          # Configuración e inicialización
+└── composer.json
+```

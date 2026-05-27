@@ -2,6 +2,8 @@
 
 namespace PAW\App\Controllers;
 
+use PAW\Model\LibroModel;
+
 class IndexController
 {
     private string $viewsDir;
@@ -13,6 +15,8 @@ class IndexController
 
     public function index()
     {
+        $libroModel = new LibroModel();
+        $libros = $libroModel->getAll();
         require $this->viewsDir . 'index.view.php';
     }
 }
