@@ -42,7 +42,7 @@
                 class="swiffy-slider"
                 data-swiffy
                 data-items="3"
-                data-effect="slide"
+                data-effect="zoom"
                 data-loop="true"
             >
                 <!-- Track de slides -->

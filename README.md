@@ -1,6 +1,6 @@
 # TP Librería — PAW 2026 Grupo 3
 
-Aplicación web de una librería online desarrollada en PHP con arquitectura MVC para la materia Programación de Aplicaciones Web.
+Aplicación web de una librería online desarrollada en PHP con arquitectura MVC para la materia Programación Web.
 
 ## Integrantes
 
