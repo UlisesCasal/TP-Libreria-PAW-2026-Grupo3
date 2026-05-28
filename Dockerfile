@@ -1,16 +1,11 @@
 FROM php:8.2-cli
 
-RUN apt-get update && apt-get install -y \
-    libzip-dev zip unzip \
-    && docker-php-ext-install mbstring \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-
 WORKDIR /app
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
 COPY . .
 
