@@ -1,7 +1,5 @@
 services:
   - type: web
     name: tp-libreria-paw
-    env: php
-    buildCommand: composer install --no-dev --optimize-autoloader
-    startCommand: php -S 0.0.0.0:$PORT -t public
+    env: docker
     plan: free
