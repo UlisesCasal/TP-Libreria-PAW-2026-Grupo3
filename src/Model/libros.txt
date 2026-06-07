@@ -11,3 +11,4 @@
 11|El principito|Antoine de Saint-Exupéry|Narrativo|30000|9|principito tapa.png|8675673-35646-335635|92|1943-04-06|La historia comienza cuando un aviador se queda varado en el desierto del Sahara debido a un desperfecto en su avión. Allí conoce a un pequeño niño extraterrestre, el Principito, quien le pide que le dibuje un cordero. A lo largo de los días, el niño le relata su viaje desde su hogar, el asteroide B 612, donde dejó a una rosa muy querida pero orgullosa
 11||||||||||
 11|Libro de prueba|.|.|1|1|principito tapa.png|111-11-111-1111-1|1|2003-02-01|.
+11|Cien años de soledad|Gabriel García Márquez|Ficción|25.00|10|cover_978-84-376-0494-7.jpg|978-84-376-0494-7|493|1967-01-01|Novela clásica del realismo mágico

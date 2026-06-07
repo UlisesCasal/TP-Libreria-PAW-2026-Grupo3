@@ -119,10 +119,12 @@ body > header nav ul {
 body > header nav ul li a {
     font-family: var(--fuente-titulo);
     color: var(--color-blanco);
-    font-weight: 600; 
+    font-weight: 600;
     letter-spacing: .05em;
-    padding: .4rem .7rem;
+    padding: .3rem .5rem;
     border-radius: var(--radio);
+    font-size: .9rem;
+    white-space: nowrap;
 }
 
 body > header nav ul li a:hover {
@@ -184,7 +186,7 @@ body > header nav form input[type="search"] {
     font-size: .85rem;
     color: var(--color-texto);
     opacity: 0.5;
-    width: 220px;
+    width: 150px;
 }
 
 @media (max-width: 600px) {

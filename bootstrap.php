@@ -63,5 +63,11 @@ $router->register('GET', '/nosotros', 'NosotrosController', 'mostrar_nosotros');
 // Crear Libro 
 $router->register('POST', '/crear-libro', 'CrearLibroController', 'altaLibro');
 $router->register('GET', '/crear-libro', 'CrearLibroController', 'mostrarForm');
+
+// API: búsqueda de libros (Open Library)
+$router->register('GET', '/api/buscar-isbn', 'ApiController', 'buscarPorIsbn');
+$router->register('GET', '/api/buscar-libro', 'ApiController', 'buscarLibro');
+$router->register('GET', '/api/detalle-libro', 'ApiController', 'detalleLibro');
+
 // 8. Ejecutar la aplicación
 $router->route();
