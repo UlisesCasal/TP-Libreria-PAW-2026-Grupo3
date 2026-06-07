@@ -1,2 +1,5 @@
 test@test.com|$2y$12$RPy0rX95JusQSVvIG8.H3elWAeaBuMrX97qxKgdu3sJKqxmu1UjsK|Usuario de Prueba
 admin@paw.com|$2y$12$RPy0rX95JusQSVvIG8.H3elWAeaBuMrX97qxKgdu3sJKqxmu1UjsK|Administrador
+casalulises1@gmail.com|$2y$12$T.X6RTl1GDNc/PztczVlEeZblkjkCMEe2Odt19IWSa0Hx0h6uDdu2|Ulises
+test2@test.com|$2y$12$1cJIJ3/.vH43GavGakJteuobCb.ihzwnwy9gxEbTXZ7j4NHG50I6C|Test User2
+compra@test.com|$2y$12$zZsycKhFlCw98SbpTA/nOOn/trndKdx.S0erg/1F1f23B73FkSLFm|Comprador Test

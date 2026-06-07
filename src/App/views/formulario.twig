@@ -1,36 +1,32 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends "layouts/base.twig" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/css/style.css">
+{% block title %}Formulario de compra{% endblock %}
+
+{% block stylesheets %}
     <link rel="stylesheet" href="/assets/css/formulario.css">
-    <title>Formulario de compra</title>
-</head>
+{% endblock %}
 
-<body>
-    <?php require __DIR__ . '/parts/header.view.php'; ?>
-
-<main>
+{% block main %}
     <section aria-label="Formulario de pago" class="seccion-pago">
         <h2>Formulario de pago</h2>
 
-        <?php if (!empty($errores)): ?>
+        {% if errores|length > 0 %}
             <ul class="errores">
-                <?php foreach ($errores as $error): ?>
-                    <li><?= htmlspecialchars($error) ?></li>
-                <?php endforeach; ?>
+                {% for error in errores %}
+                    <li>{{ error|e }}</li>
+                {% endfor %}
             </ul>
-        <?php endif; ?>
+        {% endif %}
 
-        <?php if ($exito): ?>
+        {% if exito %}
             <p class="exito">
-                <?= htmlspecialchars($mensajeExito) ?> Te enviamos un email de confirmación.
+                {{ mensajeExito|e }} Te enviamos un email de confirmación.
             </p>
-        <?php endif; ?>
+        {% endif %}
 
-        <form action="/formulario?titulo=El+nombre+del+libro&autor=El+Autor" method="post" class="form-pago">
+        <form action="/formulario" method="post" class="form-pago">
+            <input type="hidden" name="titulo" value="{{ (titulo is defined ? titulo : 'Sin título')|e }}">
+            <input type="hidden" name="autor" value="{{ (autor is defined ? autor : 'Sin autor')|e }}">
 
             <fieldset>
                 <legend>1. Datos personales</legend>
@@ -174,10 +170,4 @@
             <p><small>Fecha estimada de entrega: 5-7 días hábiles</small></p>
         </aside>
     </section>
-</main>
-
-    <?php require __DIR__ . '/parts/footer.view.php'; ?>
-
-</body>
-
-</html>
+{% endblock %}

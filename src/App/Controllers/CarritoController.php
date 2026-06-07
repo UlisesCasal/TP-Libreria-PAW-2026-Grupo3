@@ -2,21 +2,15 @@
 
 namespace PAW\App\Controllers;
 
+use PAW\Core\TwigEnvironment;
+
 class CarritoController {
 
     /**
      * Muestra el carrito actual
      */
     public function ver() {
-        $vista = __DIR__ . '/../views/carrito.view.php';
-
-        if (!file_exists($vista)) {
-            http_response_code(500);
-            echo "No se encontro la vista del carrito";
-            return;
-        }
-
-        require $vista;
+        TwigEnvironment::getInstance()->render('carrito.twig', []);
     }
 
     /**

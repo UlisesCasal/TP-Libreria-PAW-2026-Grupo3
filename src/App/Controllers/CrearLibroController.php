@@ -2,24 +2,18 @@
 
 namespace PAW\App\Controllers;
 
+use PAW\Core\TwigEnvironment;
 use PAW\Model\LibroModel;
 
 class CrearLibroController{
-    private string $viewdir;
-
-    public function __construct()
-    {
-        $this->viewdir = __DIR__ . '/../views/';
-    }
-    
 
     private function libroCreado()
     {
-        require $this->viewdir . 'crearLibroCreado.view.php';//falta crear la vista
+        TwigEnvironment::getInstance()->render('crearLibroCreado.twig', []);
     }
 
     private function elLibroYaExiste(){
-        require $this->viewdir . 'libroYaExiste.view.php';//falta crear la vista
+        TwigEnvironment::getInstance()->render('libroYaExiste.twig', []);
     }
 
     public function altaLibro(){
@@ -51,7 +45,7 @@ class CrearLibroController{
         }
     }
     public function mostrarForm(){
-        require $this->viewdir . 'crear-libro.view.php';
+        TwigEnvironment::getInstance()->render('crear-libro.twig', []);
     }
     //falta validar que se completen todos lso campos en el formulario!!! 
     //doble capa de seguridad con JS + php

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    {% block stylesheets %}{% endblock %}
+    <title>{% block title %}Libreria{% endblock %}</title>
+</head>
+<body>
+    {% block header %}
+        {% include 'parts/header.twig' %}
+    {% endblock %}
+
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+
+    {% block footer %}
+        {% include 'parts/footer.twig' %}
+    {% endblock %}
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

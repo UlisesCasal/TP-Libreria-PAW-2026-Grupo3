@@ -1,0 +1,103 @@
+{% extends "layouts/base.twig" %}
+
+{% block title %}Mis Compras - Paw Prints{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .historial-contenedor {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            min-height: 50vh;
+        }
+        .sin-compras {
+            text-align: center;
+            background: #f9f9f9;
+            padding: 50px;
+            border-radius: 8px;
+            border: 2px dashed #ddd;
+        }
+        .sin-compras h3 {
+            color: #6a1b9a;
+            margin-bottom: 20px;
+        }
+        .btn-comprar {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #6a1b9a;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .tabla-compras {
+            overflow-x: auto;
+        }
+        .tabla-compras table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .tabla-compras th {
+            background: #6a1b9a;
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .tabla-compras td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .tabla-compras tr:last-child td {
+            border-bottom: none;
+        }
+        .tabla-compras tr:hover td {
+            background: #f3e5f5;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <main class="historial-contenedor">
+        <h2>Mis compras</h2>
+
+        {% if compras is empty %}
+            <div class="sin-compras">
+                <h3>Aún no has realizado ninguna compra</h3>
+                <p>¡Explora nuestro catálogo y encuentra tu próximo libro favorito!</p>
+                <br>
+                <a href="/catalogo" class="btn-comprar">Ver catálogo</a>
+            </div>
+        {% else %}
+            <div class="tabla-compras">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Libro</th>
+                            <th>Autor</th>
+                            <th>Envío</th>
+                            <th>Pago</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for compra in compras %}
+                        <tr>
+                            <td>{{ compra.fecha }}</td>
+                            <td>{{ compra.titulo|e }}</td>
+                            <td>{{ compra.autor|e }}</td>
+                            <td>{{ compra.tipo_envio == 'domicilio' ? 'A domicilio' : (compra.tipo_envio == 'libreria' ? 'Retiro en sucursal' : 'Punto de entrega') }}</td>
+                            <td>{{ compra.metodo_pago == 'tarjeta' ? 'Tarjeta' : (compra.metodo_pago == 'pago-facil' ? 'Pago Fácil' : (compra.metodo_pago == 'rapipago' ? 'Rapipago' : 'Transferencia')) }}</td>
+                            <td>{{ compra.operacion == 'compra' ? 'Compra' : 'Reserva' }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </main>
+{% endblock %}

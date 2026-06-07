@@ -2,6 +2,7 @@
 
 namespace PAW\App\Controllers;
 
+use PAW\Core\TwigEnvironment;
 use PAW\Model\UsuarioModel;
 
 class InicioSesionController
@@ -15,7 +16,7 @@ class InicioSesionController
 
     public function index()
     {
-        require $this->viewdir . 'inicio-sesion.view.php';
+        TwigEnvironment::getInstance()->render('inicio-sesion.twig', []);
     }
 
     public function process()
@@ -39,7 +40,9 @@ class InicioSesionController
             }
         }
 
-        require $this->viewdir . 'inicio-sesion.view.php';
+        TwigEnvironment::getInstance()->render('inicio-sesion.twig', [
+            'error' => $error
+        ]);
     }
 
     public function logout()

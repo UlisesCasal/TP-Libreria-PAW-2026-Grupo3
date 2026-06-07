@@ -15,15 +15,14 @@
             <button type="submit">Buscar</button>
         </form>
         <div class="nav-acciones">
-            <?php if (isset($_SESSION['usuario'])): ?>
-                <span class="user-greeting">Hola, <strong><?= htmlspecialchars(explode(' ', $_SESSION['usuario']['nombre'])[0]) ?></strong></span>
+            {% if _session.usuario %}
+                <span class="user-greeting">Hola, <strong>{{ _session.usuario.nombre|split(' ')|first }}</strong></span>
                 <a href="/cerrar-sesion" class="btn-logout">Salir</a>
-            <?php else: ?>
+            {% else %}
                 <a href="/crearCuenta">Creá tu cuenta</a>
                 <a href="/inicio-sesion">Ingresá</a>
-            <?php endif; ?>
+            {% endif %}
             <a href="/carrito" class="btn-carrito-nav">Carrito</a>
         </div>
     </nav>
 </header>
-/

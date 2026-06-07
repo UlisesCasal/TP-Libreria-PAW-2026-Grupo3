@@ -1,0 +1,16 @@
+{% extends "layouts/base.twig" %}
+
+{% block title %}Libro creado{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/assets/css/resultado-libro.css">
+{% endblock %}
+
+{% block main %}
+    <div class="resultado-card resultado-exito">
+        <span class="resultado-icono">✓</span>
+        <h2>Libro creado exitosamente</h2>
+        <p>El libro fue agregado al catálogo correctamente.</p>
+        <a href="/" class="btn-resultado">Volver al inicio</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "layouts/base.twig" %}
+
+{% block title %}Crear libro{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/assets/css/crear-libro.css">
+{% endblock %}
+
+{% block main %}
+    <h2>Crear libro</h2>
+    <form action="/crear-libro" id="form-crear-libro" method="post" enctype="multipart/form-data" novalidate>
+        <fieldset>
+            <legend>Datos del libro:</legend>
+            <label for="titulo">Titulo</label>
+            <input type="text" id="titulo" name="titulo" placeholder="ej.: El principito">
+            <label for="autor">Autor</label>
+            <input type="text" id="autor" name="autor" placeholder="ej.:Borges">
+            <label for="genero">Genero</label>
+            <input type="text" id="genero" name="genero" placeholder="ej.:Romantico">
+            <label for="fechapub">Fecha de publicacion</label>
+            <input type="date" id="fechapub" name="fechapub" placeholder="ej.:02/11/2022">
+            <label for="precio">Precio</label>
+            <input type="number" id="precio" name="precio" min="0" step="0.01" placeholder="ej.:120.00">
+            <label for="stock">Stock</label>
+            <input type="number" id="stock" name="stock" min="0" placeholder="ej.:5">
+            <label for="isbn">ISBN</label>
+            <input type="text" id="isbn" name="isbn" placeholder="ej.:978-84-376-0494-7">
+            <label for="paginas">Paginas</label>
+            <input type="number" id="paginas" name="paginas" min="1" placeholder="ej.:978">
+            <label for="descr">Descripcion</label>
+            <textarea id="descr" name="descr" rows="4" placeholder="ej.: Novela romántica que se basa en Romeo y Julieta"></textarea>
+            <label for="tapa">Tapa</label>
+            <input type="file" id="tapa" name="tapa">
+            <label for="contratapa">Contratapa</label>
+            <input type="file" id="contratapa" name="contratapa">
+        </fieldset>
+        <button type="submit">Crear libro</button>
+    </form>
+{% endblock %}
+
+{% block scripts %}
+    <script src="/assets/js/constructorElementos.js"></script>
+    <script src="/assets/js/crear-libro.js"></script>
+{% endblock %}

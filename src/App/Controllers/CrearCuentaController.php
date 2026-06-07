@@ -2,6 +2,7 @@
 
 namespace PAW\App\Controllers;
 
+use PAW\Core\TwigEnvironment;
 use PAW\Model\UsuarioModel;
 
 class CrearCuentaController
@@ -15,12 +16,15 @@ class CrearCuentaController
 
     public function crearCuenta()
     {
-        require $this->viewsDir . 'crearCuenta.view.php';
+        $error = $_POST['error'] ?? null;
+        TwigEnvironment::getInstance()->render('crearCuenta.twig', [
+            'error' => $error
+        ]);
     }
 
     public function cuentaCreada()
     {
-        require $this->viewsDir . 'crearCuentaCreada.view.php';
+        TwigEnvironment::getInstance()->render('crearCuentaCreada.twig', []);
     }
 
     public function crearCuentaProcess()
@@ -33,13 +37,17 @@ class CrearCuentaController
 
         if (empty($nombre) || empty($email) || empty($password)) {
             $error = 'Por favor, complete todos los campos.';
-            require $this->viewsDir . 'crearCuenta.view.php';
+            TwigEnvironment::getInstance()->render('crearCuenta.twig', [
+                'error' => $error
+            ]);
             return;
         }
 
         if ($password !== $cpassword) {
             $error = 'Las contraseñas no coinciden.';
-            require $this->viewsDir . 'crearCuenta.view.php';
+            TwigEnvironment::getInstance()->render('crearCuenta.twig', [
+                'error' => $error
+            ]);
             return;
         }
 
@@ -47,7 +55,9 @@ class CrearCuentaController
 
         if ($modelo->existeEmail($email)) {
             $error = 'El email ya está registrado.';
-            require $this->viewsDir . 'crearCuenta.view.php';
+            TwigEnvironment::getInstance()->render('crearCuenta.twig', [
+                'error' => $error
+            ]);
             return;
         }
 

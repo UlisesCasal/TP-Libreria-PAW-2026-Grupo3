@@ -1,0 +1,38 @@
+# openspec/config.yaml
+schema: spec-driven
+
+context: |
+  Tech stack: PHP 8.1+, vanilla (sin framework), Composer PSR-4 autoload (PAW\ → src/)
+  Architecture: Router-Consultor-Vista — Router custom (src/Core/Router.php), Controllers (src/App/Controllers/), Modelos (src/Model/), Vistas PHP planas con require de header/footer (src/App/views/parts/), sesiones nativas.
+  Persistencia: Archivos de texto planos (| separados) — db.txt (usuarios), libros.txt (catálogo).
+  Assets: CSS/JS/imágenes en public/assets/ con estructura por página.
+  Entry point: public/index.php → bootstrap.php (autoload, whoops, rutas).
+  Dependencias: filp/whoops (errores), phpmailer/phpmailer (email SMTP via Mailtrap).
+  Deployment: Docker (php:8.2-cli), Render (docker), Railway (nixpacks).
+  Testing: No detectado — sin test runner, sin archivos de test, sin cobertura.
+
+rules:
+  proposal:
+    - Incluir plan de rollback para cambios riesgosos
+    - Explicar impacto en persistencia de archivos planos
+  specs:
+    - Usar Given/When/Then para escenarios
+    - Usar RFC 2119 (MUST, SHALL, SHOULD, MAY)
+    - Especificar formato de archivo plano cuando se modifique persistencia
+  design:
+    - Incluir diagramas de secuencia para flujos complejos
+    - Documentar decisiones de arquitectura con fundamento
+    - Mantener coherencia con patrón Router-Consultor-Vista existente
+  tasks:
+    - Agrupar por fase, usar numeración jerárquica
+    - Mantener tareas completables en una sesión
+  apply:
+    - Seguir patrones de código existentes (nombrado, estructura, require de vistas)
+    tdd: false
+    test_command: ""
+  verify:
+    test_command: ""
+    build_command: "php -l public/index.php && php -l bootstrap.php"
+    coverage_threshold: 0
+  archive:
+    - Advertir antes de fusionar deltas destructivos

@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends "layouts/base.twig" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/css/style.css">
+{% block title %}¡Gracias por tu compra! - Paw Prints{% endblock %}
+
+{% block stylesheets %}
     <link rel="stylesheet" href="/assets/css/formulario.css">
-    <title>¡Gracias por tu compra! - Paw Prints</title>
     <style>
         /* Estilos para empujar el footer al fondo */
         html, body {
@@ -20,7 +17,7 @@
         }
 
         main {
-            flex: 1 0 auto; /* Esto hace que el main crezca para ocupar el espacio disponible */
+            flex: 1 0 auto;
         }
 
         footer {
@@ -102,26 +99,18 @@
             box-shadow: 0 6px 12px rgba(106, 27, 154, 0.3);
         }
     </style>
-</head>
+{% endblock %}
 
-<body>
-    <?php require __DIR__ . '/parts/header.view.php'; ?>
+{% block main %}
+    <div class="exito-wrapper">
+        <section class="mensaje-exito-contenedor">
+            <div class="icono-exito">✓</div>
+            <h2>¡Pedido confirmado!</h2>
+            <p>Gracias por tu {{ tipoOperacion|e }}. Hemos procesado tu solicitud con éxito.</p>
+            <p>Te enviamos un correo con el resumen y los pasos a seguir.</p>
+            <p class="detalles-email">Entrega estimada: 5 a 7 días hábiles</p>
+        </section>
 
-    <main>
-        <div class="exito-wrapper">
-            <section class="mensaje-exito-contenedor">
-                <div class="icono-exito">✓</div>
-                <h2>¡Pedido confirmado!</h2>
-                <p>Gracias por tu <?= htmlspecialchars($tipoOperacion) ?>. Hemos procesado tu solicitud con éxito.</p>
-                <p>Te enviamos un correo con el resumen y los pasos a seguir.</p>
-                <p class="detalles-email">Entrega estimada: 5 a 7 días hábiles</p>
-            </section>
-
-            <a href="/" class="btn-volver">Volver a la tienda</a>
-        </div>
-    </main>
-
-    <?php require __DIR__ . '/parts/footer.view.php'; ?>
-</body>
-
-</html>
+        <a href="/" class="btn-volver">Volver a la tienda</a>
+    </div>
+{% endblock %}

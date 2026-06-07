@@ -1,0 +1,95 @@
+{% extends "layouts/base.twig" %}
+
+{% block title %}Inicio — Libreria{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/assets/css/swiffyslider.css">
+{% endblock %}
+
+{% block main %}
+    <!-- Sección de categorías -->
+    <section class="seccion-circulos">
+        <header>
+            <h2>Categorias</h2>
+        </header>
+        <article>
+            <h3>Ciencia ficción</h3>
+        </article>
+        <article>
+            <h3>Romance</h3>
+        </article>
+        <article>
+            <h3>Terror</h3>
+        </article>
+        <article>
+            <h3>Acción</h3>
+        </article>
+    </section>
+
+    <!-- Sección carousel de libros destacados -->
+    <section class="seccion-carousel">
+        <header>
+            <h2>Libros destacados</h2>
+        </header>
+
+        <div
+            class="swiffy-slider"
+            data-swiffy
+            data-items="3"
+            data-effect="zoom"
+            data-loop="true"
+        >
+            <!-- Track de slides -->
+            <div class="swiffy-track">
+                {% for libro in libros %}
+                <div class="swiffy-slide">
+                    <a href="/libro?id={{ libro.id }}" class="swiffy-book-card">
+                        <div class="swiffy-book-cover">
+                            <img
+                                src="/assets/tapas/{{ libro.imagen }}"
+                                alt="{{ libro.titulo }}"
+                                onerror="this.onerror=null;this.src='/assets/tapas/libro1L.jpg'"
+                            >
+                        </div>
+                        <div class="swiffy-book-info">
+                            <span class="swiffy-book-title">{{ libro.titulo }}</span>
+                            <span class="swiffy-book-author">{{ libro.autor }}</span>
+                            <span class="swiffy-book-genre">{{ libro.genero }}</span>
+                        </div>
+                        <div class="swiffy-book-footer">
+                            <span class="swiffy-book-price">${{ libro.precio|number_format(0, ',', '.') }}</span>
+                            <span class="swiffy-book-btn">Ver libro</span>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Botones prev/next -->
+            <button type="button" class="swiffy-btn swiffy-btn-prev" aria-label="Slide anterior">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"/>
+                </svg>
+            </button>
+            <button type="button" class="swiffy-btn swiffy-btn-next" aria-label="Slide siguiente">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"/>
+                </svg>
+            </button>
+
+            <!-- Dots de navegación -->
+            <div class="swiffy-dots" role="tablist" aria-label="Navegación de slides"></div>
+
+            <!-- Thumbs -->
+            <div class="swiffy-thumbs" role="group" aria-label="Miniaturas"></div>
+
+            <!-- Selector de efecto de transición -->
+            <div class="swiffy-effect-switcher" role="group" aria-label="Efectos de transición"></div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script src="/assets/js/constructorElementos.js"></script>
+    <script src="/assets/js/swiffyslider.js"></script>
+{% endblock %}

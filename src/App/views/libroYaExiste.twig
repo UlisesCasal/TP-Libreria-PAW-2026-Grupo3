@@ -1,0 +1,16 @@
+{% extends "layouts/base.twig" %}
+
+{% block title %}Libro ya existe{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/assets/css/resultado-libro.css">
+{% endblock %}
+
+{% block main %}
+    <div class="resultado-card resultado-error">
+        <span class="resultado-icono">✕</span>
+        <h2>El libro ya existe</h2>
+        <p>Ya hay un libro registrado con ese ISBN en el catálogo.</p>
+        <a href="/crear-libro" class="btn-resultado">Volver al formulario</a>
+    </div>
+{% endblock %}

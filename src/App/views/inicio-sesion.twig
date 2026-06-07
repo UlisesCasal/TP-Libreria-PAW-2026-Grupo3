@@ -1,0 +1,33 @@
+{% extends "layouts/base.twig" %}
+
+{% block title %}Inicio de Sesión - PAWPrints{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/assets/css/inicio-sesion.css">
+{% endblock %}
+
+{% block scripts %}
+    <script src="/assets/js/constructorElementos.js"></script>
+    <script src="/assets/js/inicio-sesion.js"></script>
+{% endblock %}
+
+{% block main %}
+    <h2>Iniciar sesión</h2>
+
+    {% if error is defined and error is not null %}
+        <p style="color: red; background: #fee; padding: 10px; border: 1px solid red; border-radius: 5px; text-align: center; max-width: 400px; margin: 10px auto;">
+            {{ error|e }}
+        </p>
+    {% endif %}
+
+    <form action="/inicio-sesion" id="form-inicio-sesion" method="post" novalidate>
+        <fieldset>
+            <legend>Datos personales:</legend>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="ej.:tuemail@email.com">
+            <label for="contra">Contraseña</label>
+            <input type="password" name="password" id="contra" placeholder="ej.:tucontraseña">
+        </fieldset>
+        <button type="submit">Iniciar sesión</button>
+    </form>
+{% endblock %}

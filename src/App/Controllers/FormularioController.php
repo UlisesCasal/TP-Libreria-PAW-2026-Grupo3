@@ -2,6 +2,7 @@
 
 namespace PAW\App\Controllers;
 
+use PAW\Core\TwigEnvironment;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -23,7 +24,11 @@ class FormularioController
         $errores = [];
         $exito = false;
         $mensajeExito = $this->libroDisponible ? 'Compra realizada con éxito.' : 'Reserva realizada con éxito.';
-        require $this->viewdir . 'formulario.view.php';
+        TwigEnvironment::getInstance()->render('formulario.twig', [
+            'errores' => $errores,
+            'exito' => $exito,
+            'mensajeExito' => $mensajeExito
+        ]);
     }
 
     public function process()
@@ -48,8 +53,8 @@ class FormularioController
         $vencAnio         = trim($_POST['venc-anio']         ?? '');
         $codigoSeguridad  = trim($_POST['codigo-seguridad']  ?? '');
 
-        $tituloLibro = trim($_GET['titulo'] ?? 'Sin título');
-        $autorLibro  = trim($_GET['autor']  ?? 'Sin autor');
+        $tituloLibro = trim($_POST['titulo'] ?? 'Sin título');
+        $autorLibro  = trim($_POST['autor']  ?? 'Sin autor');
 
         $errores = [];
 
@@ -113,7 +118,11 @@ class FormularioController
         if (!empty($errores)) {
             $exito = false;
             $mensajeExito = '';
-            require $this->viewdir . 'formulario.view.php';
+            TwigEnvironment::getInstance()->render('formulario.twig', [
+                'errores' => $errores,
+                'exito' => $exito,
+                'mensajeExito' => $mensajeExito
+            ]);
             return;
         }
 
@@ -150,12 +159,30 @@ class FormularioController
         
         if (!$exito) {
             $errores[] = 'Hubo un problema al enviar el correo de confirmación. Por favor, intente más tarde.';
-            require $this->viewdir . 'formulario.view.php';
+            TwigEnvironment::getInstance()->render('formulario.twig', [
+                'errores' => $errores,
+                'exito' => false,
+                'mensajeExito' => ''
+            ]);
             return;
         }
 
         $tipoOperacion = $this->libroDisponible ? 'compra' : 'reserva';
-        require $this->viewdir . 'compra-exitosa.view.php';
+
+        // Guardar la compra en la sesión del usuario
+        $compra = [
+            'fecha'        => date('d/m/Y H:i'),
+            'titulo'       => $tituloLibro,
+            'autor'        => $autorLibro,
+            'tipo_envio'   => $tipoEnvio,
+            'metodo_pago'  => $metodoPago,
+            'operacion'    => $tipoOperacion,
+        ];
+        $_SESSION['compras'][] = $compra;
+
+        TwigEnvironment::getInstance()->render('compra-exitosa.twig', [
+            'tipoOperacion' => $tipoOperacion
+        ]);
     }
 
     public function historial()
@@ -166,9 +193,8 @@ class FormularioController
             exit;
         }
 
-        // Simulación de historial vacío
-        $compras = []; 
-        require $this->viewdir . 'mis-compras.view.php';
+        $compras = $_SESSION['compras'] ?? [];
+        TwigEnvironment::getInstance()->render('mis-compras.twig', ['compras' => $compras]);
     }
 
     private function enviarEmail(string $asunto, string $cuerpo): bool

@@ -2,6 +2,7 @@
 
 namespace PAW\App\Controllers;
 
+use PAW\Core\TwigEnvironment;
 use PAW\Model\LibroModel;
 
 class CatalogoController
@@ -26,6 +27,9 @@ class CatalogoController
         // Si preferimos que el buscador "q" de arriba ande por servidor, se podria hacer:
         // if (!empty($filtros['q'])) { $libros = $modelo->filtrar($filtros); }
 
-        require __DIR__ . '/../views/catalogo.view.php';
+        TwigEnvironment::getInstance()->render('catalogo.twig', [
+            'libros' => $libros,
+            'filtros' => $filtros
+        ]);
     }
 }
