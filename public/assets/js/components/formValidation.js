@@ -51,8 +51,6 @@ class FormValidation{
                 valido=false;//si la entrada para uno de ellos es incorrecta, el formulario no es valido
         }
         return valido;//retorna si el form es valido o no
-
-
     }
     validacionIndividual(id) {
         let input=this.form.querySelector("#" + id);//obtengo el input del id (por ejemplo titulo)
