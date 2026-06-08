@@ -61,7 +61,12 @@ class CrearCuentaController
             return;
         }
 
-        $modelo->registrar($nombre, $email, $password);
+        // Separar nombre y apellido del campo combinado "nombre_apellido"
+        $partes = explode(' ', $nombre, 2);
+        $nombre   = $partes[0];
+        $apellido = $partes[1] ?? '';
+
+        $modelo->registrar($nombre, $apellido, $email, $password);
         $this->cuentaCreada();
     }
 }
