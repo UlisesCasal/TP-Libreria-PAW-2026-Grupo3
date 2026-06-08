@@ -10,6 +10,25 @@ require __DIR__ . '/vendor/autoload.php';
 // 2. Cargar configuración (SMTP, constantes)
 require __DIR__ . '/src/config.php';
 
+// Auto-seed: ejecuta el seed si las tablas no existen (Render deployment)
+// Usa Database::getInstance() que parsea correctamente DATABASE_URL,
+// a diferencia de new PDO() directo que no acepta postgres:// como DSN.
+if (getenv('DATABASE_URL')) {
+    try {
+        $pdo = Database::getInstance()->pdo();
+        $stmt = $pdo->query("SELECT 1 FROM information_schema.tables WHERE table_name = 'libros' LIMIT 1");
+        if (!$stmt->fetch()) {
+            $sql = file_get_contents(__DIR__ . '/db/schema.sql');
+            if ($sql !== false) {
+                $pdo->exec($sql);
+            }
+        }
+    } catch (\Throwable $e) {
+        // Silenciosamente falla si DATABASE_URL no está configurada
+        // o la base de datos no está disponible aún
+    }
+}
+
 // 3. Iniciar sesiones
 session_start();
 
@@ -22,7 +41,8 @@ try {
     // Si Whoops no está instalado, continuamos sin él
 }
 
-// 5. Importar el Router
+// 5. Importar clases del core
+use PAW\Core\Database;
 use PAW\Core\Router;
 
 // 6. Crear instancia del Router
@@ -70,6 +90,9 @@ $router->register('GET', '/api/detalle-libro', 'ApiController', 'detalleLibro');
 
 $router->register('POST', '/compra', 'ReservasController', 'processCompra');
 $router->register('GET', '/compra', 'ReservasController', 'mostrarFormulario');
-$router->register('GET',  '/pedidos', 'ReservasController', 'getAll');//todas las reservas (para el personal)
+$router->register('GET',  '/pedidos', 'ReservasController', 'getAll');
+
+// Seed: inicializar base de datos (Render/deployment)
+$router->register('GET', '/seed', 'SeedController', 'execute');
 // 8. Ejecutar la aplicación
 $router->route();
