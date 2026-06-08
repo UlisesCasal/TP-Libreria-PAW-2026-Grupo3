@@ -1,0 +1,32 @@
+{% extends "layouts/base.twig" %}
+
+{% block title %}Alta usuario personal{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/assets/css/crear-cuenta.css">
+{% endblock %}
+
+{% block main %}
+    <h2>Alta usuario personal</h2>
+
+    {% if error is not null %}
+        <p style="color: red; background: #fee; padding: 10px; border: 1px solid red; border-radius: 5px; text-align: center; max-width: 400px; margin: 10px auto;">
+            {{ error|e }}
+        </p>
+    {% endif %}
+
+    <form action="/alta-personal" method="post">
+        <fieldset>
+            <legend>Datos del usuario</legend>
+            <label for="nombre_apellido">Nombre y apellido</label>
+            <input type="text" id="nombre_apellido" name="nombre_apellido" placeholder="ej.: Juan García" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="ej.: personal@libreria.com" required>
+            <label for="contraseña">Contraseña</label>
+            <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña" required>
+            <label for="ccontraseña">Confirmar contraseña</label>
+            <input type="password" id="ccontraseña" name="ccontraseña" placeholder="Repita la contraseña" required>
+        </fieldset>
+        <button type="submit">Crear usuario personal</button>
+    </form>
+{% endblock %}

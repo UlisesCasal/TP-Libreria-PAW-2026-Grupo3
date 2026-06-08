@@ -64,6 +64,8 @@ $router->register('POST', '/carrito/eliminar', 'CarritoController', 'eliminar');
 // Crear cuenta
 $router->register('GET', '/crearCuenta', 'CrearCuentaController', 'crearCuenta');
 $router->register('POST', '/crearCuenta', 'CrearCuentaController', 'crearCuentaProcess');
+$router->register('GET', '/alta-personal', 'CrearCuentaController', 'altaPersonal');
+$router->register('POST', '/alta-personal', 'CrearCuentaController', 'altaPersonalProcess');
 
 // Inicio de sesión
 $router->register('GET', '/inicio-sesion', 'InicioSesionController', 'index');

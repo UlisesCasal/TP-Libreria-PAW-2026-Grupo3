@@ -33,7 +33,7 @@ class UsuarioModel
         return null;
     }
 
-    public function registrar(string $nombre, string $apellido, string $email, string $password): bool
+    public function registrar(string $nombre, string $apellido, string $email, string $password, string $rol = 'cliente'): bool
     {
         if ($this->existeEmail($email)) {
             return false;
@@ -49,7 +49,7 @@ class UsuarioModel
             ':apellido' => $apellido,
             ':email'    => $email,
             ':password' => $hash,
-            ':rol'      => 'cliente',
+            ':rol'      => $rol,
         ]);
 
         return true;

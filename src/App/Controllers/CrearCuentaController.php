@@ -27,6 +27,50 @@ class CrearCuentaController
         TwigEnvironment::getInstance()->render('crearCuentaCreada.twig', []);
     }
 
+    public function altaPersonal()
+    {
+        TwigEnvironment::getInstance()->render('alta-personal.twig', ['error' => null]);
+    }
+
+    public function altaPersonalProcess()
+    {
+        $nombre    = trim($_POST['nombre_apellido'] ?? '');
+        $email     = trim($_POST['email'] ?? '');
+        $password  = $_POST['contraseña'] ?? '';
+        $cpassword = $_POST['ccontraseña'] ?? '';
+
+        if (empty($nombre) || empty($email) || empty($password)) {
+            TwigEnvironment::getInstance()->render('alta-personal.twig', [
+                'error' => 'Por favor, complete todos los campos.',
+            ]);
+            return;
+        }
+
+        if ($password !== $cpassword) {
+            TwigEnvironment::getInstance()->render('alta-personal.twig', [
+                'error' => 'Las contraseñas no coinciden.',
+            ]);
+            return;
+        }
+
+        $modelo = new UsuarioModel();
+
+        if ($modelo->existeEmail($email)) {
+            TwigEnvironment::getInstance()->render('alta-personal.twig', [
+                'error' => 'El email ya está registrado.',
+            ]);
+            return;
+        }
+
+        $partes   = explode(' ', $nombre, 2);
+        $nombre   = $partes[0];
+        $apellido = $partes[1] ?? '';
+
+        $modelo->registrar($nombre, $apellido, $email, $password, 'personal');
+        header('Location: /inicio-sesion');
+        exit;
+    }
+
     public function crearCuentaProcess()
     {
         $nombre     = trim($_POST['nombre_apellido'] ?? '');

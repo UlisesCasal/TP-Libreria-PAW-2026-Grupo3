@@ -1,3 +1,4 @@
+{% set esPersonal = _session.usuario is defined and _session.usuario.rol == 'personal' %}
 <header>
     <a href="/">
         <img src="/assets/img/Logo_Violeta2.JPG" alt="Logo Violeta">
@@ -7,8 +8,13 @@
         <ul>
             <li><a href="/">Inicio</a></li>
             <li><a href="/catalogo">Catálogo</a></li>
-            <li><a href="/mis-compras" style="white-space: nowrap;">Mis compras</a></li>
-            <li><a href="/crear-libro">Crear libro</a></li>
+            {% if not esPersonal %}
+                <li><a href="/mis-compras" style="white-space: nowrap;">Mis compras</a></li>
+            {% endif %}
+            {% if esPersonal %}
+                <li><a href="/crear-libro">Crear libro</a></li>
+                <li><a href="/pedidos" style="white-space: nowrap;">Historial de compras</a></li>
+            {% endif %}
         </ul>
         <form action="/catalogo" method="get" role="search">
             <label for="busqueda-libros">Buscar libro:</label>
@@ -23,7 +29,9 @@
                 <a href="/crearCuenta">Creá tu cuenta</a>
                 <a href="/inicio-sesion">Ingresá</a>
             {% endif %}
-            <a href="/carrito" class="btn-carrito-nav">Carrito</a>
+            {% if not esPersonal %}
+                <a href="/carrito" class="btn-carrito-nav">Carrito</a>
+            {% endif %}
         </div>
     </nav>
 </header>

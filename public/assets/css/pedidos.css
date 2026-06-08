@@ -69,37 +69,31 @@
 
 .pedidos-tabla {
     width: 100%;
-    table-layout: fixed;
     border-collapse: collapse;
     background: var(--color-fondo);
     border-radius: var(--radio);
     overflow: hidden;
     box-shadow: var(--sombra);
+    white-space: nowrap;
 }
 
 .pedidos-tabla thead th {
     background: var(--color-primario);
     color: #fff;
-    padding: .85rem .75rem;
+    padding: .85rem 1rem;
     text-align: left;
     font-family: var(--fuente-titulo);
-    font-size: .78rem;
-    letter-spacing: .04em;
+    font-size: .8rem;
+    letter-spacing: .06em;
     text-transform: uppercase;
     font-weight: 600;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .pedidos-tabla tbody td {
-    padding: .85rem .75rem;
+    padding: .85rem 1rem;
     border-bottom: 1px solid var(--color-borde);
     font-size: .88rem;
     vertical-align: middle;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-break: break-word;
 }
 
 .pedidos-tabla tbody tr:last-child td {
@@ -157,29 +151,11 @@
     font-size: .75rem;
     letter-spacing: .05em;
     text-transform: uppercase;
+    white-space: nowrap;
     transition: background var(--transicion);
 }
 
 .pedidos-btn-items:hover {
     background: var(--color-acento);
     color: #fff;
-}
-
-/* ── Responsive ── */
-@media (max-width: 600px) {
-    .pedidos-panel {
-        padding: 0 .5rem;
-    }
-
-    .pedidos-tabla thead th,
-    .pedidos-tabla tbody td {
-        padding: .6rem .4rem;
-        font-size: .78rem;
-    }
-
-    /* En /pedidos (panel personal) ocultar columna Cliente en mobile */
-    .pedidos-tabla.pedidos-tabla--personal thead th:nth-child(2),
-    .pedidos-tabla.pedidos-tabla--personal tbody td:nth-child(2) {
-        display: none;
-    }
 }
