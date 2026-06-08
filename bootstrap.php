@@ -11,17 +11,22 @@ require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/src/config.php';
 
 // Auto-seed: ejecuta el seed si las tablas no existen (Render deployment)
-try {
-    $pdo = new \PDO(getenv('DATABASE_URL') ?: 'sqlite::memory:');
-    $stmt = $pdo->query("SELECT 1 FROM information_schema.tables WHERE table_name = 'libros' LIMIT 1");
-    if (!$stmt->fetch()) {
-        $sql = file_get_contents(__DIR__ . '/db/schema.sql');
-        if ($sql !== false) {
-            $pdo->exec($sql);
+// Usa Database::getInstance() que parsea correctamente DATABASE_URL,
+// a diferencia de new PDO() directo que no acepta postgres:// como DSN.
+if (getenv('DATABASE_URL')) {
+    try {
+        $pdo = Database::getInstance()->pdo();
+        $stmt = $pdo->query("SELECT 1 FROM information_schema.tables WHERE table_name = 'libros' LIMIT 1");
+        if (!$stmt->fetch()) {
+            $sql = file_get_contents(__DIR__ . '/db/schema.sql');
+            if ($sql !== false) {
+                $pdo->exec($sql);
+            }
         }
+    } catch (\Throwable $e) {
+        // Silenciosamente falla si DATABASE_URL no está configurada
+        // o la base de datos no está disponible aún
     }
-} catch (\Throwable $e) {
-    // Silenciosamente falla si DATABASE_URL no está configurada
 }
 
 // 3. Iniciar sesiones
@@ -36,7 +41,8 @@ try {
     // Si Whoops no está instalado, continuamos sin él
 }
 
-// 5. Importar el Router
+// 5. Importar clases del core
+use PAW\Core\Database;
 use PAW\Core\Router;
 
 // 6. Crear instancia del Router
