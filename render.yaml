@@ -7,7 +7,6 @@ services:
     name: tp-libreria-paw
     env: docker
     plan: free
-    buildCommand: php db/seed.php
     envVars:
       - key: DATABASE_URL
         fromDatabase:

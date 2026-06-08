@@ -69,5 +69,8 @@ $router->register('GET', '/api/buscar-isbn', 'ApiController', 'buscarPorIsbn');
 $router->register('GET', '/api/buscar-libro', 'ApiController', 'buscarLibro');
 $router->register('GET', '/api/detalle-libro', 'ApiController', 'detalleLibro');
 
+// Seed: inicializar base de datos (Render/deployment)
+$router->register('GET', '/seed', 'SeedController', 'execute');
+
 // 8. Ejecutar la aplicación
 $router->route();
