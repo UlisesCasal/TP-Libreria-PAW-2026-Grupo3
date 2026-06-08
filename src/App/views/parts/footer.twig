@@ -1,4 +1,4 @@
-<footer>
+<footer itemscope itemtype="https://schema.org/BookStore">
     <section aria-label="Redes sociales">
         <h2>Seguinos</h2>
         <ul>
@@ -9,7 +9,7 @@
     </section>
 
     <nav aria-label="Enlaces del sitio">
-        <h2>Paw Print</h2>
+        <h2 itemprop="name">Paw Print</h2>
         <ul>
             {% set currentPath = _server.REQUEST_URI|split('?')|first|trim('/') %}
             {% if currentPath != 'nosotros' %}
@@ -23,14 +23,14 @@
 
     <section>
         <h2>Atención al cliente</h2>
-        <address>
-            +54 9 11 5555-5555<br>
-            <a href="mailto:atencion@pawprint.com">atencion@pawprint.com</a><br>
-            Calle Falsa 123
+        <address itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            <span itemprop="telephone">+54 9 11 5555-5555</span><br>
+            <a href="mailto:atencion@pawprint.com" itemprop="email">atencion@pawprint.com</a><br>
+            <span itemprop="streetAddress">Calle Falsa 123</span>
         </address>
     </section>
 
     <section aria-label="Información legal">
-        <p><small>© 2026 Paw Print. Todos los derechos reservados.</small></p>
+        <p><small>© 2026 <span itemprop="name">Paw Print</span>. Todos los derechos reservados.</small></p>
     </section>
 </footer>

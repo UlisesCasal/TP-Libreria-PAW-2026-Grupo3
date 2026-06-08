@@ -69,16 +69,24 @@
             </div>
 
             <div id="catalog-results">
-                <ul id="book-list">
+                <ul id="book-list" itemscope itemtype="https://schema.org/ItemList">
                     {% for libro in libros %}
-                    <li>
-                        <a href="/libro?id={{ libro.id }}">
-                            <img src="/assets/img/{{ libro.imagen|e }}"
-                                 alt="{{ libro.titulo|e }}">
-                        </a>
-                        <p>{{ libro.titulo|e }}</p>
-                        <p>{{ libro.autor|e }}</p>
-                        <p>${{ libro.precio|number_format(0, ',', '.') }}</p>
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        <meta itemprop="position" content="{{ loop.index }}">
+                        <div itemprop="item" itemscope itemtype="https://schema.org/Book">
+                            <a href="/libro?id={{ libro.id }}" itemprop="url">
+                                <img src="/assets/img/{{ libro.imagen|e }}"
+                                     alt="{{ libro.titulo|e }}" itemprop="image">
+                            </a>
+                            <p itemprop="name">{{ libro.titulo|e }}</p>
+                            <p itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                <span itemprop="name">{{ libro.autor|e }}</span>
+                            </p>
+                            <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                                <p>$<span itemprop="price">{{ libro.precio|number_format(0, ',', '.') }}</span></p>
+                                <meta itemprop="priceCurrency" content="ARS">
+                            </div>
+                        </div>
                     </li>
                     {% endfor %}
                 </ul>
