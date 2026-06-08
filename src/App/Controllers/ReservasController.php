@@ -43,18 +43,20 @@ class ReservasController
             exit;
         }
 
-        $usuario = $_SESSION['usuario'];
-        $items   = $this->carritoModel->obtenerItems($usuario['id']);
+        $usuario  = $_SESSION['usuario'];
+        $items    = $this->carritoModel->obtenerItems($usuario['id']);
 
         if (empty($items)) {
             header('Location: /carrito');
             exit;
         }
 
+        $subtotal = $this->calcularSubtotal($items);
+
         TwigEnvironment::getInstance()->render('formulario.twig', [
-            'errores'      => [],
-            'exito'        => false,
-            'mensajeExito' => '',
+            'errores'  => [],
+            'items'    => $items,
+            'subtotal' => $subtotal,
         ]);
     }
 
@@ -157,9 +159,9 @@ class ReservasController
 
         if (!empty($errores)) {
             TwigEnvironment::getInstance()->render('formulario.twig', [
-                'errores'      => $errores,
-                'exito'        => false,
-                'mensajeExito' => '',
+                'errores'  => $errores,
+                'items'    => $items,
+                'subtotal' => $this->calcularSubtotal($items),
             ]);
             return;
         }
@@ -189,9 +191,9 @@ class ReservasController
         } catch (\Throwable $e) {
             error_log('Error al crear pedido: ' . $e->getMessage());
             TwigEnvironment::getInstance()->render('formulario.twig', [
-                'errores'      => ['Ocurrió un error al procesar la compra. Intente nuevamente.'],
-                'exito'        => false,
-                'mensajeExito' => '',
+                'errores'  => ['Ocurrió un error al procesar la compra. Intente nuevamente.'],
+                'items'    => $items,
+                'subtotal' => $this->calcularSubtotal($items),
             ]);
             return;
         }
@@ -243,6 +245,14 @@ class ReservasController
         TwigEnvironment::getInstance()->render('compra-exitosa.twig', [
             'tipoOperacion' => 'compra',
         ]);
+    }
+
+    private function calcularSubtotal(array $items): float
+    {
+        return (float)array_sum(array_map(
+            fn($i) => (int)$i['cantidad'] * (float)$i['precio'],
+            $items
+        ));
     }
 
     private function enviarEmail(string $asunto, string $cuerpo): bool

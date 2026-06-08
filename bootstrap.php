@@ -16,8 +16,10 @@ require __DIR__ . '/src/config.php';
 if (getenv('DATABASE_URL')) {
     try {
         $pdo = Database::getInstance()->pdo();
-        $stmt = $pdo->query("SELECT 1 FROM information_schema.tables WHERE table_name = 'libros' LIMIT 1");
-        if (!$stmt->fetch()) {
+        // Cuenta las 5 tablas requeridas; si falta alguna re-aplica el schema.
+        // schema.sql usa IF NOT EXISTS, por lo que es idempotente.
+        $stmt = $pdo->query("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='public' AND table_name IN ('usuarios','libros','carrito_items','pedidos','pedido_items')");
+        if ((int)$stmt->fetchColumn() < 5) {
             $sql = file_get_contents(__DIR__ . '/db/schema.sql');
             if ($sql !== false) {
                 $pdo->exec($sql);

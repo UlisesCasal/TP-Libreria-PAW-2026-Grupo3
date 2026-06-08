@@ -157,9 +157,16 @@
         <aside class="resumen-pago">
             <h3>Resumen de pago</h3>
             <ul>
-                <li><span>Subtotal</span><span>$30.00</span></li>
-                <li><span>Envío</span><span>$5.00</span></li>
-                <li><span>Total</span><span>$35.00</span></li>
+                {% for item in items %}
+                    <li>
+                        <span>{{ item.titulo|e }} x{{ item.cantidad }}</span>
+                        <span>${{ (item.cantidad * item.precio)|number_format(0, ',', '.') }}</span>
+                    </li>
+                {% endfor %}
+                <li>
+                    <span>Total</span>
+                    <span>${{ subtotal|number_format(0, ',', '.') }}</span>
+                </li>
             </ul>
             <p><small>Fecha estimada de entrega: 5-7 días hábiles</small></p>
         </aside>
