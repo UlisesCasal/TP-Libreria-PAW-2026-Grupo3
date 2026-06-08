@@ -5,6 +5,19 @@
 -- ============================================================
 
 -- ------------------------------------------------------------
+-- Tabla USUARIOS
+-- Reemplaza al antiguo db.txt (email|hash|nombre).
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS usuarios (
+    id        SERIAL PRIMARY KEY,
+    nombre    TEXT NOT NULL,
+    apellido  TEXT NOT NULL DEFAULT '',
+    email     TEXT NOT NULL UNIQUE,
+    password  TEXT NOT NULL,
+    rol       TEXT NOT NULL DEFAULT 'cliente'
+);
+
+-- ------------------------------------------------------------
 -- Tabla LIBROS
 -- Mismas columnas que antes se parseaban desde libros.txt
 -- ------------------------------------------------------------
@@ -36,6 +49,40 @@ CREATE TABLE IF NOT EXISTS carrito_items (
     libro_id    INTEGER NOT NULL REFERENCES libros(id),
     cantidad    INTEGER NOT NULL DEFAULT 1 CHECK (cantidad > 0),
     UNIQUE (usuario_id, libro_id)
+);
+
+-- ------------------------------------------------------------
+-- Tabla PEDIDOS (permanente)
+-- Cabecera de cada compra/reserva: datos de envío, pago y
+-- destinatario. Un pedido pertenece a un usuario.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS pedidos (
+    id            SERIAL PRIMARY KEY,
+    usuario_id    INTEGER NOT NULL REFERENCES usuarios(id),
+    fecha         TIMESTAMP NOT NULL DEFAULT NOW(),
+    tipo_envio    TEXT NOT NULL,
+    metodo_pago   TEXT NOT NULL,
+    estado        TEXT NOT NULL DEFAULT 'pendiente',
+    nombre_dest   TEXT NOT NULL,
+    direccion     TEXT NOT NULL DEFAULT '',
+    ciudad        TEXT NOT NULL DEFAULT '',
+    provincia     TEXT NOT NULL DEFAULT '',
+    pais          TEXT NOT NULL DEFAULT '',
+    codigo_postal TEXT NOT NULL DEFAULT '',
+    telefono      TEXT NOT NULL DEFAULT ''
+);
+
+-- ------------------------------------------------------------
+-- Tabla PEDIDO_ITEMS (permanente)
+-- Detalle de cada pedido: un renglón por libro, con la cantidad
+-- y el precio_unitario congelado al momento de la compra.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS pedido_items (
+    id              SERIAL PRIMARY KEY,
+    pedido_id       INTEGER NOT NULL REFERENCES pedidos(id) ON DELETE CASCADE,
+    libro_id        INTEGER NOT NULL REFERENCES libros(id),
+    cantidad        INTEGER NOT NULL DEFAULT 1 CHECK (cantidad > 0),
+    precio_unitario NUMERIC(12,2) NOT NULL DEFAULT 0
 );
 
 -- ------------------------------------------------------------
