@@ -19,6 +19,59 @@ class ReservasController
         $this->carritoModel = new CarritoModel();
     }
 
+    // Historial de compras del usuario logueado
+    public function historial()
+    {
+        if (!isset($_SESSION['usuario'])) {
+            header('Location: /inicio-sesion');
+            exit;
+        }
+
+        $pedidos = $this->pedidoModel->obtenerPorUsuario((int)$_SESSION['usuario']['id']);
+        TwigEnvironment::getInstance()->render('historial.twig', [
+            'pedidos' => $pedidos,
+        ]);
+    }
+
+    // Detalle de un pedido (ítems, cantidades, precios)
+    // Personal puede ver cualquiera; cliente solo los propios.
+    public function verDetalle()
+    {
+        if (!isset($_SESSION['usuario'])) {
+            header('Location: /inicio-sesion');
+            exit;
+        }
+
+        $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        if ($id <= 0) {
+            header('Location: /historial');
+            exit;
+        }
+
+        $pedido = $this->pedidoModel->obtenerPorId($id);
+
+        if ($pedido === null) {
+            header('Location: /historial');
+            exit;
+        }
+
+        $usuario = $_SESSION['usuario'];
+        $esPersonal = $usuario['rol'] === 'personal';
+
+        if (!$esPersonal && (int)$pedido['usuario_id'] !== (int)$usuario['id']) {
+            header('Location: /historial');
+            exit;
+        }
+
+        $items = $this->pedidoModel->obtenerItems($id);
+
+        TwigEnvironment::getInstance()->render('pedido-detalle.twig', [
+            'pedido'     => $pedido,
+            'items'      => $items,
+            'esPersonal' => $esPersonal,
+        ]);
+    }
+
     // Listado de pedidos — solo accesible para el personal
     public function getAll()
     {

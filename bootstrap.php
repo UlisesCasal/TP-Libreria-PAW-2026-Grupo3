@@ -72,8 +72,8 @@ $router->register('GET', '/cerrar-sesion', 'InicioSesionController', 'logout');
 
 // Formulario de compra e Historial
 /*$router->register('GET', '/formulario', 'FormularioController', 'index');
-$router->register('POST', '/formulario', 'FormularioController', 'process');*/
-$router->register('GET', '/mis-compras', 'FormularioController', 'historial');
+$router->register('POST', '/formulario', 'FormularioController', 'process');
+$router->register('GET', '/mis-compras', 'FormularioController', 'historial');*/
 
 // Libro
 $router->register('GET', '/libro', 'LibroController', 'mostrar_lib');
@@ -92,7 +92,9 @@ $router->register('GET', '/api/detalle-libro', 'ApiController', 'detalleLibro');
 
 $router->register('POST', '/compra', 'ReservasController', 'processCompra');
 $router->register('GET', '/compra', 'ReservasController', 'mostrarFormulario');
-$router->register('GET',  '/pedidos', 'ReservasController', 'getAll');
+$router->register('GET', '/pedidos', 'ReservasController', 'getAll');
+$router->register('GET', '/pedidos/items', 'ReservasController', 'verDetalle');
+$router->register('GET', '/mis-compras', 'ReservasController', 'historial');
 
 // Seed: inicializar base de datos (Render/deployment)
 $router->register('GET', '/seed', 'SeedController', 'execute');

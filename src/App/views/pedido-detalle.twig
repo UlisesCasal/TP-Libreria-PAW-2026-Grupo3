@@ -1,0 +1,88 @@
+{% extends "layouts/base.twig" %}
+
+{% block title %}Pedido #{{ pedido.id }} — Paw Prints{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/assets/css/pedidos.css">
+    <link rel="stylesheet" href="/assets/css/pedido-detalle.css">
+{% endblock %}
+
+{% block main %}
+    <section class="pedidos-panel">
+
+        <header class="pedidos-panel__encabezado detalle-encabezado">
+            <div>
+                <h2>Pedido #{{ pedido.id }}</h2>
+                <span class="pedidos-estado pedidos-estado--{{ pedido.estado }}">
+                    {{ pedido.estado == 'en_proceso' ? 'En proceso' : 'Entregada' }}
+                </span>
+            </div>
+            <a href="{{ esPersonal ? '/pedidos' : '/mis-compras' }}" class="pedidos-btn-items detalle-btn-volver">
+                ← Volver
+            </a>
+        </header>
+
+        <div class="detalle-meta">
+            {% if esPersonal %}
+            <div class="detalle-meta__bloque">
+                <h3>Cliente</h3>
+                <p>{{ pedido.nombre|e }} {{ pedido.apellido|e }}</p>
+                <p class="detalle-meta__sub">{{ pedido.email|e }}</p>
+            </div>
+            {% endif %}
+            <div class="detalle-meta__bloque">
+                <h3>Fecha</h3>
+                <p>{{ pedido.fecha|date('d/m/Y H:i') }}</p>
+            </div>
+            <div class="detalle-meta__bloque">
+                <h3>Envío</h3>
+                <p>{{ pedido.tipo_envio|capitalize }}</p>
+                {% if pedido.nombre_dest %}
+                    <p class="detalle-meta__sub">{{ pedido.nombre_dest|e }}</p>
+                    <p class="detalle-meta__sub">{{ pedido.direccion|e }}{% if pedido.ciudad %}, {{ pedido.ciudad|e }}{% endif %}{% if pedido.provincia %}, {{ pedido.provincia|e }}{% endif %}</p>
+                {% endif %}
+            </div>
+            <div class="detalle-meta__bloque">
+                <h3>Pago</h3>
+                <p>{{ pedido.metodo_pago|capitalize }}</p>
+            </div>
+        </div>
+
+        <div class="pedidos-tabla-contenedor">
+            <table class="pedidos-tabla">
+                <thead>
+                    <tr>
+                        <th scope="col">Libro</th>
+                        <th scope="col">Autor</th>
+                        <th scope="col">Precio unit.</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td class="detalle-tabla__titulo">
+                            {% if item.imagen %}
+                                <img src="/assets/img/{{ item.imagen|e }}" alt="{{ item.titulo|e }}" class="detalle-tabla__img">
+                            {% endif %}
+                            <span>{{ item.titulo|e }}</span>
+                        </td>
+                        <td>{{ item.autor|e }}</td>
+                        <td>${{ item.precio_unitario|number_format(2, ',', '.') }}</td>
+                        <td>{{ item.cantidad }}</td>
+                        <td>${{ (item.cantidad * item.precio_unitario)|number_format(2, ',', '.') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr class="detalle-tabla__total">
+                        <td colspan="4">Total</td>
+                        <td>${{ pedido.total|number_format(2, ',', '.') }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+    </section>
+{% endblock %}

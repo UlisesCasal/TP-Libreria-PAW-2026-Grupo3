@@ -1,0 +1,89 @@
+.detalle-encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: .75rem;
+}
+
+.detalle-encabezado > div {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+}
+
+.detalle-btn-volver {
+    font-size: .78rem;
+    background: transparent;
+    border: 1px solid var(--color-primario);
+    color: var(--color-primario);
+}
+
+.detalle-btn-volver:hover {
+    background: var(--color-primario);
+    color: #fff;
+}
+
+/* ── Bloque de metadatos del pedido ── */
+.detalle-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    background: var(--color-suave);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: 1.25rem;
+}
+
+.detalle-meta__bloque {
+    flex: 1 1 160px;
+}
+
+.detalle-meta__bloque h3 {
+    font-family: var(--fuente-titulo);
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    color: var(--color-primario);
+    margin-bottom: .3rem;
+}
+
+.detalle-meta__bloque p {
+    font-size: .88rem;
+    color: var(--color-texto);
+    margin: 0;
+}
+
+.detalle-meta__sub {
+    font-size: .78rem !important;
+    color: #777 !important;
+}
+
+/* ── Columna imagen + título ── */
+.detalle-tabla__titulo {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+
+.detalle-tabla__img {
+    width: 38px;
+    height: 54px;
+    object-fit: cover;
+    border-radius: 3px;
+    flex-shrink: 0;
+    border: 1px solid var(--color-borde);
+}
+
+/* ── Fila de total en tfoot ── */
+.detalle-tabla__total td {
+    font-family: var(--fuente-titulo);
+    font-weight: 700;
+    font-size: .92rem;
+    color: var(--color-primario);
+    background: var(--color-suave);
+    border-top: 2px solid var(--color-borde);
+    padding: .85rem 1rem;
+}

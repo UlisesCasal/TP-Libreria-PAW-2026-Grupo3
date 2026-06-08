@@ -82,14 +82,36 @@ class PedidoModel
         return $stmt->fetchAll();
     }
 
-    // Devuelve los pedidos de un usuario específico (para el historial del cliente)
+    // Devuelve los pedidos de un usuario específico con total calculado
     public function obtenerPorUsuario(int $usuarioId): array
     {
         $stmt = $this->pdo->prepare(
-            'SELECT * FROM pedidos WHERE usuario_id = :uid ORDER BY fecha DESC'
+            'SELECT p.*, COALESCE(SUM(pi.cantidad * pi.precio_unitario), 0) AS total
+             FROM pedidos p
+             LEFT JOIN pedido_items pi ON pi.pedido_id = p.id
+             WHERE p.usuario_id = :uid
+             GROUP BY p.id
+             ORDER BY p.fecha DESC'
         );
         $stmt->execute([':uid' => $usuarioId]);
         return $stmt->fetchAll();
+    }
+
+    // Devuelve un pedido por ID con datos del usuario y total (para la vista de detalle)
+    public function obtenerPorId(int $pedidoId): ?array
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT p.*, u.nombre, u.apellido, u.email,
+                    COALESCE(SUM(pi.cantidad * pi.precio_unitario), 0) AS total
+             FROM pedidos p
+             JOIN usuarios u ON u.id = p.usuario_id
+             LEFT JOIN pedido_items pi ON pi.pedido_id = p.id
+             WHERE p.id = :id
+             GROUP BY p.id, u.nombre, u.apellido, u.email'
+        );
+        $stmt->execute([':id' => $pedidoId]);
+        $row = $stmt->fetch();
+        return $row !== false ? $row : null;
     }
 
     // Devuelve los items (libros) de un pedido específico
