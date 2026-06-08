@@ -21,11 +21,14 @@ class CatalogoController
             'orden'      => $_GET['orden'] ?? 'az',
         ];
 
-        // Obtenemos todos los libros para que el JS dinámico pueda procesar todo en el cliente
-        $libros = $modelo->getAll();
+        // La búsqueda y el filtrado se realizan SOBRE LA BASE DE DATOS (SQL).
+        // Si llegan parámetros de búsqueda/filtro por GET, se consulta filtrando
+        // en el servidor; si no, se listan todos los libros.
+        $hayFiltros = $filtros['q'] !== '' || $filtros['autor'] !== ''
+            || $filtros['genero'] !== '' || $filtros['precio_min'] !== ''
+            || $filtros['precio_max'] !== '' || ($_GET['orden'] ?? '') !== '';
 
-        // Si preferimos que el buscador "q" de arriba ande por servidor, se podria hacer:
-        // if (!empty($filtros['q'])) { $libros = $modelo->filtrar($filtros); }
+        $libros = $hayFiltros ? $modelo->filtrar($filtros) : $modelo->getAll();
 
         TwigEnvironment::getInstance()->render('catalogo.twig', [
             'libros' => $libros,

@@ -1,0 +1,48 @@
+# Entorno de prueba local: PostgreSQL + la app PHP.
+#
+#   1) docker compose up --build        -> levanta la BD y la app
+#   2) docker compose run --rm seed     -> crea tablas y carga libros (una vez)
+#   3) abrir http://localhost:10000/catalogo
+#
+# La BD persiste en el volumen 'pgdata' entre reinicios.
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: libreria
+      POSTGRES_PASSWORD: libreria
+      POSTGRES_DB: libreria
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U libreria"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    environment:
+      DATABASE_URL: postgres://libreria:libreria@db:5432/libreria
+      PORT: 10000
+    ports:
+      - "10000:10000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # Servicio de un solo uso: aplica db/schema.sql (tablas + libros semilla).
+  seed:
+    build: .
+    environment:
+      DATABASE_URL: postgres://libreria:libreria@db:5432/libreria
+    depends_on:
+      db:
+        condition: service_healthy
+    command: php db/seed.php
+
+volumes:
+  pgdata:
