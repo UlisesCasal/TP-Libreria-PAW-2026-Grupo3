@@ -10,6 +10,20 @@ require __DIR__ . '/vendor/autoload.php';
 // 2. Cargar configuración (SMTP, constantes)
 require __DIR__ . '/src/config.php';
 
+// Auto-seed: ejecuta el seed si las tablas no existen (Render deployment)
+try {
+    $pdo = new \PDO(getenv('DATABASE_URL') ?: 'sqlite::memory:');
+    $stmt = $pdo->query("SELECT 1 FROM information_schema.tables WHERE table_name = 'libros' LIMIT 1");
+    if (!$stmt->fetch()) {
+        $sql = file_get_contents(__DIR__ . '/db/schema.sql');
+        if ($sql !== false) {
+            $pdo->exec($sql);
+        }
+    }
+} catch (\Throwable $e) {
+    // Silenciosamente falla si DATABASE_URL no está configurada
+}
+
 // 3. Iniciar sesiones
 session_start();
 
