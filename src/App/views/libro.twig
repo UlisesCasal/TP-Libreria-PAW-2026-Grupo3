@@ -10,84 +10,82 @@
     {% if libro is null %}
         <p>Libro no encontrado.</p>
     {% else %}
-        <article itemscope itemtype="https://schema.org/Book">
-            <figure>
-                <img itemprop="image" src="/assets/img/{{ libro.imagen|e }}"
-                     alt="Tapa de {{ libro.titulo|e }}">
-                <figcaption>Tapa libro</figcaption>
-            </figure>
+        <figure>
+            <img itemprop="image" src="/assets/img/{{ libro.imagen|e }}"
+                 alt="Tapa de {{ libro.titulo|e }}">
+            <figcaption>Tapa libro</figcaption>
+        </figure>
 
-            <section aria-label="Opciones de tapa">
-                <button type="button">Tapa Realista</button>
-                <button type="button">Tapa digital</button>
-            </section>
+        <section aria-label="Opciones de tapa">
+            <button type="button">Tapa Realista</button>
+            <button type="button">Tapa digital</button>
+        </section>
 
-            <section aria-label="Datos del libro">
-                <h2 itemprop="name">{{ libro.titulo|e }}</h2>
-                <h3>Autor: <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">{{ libro.autor|e }}</span></span></h3>
-                <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                    <p><strong>$<span itemprop="price">{{ libro.precio|number_format(0, ',', '.') }}</span></strong></p>
-                    <meta itemprop="priceCurrency" content="ARS">
-                    {% if libro.stock > 0 %}
-                        <link itemprop="availability" href="https://schema.org/InStock">
-                    {% else %}
-                        <link itemprop="availability" href="https://schema.org/OutOfStock">
-                    {% endif %}
-                </div>
-            </section>
+        <section aria-label="Datos del libro" itemscope itemtype="https://schema.org/Book">
+            <h2 itemprop="name">{{ libro.titulo|e }}</h2>
+            <h3>Autor: <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">{{ libro.autor|e }}</span></span></h3>
+            <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                <p><strong>$<span itemprop="price">{{ libro.precio|number_format(0, ',', '.') }}</span></strong></p>
+                <meta itemprop="priceCurrency" content="ARS">
+                {% if libro.stock > 0 %}
+                    <link itemprop="availability" href="https://schema.org/InStock">
+                {% else %}
+                    <link itemprop="availability" href="https://schema.org/OutOfStock">
+                {% endif %}
+            </div>
+        </section>
 
-            <section aria-label="Comprar">
-                <form action="/libro" method="post">
-                    <input type="hidden" name="libro_id" value="{{ libro.id }}">
-                    <label for="cantidad">Cantidad:</label>
-                    <button type="button" aria-label="Disminuir cantidad">&#8592;</button>
-                    <input type="number" id="cantidad" name="cantidad"
-                           value="1" min="1" max="{{ libro.stock }}">
-                    <button type="button" aria-label="Aumentar cantidad">&#8594;</button>
-                    <button type="submit">Comprar</button>
-                </form>
-            </section>
+        <section aria-label="Comprar">
+            <form action="/libro" method="post">
+                <input type="hidden" name="libro_id" value="{{ libro.id }}">
+                <label for="cantidad">Cantidad:</label>
+                <button type="button" aria-label="Disminuir cantidad">&#8592;</button>
+                <input type="number" id="cantidad" name="cantidad"
+                       value="1" min="1" max="{{ libro.stock }}">
+                <button type="button" aria-label="Aumentar cantidad">&#8594;</button>
+                <button type="submit">Comprar</button>
+            </form>
+        </section>
 
-            <section aria-label="Descripción del libro">
-                <h4>Descripción</h4>
-                <p itemprop="description">{{ libro.descripcion|e }}</p>
-            </section>
+        <section aria-label="Descripción del libro">
+            <h4>Descripción</h4>
+            <p itemprop="description">{{ libro.descripcion|e }}</p>
+        </section>
 
-            <section aria-label="Ficha técnica del libro">
-                <header><h5>Datos técnicos</h5></header>
-                <ul>
-                    <li><strong>ISBN:</strong> <span itemprop="isbn">{{ libro.isbn|e }}</span></li>
-                    <li><strong>Género:</strong> <span itemprop="genre">{{ libro.genero|capitalize }}</span></li>
-                    <li><strong>Idioma:</strong> <span itemprop="inLanguage">Español</span></li>
-                    <li><strong>Páginas:</strong> <span itemprop="numberOfPages">{{ libro.paginas }}</span></li>
-                    <li><strong>Publicación:</strong>
-                        <time itemprop="datePublished" datetime="{{ libro.publicacion|e }}">
-                            {{ libro.publicacion|date('d/m/Y') }}
-                        </time>
-                    </li>
-                    <li><strong>Stock:</strong> <span>{{ libro.stock }} unidades</span></li>
-                </ul>
-            </section>
+        <section aria-label="Ficha técnica del libro">
+            <header><h5>Datos técnicos</h5></header>
+            <ul>
+                <li><strong>ISBN:</strong> <span itemprop="isbn">{{ libro.isbn|e }}</span></li>
+                <li><strong>Género:</strong> <span itemprop="genre">{{ libro.genero|capitalize }}</span></li>
+                <li><strong>Idioma:</strong> <span itemprop="inLanguage">Español</span></li>
+                <li><strong>Páginas:</strong> <span itemprop="numberOfPages">{{ libro.paginas }}</span></li>
+                <li><strong>Publicación:</strong>
+                    <time itemprop="datePublished" datetime="{{ libro.publicacion|e }}">
+                        {{ libro.publicacion|date('d/m/Y') }}
+                    </time>
+                </li>
+                <li><strong>Stock:</strong> <span>{{ libro.stock }} unidades</span></li>
+            </ul>
+        </section>
 
-            {% if relacionados is not empty %}
-            <section aria-label="Libros relacionados">
-                <header>
-                    <h2>Libros relacionados</h2>
-                </header>
-                {% for rel in relacionados %}
-                <article>
-                    <h3>{{ rel.titulo|e }}</h3>
-                    <figure>
-                        <img src="/assets/img/{{ rel.imagen|e }}"
-                             alt="{{ rel.titulo|e }}">
-                        <footer>
-                            <p><a href="/libro?id={{ rel.id }}">Ver libro</a></p>
-                        </footer>
-                    </figure>
-                </article>
-                {% endfor %}
-            </section>
-            {% endif %}
-        </article>
+        {% if relacionados is not empty %}
+        <section aria-label="Libros relacionados">
+            <header>
+                <h2>Libros relacionados</h2>
+            </header>
+            {% for rel in relacionados %}
+            <article>
+                <h3>{{ rel.titulo|e }}</h3>
+                <figure>
+                    <img src="/assets/img/{{ rel.imagen|e }}"
+                         alt="{{ rel.titulo|e }}">
+                    <footer>
+                        <p><a href="/libro?id={{ rel.id }}">Ver libro</a></p>
+                    </footer>
+                </figure>
+            </article>
+            {% endfor %}
+        </section>
+        {% endif %}
     {% endif %}
 {% endblock %}
