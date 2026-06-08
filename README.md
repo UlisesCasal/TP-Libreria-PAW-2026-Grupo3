@@ -24,8 +24,10 @@ Aplicación web de una librería online desarrollada en PHP con arquitectura MVC
 ## Tecnologías
 
 - PHP 8+ (MVC sin framework)
+- Twig (motor de plantillas)
 - HTML5 / CSS3 / JavaScript (vanilla)
-- Almacenamiento en archivos `.txt`
+- PostgreSQL (listado y búsqueda de libros) vía PDO
+- Docker / docker-compose (entorno local y despliegue)
 - Servidor de desarrollo: PHP built-in server
 
 ## Instalación y ejecución
@@ -58,13 +60,26 @@ Luego abrí `http://localhost:8000` en el navegador.
 ├── src/
 │   ├── App/
 │   │   ├── Controllers/   # Controladores de cada página
-│   │   └── views/         # Vistas PHP + parciales (header, footer)
-│   ├── Core/              # Router y excepciones
+│   │   └── views/         # Vistas Twig (.twig) + parciales (header, footer)
+│   ├── Core/
+│   │   ├── Router.php          # Enrutador de la aplicación
+│   │   ├── TwigEnvironment.php # Configuración del motor de plantillas Twig
+│   │   ├── Database.php        # Conexión PDO a PostgreSQL (singleton)
+│   │   └── Exceptions/         # Excepciones propias
 │   └── Model/
-│       ├── LibroModel.php # Modelo de libros
-│       └── libros.txt     # Base de datos de libros
-├── bootstrap.php          # Configuración e inicialización
-└── composer.json
+│       ├── LibroModel.php # Modelo de libros (consultas SQL sobre PostgreSQL)
+│       ├── UsuarioModel.php   # Modelo de usuarios
+│       ├── libros.txt     # Datos originales de libros (referencia; migrados a la BD)
+│       └── db.txt         # Usuarios (almacenamiento en archivo)
+├── db/
+│   ├── schema.sql         # Esquema relacional 
+│   └── seed.php           # Script que crea las tablas y carga los libros en la BD
+├── bootstrap.php          # Configuración e inicialización 
+├── composer.json
+├── Dockerfile             # Imagen del contenedor 
+├── docker-compose.yml     # Entorno local: PostgreSQL + app + seeder
+├── render.yaml            # Despliegue en Render 
+└── railway.json           # Despliegue en Railway (NIXPACKS)
 ```
 
 ## Respuestas Teóricas (Microdata)
