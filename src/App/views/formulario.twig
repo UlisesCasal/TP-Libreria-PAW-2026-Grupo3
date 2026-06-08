@@ -10,21 +10,15 @@
     <section aria-label="Formulario de pago" class="seccion-pago">
         <h2>Formulario de pago</h2>
 
-        {% if errores|length > 0 %}
-            <ul class="errores">
-                {% for error in errores %}
-                    <li>{{ error|e }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-
-        {% if exito %}
-            <p class="exito">
-                {{ mensajeExito|e }} Te enviamos un email de confirmación.
-            </p>
-        {% endif %}
-
         <form action="/compra" method="post" class="form-pago">
+            {% if errores|length > 0 %}
+                <ul class="errores">
+                    {% for error in errores %}
+                        <li>{{ error|e }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
             <input type="hidden" name="titulo" value="{{ (titulo is defined ? titulo : 'Sin título')|e }}">
             <input type="hidden" name="autor" value="{{ (autor is defined ? autor : 'Sin autor')|e }}">
 

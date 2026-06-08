@@ -242,6 +242,28 @@
     display: flex;
 }
 
+/* Lista de errores de validación */
+.errores {
+    list-style: none;
+    background: #fff0f0;
+    border: 1px solid #e57373;
+    border-radius: var(--radio);
+    padding: .75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+}
+
+.errores li {
+    font-size: .82rem;
+    color: #c62828;
+}
+
+.errores li::before {
+    content: "✕ ";
+    font-weight: 700;
+}
+
 /* CTA principal — mismo estilo que el botón
    finalizar del carrito para consistencia
    entre páginas. */

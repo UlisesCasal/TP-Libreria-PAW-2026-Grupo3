@@ -25,7 +25,7 @@ class PedidoModel
             $stmt = $this->pdo->prepare(
                 'INSERT INTO pedidos
                     (usuario_id, fecha, tipo_envio, metodo_pago, estado,
-                     nombre_destinatario, direccion, ciudad, provincia, pais, codigo_postal, telefono)
+                     nombre_dest, direccion, ciudad, provincia, pais, codigo_postal, telefono)
                  VALUES
                     (:uid, NOW(), :tipo_envio, :metodo_pago, :estado,
                      :nombre_dest, :direccion, :ciudad, :provincia, :pais, :codigo_postal, :telefono)
