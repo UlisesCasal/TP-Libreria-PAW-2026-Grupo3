@@ -66,3 +66,18 @@ Luego abrí `http://localhost:8000` en el navegador.
 ├── bootstrap.php          # Configuración e inicialización
 └── composer.json
 ```
+
+## Respuestas Teóricas (Microdata)
+
+### 1. ¿Toda la microdata es estática?
+No, no toda la microdata es estática. Si bien ciertos datos como el nombre de la organización o su dirección suelen ser fijos, la mayor parte de la microdata en un sitio dinámico es precisamente **dinámica**. Por ejemplo, en la página de un libro, los valores de `name`, `author`, `price`, `availability` (stock) e `isbn` se cargan desde el modelo de datos y cambian según el libro seleccionado. La microdata debe reflejar fielmente el contenido actual de la página para que los motores de búsqueda indexen información veraz.
+
+### 2. ¿Cómo decidimos en qué página es importante la microdata de ciertos objetos?
+La decisión se basa en la **jerarquía semántica** y el **propósito** de cada página:
+- **Global (Footer/Header):** Se incluye la microdata de la organización (`BookStore`) para que esté presente en todo el sitio, permitiendo que buscadores identifiquen siempre quién es el responsable del contenido y su información de contacto.
+- **Página de Detalle (`libro.twig`):** El objeto central es el `Book`. Aquí es crítico incluir el esquema completo con ofertas (`Offer`) para que el libro pueda aparecer en resultados de búsqueda enriquecidos (Rich Snippets) con su precio y stock.
+- **Listados (`catalogo.twig`):** Se utiliza `ItemList` y `ListItem`. Esto indica a los buscadores que la página es una colección de objetos relacionados. Los objetos individuales se marcan como `Book` para que se entienda que son productos en venta y no meros enlaces o publicidades.
+- **Página de Institucional (`nosotros.twig`):** Aquí se refuerza el objeto `BookStore` con una descripción más detallada de la misión e historia de la librería.
+
+En resumen, la microdata debe acompañar lo que el usuario está viendo: si el usuario ve un producto, el buscador debe "ver" un objeto de tipo producto (Book/Product). Si ve una lista, el buscador debe "ver" un listado.
+
