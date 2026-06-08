@@ -24,7 +24,7 @@
             </p>
         {% endif %}
 
-        <form action="/formulario" method="post" class="form-pago">
+        <form action="/compra" method="post" class="form-pago">
             <input type="hidden" name="titulo" value="{{ (titulo is defined ? titulo : 'Sin título')|e }}">
             <input type="hidden" name="autor" value="{{ (autor is defined ? autor : 'Sin autor')|e }}">
 
