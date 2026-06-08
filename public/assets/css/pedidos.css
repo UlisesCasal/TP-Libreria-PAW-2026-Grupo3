@@ -1,0 +1,167 @@
+.pedidos-panel {
+    max-width: 1000px;
+    margin: 2.5rem auto;
+    padding: 0 1rem;
+    min-height: 50vh;
+}
+
+.pedidos-panel__encabezado {
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--color-borde);
+    padding-bottom: .75rem;
+}
+
+.pedidos-panel__encabezado h2 {
+    font-family: var(--fuente-titulo);
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    color: var(--color-primario);
+    letter-spacing: .06em;
+}
+
+/* ── Error de permisos ── */
+.pedidos-error {
+    text-align: center;
+    background: #fff0f3;
+    border: 2px solid var(--color-rojo);
+    border-radius: var(--radio);
+    padding: 3rem 2rem;
+    color: var(--color-rojo);
+}
+
+.pedidos-error p {
+    font-size: 1rem;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+}
+
+.pedidos-error__btn {
+    display: inline-block;
+    padding: .45rem 1.25rem;
+    background: var(--color-primario);
+    color: #fff;
+    border-radius: var(--radio);
+    font-family: var(--fuente-titulo);
+    font-size: .8rem;
+    letter-spacing: .05em;
+    transition: background var(--transicion);
+}
+
+.pedidos-error__btn:hover {
+    background: var(--color-acento);
+    color: #fff;
+}
+
+/* ── Sin pedidos ── */
+.pedidos-vacio {
+    text-align: center;
+    background: var(--color-suave);
+    border: 2px dashed var(--color-borde);
+    border-radius: var(--radio);
+    padding: 3rem 2rem;
+    color: var(--color-texto);
+}
+
+/* ── Tabla ── */
+.pedidos-tabla-contenedor {
+    overflow-x: auto;
+}
+
+.pedidos-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-fondo);
+    border-radius: var(--radio);
+    overflow: hidden;
+    box-shadow: var(--sombra);
+}
+
+.pedidos-tabla thead th {
+    background: var(--color-primario);
+    color: #fff;
+    padding: .85rem 1rem;
+    text-align: left;
+    font-family: var(--fuente-titulo);
+    font-size: .8rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.pedidos-tabla tbody td {
+    padding: .85rem 1rem;
+    border-bottom: 1px solid var(--color-borde);
+    font-size: .88rem;
+    vertical-align: middle;
+}
+
+.pedidos-tabla tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.pedidos-tabla tbody tr:hover td {
+    background: var(--color-suave);
+}
+
+/* ── Columna cliente ── */
+.pedidos-tabla__cliente {
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+}
+
+.pedidos-tabla__cliente small {
+    font-size: .75rem;
+    color: #777;
+}
+
+/* ── Badge de estado ── */
+.pedidos-estado {
+    display: inline-block;
+    padding: .25rem .75rem;
+    border-radius: var(--radio);
+    font-size: .75rem;
+    font-family: var(--fuente-titulo);
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: capitalize;
+}
+
+.pedidos-estado--en_proceso {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffc107;
+}
+
+.pedidos-estado--entregada {
+    background: #d1f0da;
+    color: #1a6b35;
+    border: 1px solid var(--color-verde);
+}
+
+/* ── Botón ver items ── */
+.pedidos-btn-items {
+    display: inline-block;
+    padding: .35rem .9rem;
+    background: var(--color-primario);
+    color: #fff;
+    border-radius: var(--radio);
+    font-family: var(--fuente-titulo);
+    font-size: .75rem;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    transition: background var(--transicion);
+}
+
+.pedidos-btn-items:hover {
+    background: var(--color-acento);
+    color: #fff;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+    .pedidos-tabla thead th:nth-child(2),
+    .pedidos-tabla tbody td:nth-child(2) {
+        display: none;
+    }
+}

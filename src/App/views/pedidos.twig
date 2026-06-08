@@ -1,0 +1,64 @@
+{% extends "layouts/base.twig" %}
+
+{% block title %}Panel de Pedidos — Paw Prints{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/assets/css/pedidos.css">
+{% endblock %}
+
+{% block main %}
+    <section class="pedidos-panel">
+        <header class="pedidos-panel__encabezado">
+            <h2>Panel de pedidos</h2>
+        </header>
+
+        {% if error is defined and error %}
+            <div class="pedidos-error" role="alert">
+                <p>{{ error }}</p>
+                <a href="/" class="pedidos-error__btn">Volver al inicio</a>
+            </div>
+
+        {% elseif pedidos is empty %}
+            <div class="pedidos-vacio">
+                <p>No hay pedidos registrados aún.</p>
+            </div>
+
+        {% else %}
+            <div class="pedidos-tabla-contenedor">
+                <table class="pedidos-tabla">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pedido in pedidos %}
+                        <tr>
+                            <td>{{ pedido.id }}</td>
+                            <td class="pedidos-tabla__cliente">
+                                <span>{{ pedido.nombre|e }} {{ pedido.apellido|e }}</span>
+                                <small>{{ pedido.email|e }}</small>
+                            </td>
+                            <td>{{ pedido.fecha|date('d/m/Y H:i') }}</td>
+                            <td>${{ pedido.total|number_format(2, ',', '.') }}</td>
+                            <td>
+                                <span class="pedidos-estado pedidos-estado--{{ pedido.estado }}">
+                                    {{ pedido.estado == 'en_proceso' ? 'En proceso' : 'Entregada' }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="/pedidos/items?id={{ pedido.id }}" class="pedidos-btn-items">Ver items</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

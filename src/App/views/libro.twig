@@ -37,14 +37,14 @@
             </section>
 
             <section aria-label="Comprar">
-                <form action="/libro" method="post">
+                <form action="/carrito/agregar" method="post">
                     <input type="hidden" name="libro_id" value="{{ libro.id }}">
                     <label for="cantidad">Cantidad:</label>
                     <button type="button" aria-label="Disminuir cantidad">&#8592;</button>
                     <input type="number" id="cantidad" name="cantidad"
                            value="1" min="1" max="{{ libro.stock }}">
                     <button type="button" aria-label="Aumentar cantidad">&#8594;</button>
-                    <button type="submit">Comprar</button>
+                    <button type="submit">Agregar al carrito</button>
                 </form>
             </section>
 

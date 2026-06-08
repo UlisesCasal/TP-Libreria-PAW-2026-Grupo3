@@ -44,30 +44,4 @@ class LibroController
         ]);
     }
 
-    public function compra_lib()
-    {
-        $cantidad = $_POST['cantidad'] ?? '';
-
-        // Cargar datos del libro si viene libro_id
-        $titulo = 'Sin título';
-        $autor  = 'Sin autor';
-        $libroId = $_POST['libro_id'] ?? null;
-        if ($libroId) {
-            $modelo = new LibroModel();
-            $libro = $modelo->getById((int)$libroId);
-            if ($libro) {
-                $titulo = $libro['titulo'];
-                $autor  = $libro['autor'];
-            }
-        }
-
-        TwigEnvironment::getInstance()->render('formulario.twig', [
-            'cantidad' => $cantidad,
-            'titulo'   => $titulo,
-            'autor'    => $autor,
-            'errores'  => [],
-            'exito'    => false,
-            'mensajeExito' => ''
-        ]);
-    }
 }

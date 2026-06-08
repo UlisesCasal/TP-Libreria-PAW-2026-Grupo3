@@ -67,13 +67,16 @@ class PedidoModel
         }
     }
 
-    // Devuelve todos los pedidos con datos del usuario (para el panel del personal)
+    // Devuelve todos los pedidos con datos del usuario y total (para el panel del personal)
     public function obtenerTodos(): array
     {
         $stmt = $this->pdo->query(
-            'SELECT p.*, u.nombre, u.apellido, u.email
+            'SELECT p.*, u.nombre, u.apellido, u.email,
+                    COALESCE(SUM(pi.cantidad * pi.precio_unitario), 0) AS total
              FROM pedidos p
              JOIN usuarios u ON u.id = p.usuario_id
+             LEFT JOIN pedido_items pi ON pi.pedido_id = p.id
+             GROUP BY p.id, u.nombre, u.apellido, u.email
              ORDER BY p.fecha DESC'
         );
         return $stmt->fetchAll();

@@ -8,28 +8,83 @@
 
 {% block main %}
     <h2>Carrito de compras</h2>
-    <form action="/formulario" class="carrito-form">
-        <fieldset class="carrito-items">
-            <legend>Libros seleccionados:</legend>
-            <ul>
-                <li class="carrito-item">
-                    <img src="/model/libro1L.jpg" alt="Portada libro">
-                    <p class="item-titulo">Titulo + autor</p>
-                    <p class="item-precio">$0</p>
-                    <input type="number" name="cantidad_libro" min="1" value="1">
-                    <button type="button" class="btn-borrar">Quitar</button>
-                </li>
-            </ul>
-        </fieldset>
 
-        <section class="resumen-compra">
-            <h2>Resumen de compra</h2>
-            <ul>
-                <li><p>Subtotal: $0</p></li>
-                <li><p>Envío: $0</p></li>
-                <li><p>Total: $0</p></li>
-            </ul>
-            <a href="/formulario" class="btn-finalizar">Finalizar compra</a>
+    {% if items is empty %}
+        <section class="carrito-vacio">
+            <p>Tu carrito está vacío.</p>
+            <a href="/catalogo" class="btn-catalogo">Ver catálogo</a>
         </section>
-    </form>
+    {% else %}
+        <section class="carrito-layout">
+            <fieldset class="carrito-items">
+                <legend>Libros seleccionados</legend>
+                <ul id="lista-carrito">
+                    {% for item in items %}
+                    <li class="carrito-item"
+                        data-precio="{{ item.precio }}"
+                        data-cantidad="{{ item.cantidad }}">
+                        <img src="/assets/img/libros/{{ item.imagen }}" alt="Portada de {{ item.titulo|e }}">
+                        <div class="item-info">
+                            <p class="item-titulo">{{ item.titulo|e }}</p>
+                            <p class="item-autor">{{ item.autor|e }}</p>
+                        </div>
+                        <p class="item-precio">${{ item.precio|number_format(2, ',', '.') }}</p>
+                        <p class="item-cantidad">x{{ item.cantidad }}</p>
+                        <p class="item-subtotal">${{ (item.precio * item.cantidad)|number_format(2, ',', '.') }}</p>
+                        <form action="/carrito/eliminar" method="post" class="form-quitar">
+                            <input type="hidden" name="libro_id" value="{{ item.libro_id }}">
+                            <button type="submit" class="btn-borrar">Quitar</button>
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </fieldset>
+
+            <section class="resumen-compra">
+                <h2>Resumen de compra</h2>
+                <ul>
+                    <li><p>Total: <strong id="total-carrito">${{ total|number_format(2, ',', '.') }}</strong></p></li>
+                </ul>
+                <a href="/compra" class="btn-finalizar">Finalizar compra</a>
+            </section>
+        </section>
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.querySelectorAll('.form-quitar').forEach(form => {
+        form.addEventListener('submit', async e => {
+            e.preventDefault();
+
+            const res = await fetch('/carrito/eliminar', {
+                method: 'POST',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                body: new FormData(form)
+            });
+
+            if (!res.ok) return;
+
+            const data = await res.json();
+            if (!data.ok) return;
+
+            const item = form.closest('.carrito-item');
+            item.remove();
+
+            const restantes = document.querySelectorAll('.carrito-item');
+            if (restantes.length === 0) {
+                location.reload();
+                return;
+            }
+
+            let total = 0;
+            restantes.forEach(el => {
+                total += parseFloat(el.dataset.precio) * parseInt(el.dataset.cantidad);
+            });
+
+            document.getElementById('total-carrito').textContent =
+                '$' + total.toFixed(2).replace('.', ',');
+        });
+    });
+</script>
 {% endblock %}

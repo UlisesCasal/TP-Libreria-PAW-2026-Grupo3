@@ -49,13 +49,12 @@ $router->register('POST', '/inicio-sesion', 'InicioSesionController', 'process')
 $router->register('GET', '/cerrar-sesion', 'InicioSesionController', 'logout');
 
 // Formulario de compra e Historial
-$router->register('GET', '/formulario', 'FormularioController', 'index');
-$router->register('POST', '/formulario', 'FormularioController', 'process');
+/*$router->register('GET', '/formulario', 'FormularioController', 'index');
+$router->register('POST', '/formulario', 'FormularioController', 'process');*/
 $router->register('GET', '/mis-compras', 'FormularioController', 'historial');
 
-// Libro 
+// Libro
 $router->register('GET', '/libro', 'LibroController', 'mostrar_lib');
-$router->register('POST', '/libro', 'LibroController', 'compra_lib');
 
 // Nosotros
 $router->register('GET', '/nosotros', 'NosotrosController', 'mostrar_nosotros');
@@ -69,5 +68,8 @@ $router->register('GET', '/api/buscar-isbn', 'ApiController', 'buscarPorIsbn');
 $router->register('GET', '/api/buscar-libro', 'ApiController', 'buscarLibro');
 $router->register('GET', '/api/detalle-libro', 'ApiController', 'detalleLibro');
 
+$router->register('POST', '/compra', 'ReservasController', 'processCompra');
+$router->register('GET', '/compra', 'ReservasController', 'mostrarFormulario');
+$router->register('GET',  '/pedidos', 'ReservasController', 'getAll');//todas las reservas (para el personal)
 // 8. Ejecutar la aplicación
 $router->route();
